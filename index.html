@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0060)file:///C:/Users/marti/Downloads/tourenplaner_sobi_BY_4.html -->
+<!-- saved from url=(0060)file:///C:/Users/marti/Downloads/tourenplaner_sobi_BY_5.html -->
 <html lang="de"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -291,38 +291,23 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#378ADD;box-sh
       <button class="xb sd" onclick="togSeg(&#39;d&#39;,this,event)">D</button>
     </div>
     <div class="fl" style="margin-top:3px">Fachrichtung</div>
-    <div class="rdd" id="typ-dd">
-      <div class="rtrig" onclick="togDD(&#39;typ-dd&#39;,event)">
-        <span id="typ-lbl">Alle Fachrichtungen</span><span>▾</span>
-      </div>
-      <div class="rpanel" id="typ-panel">
-        <label class="rc"><input type="checkbox" value="" checked="" onchange="filterTyp()"> Alle</label>
-        <label class="rc"><input type="checkbox" value="lipidologe" onchange="filterTyp()"> Lipidologe / Lipid-Zentrum</label>
-        <label class="rc"><input type="checkbox" value="api" onchange="filterTyp()"> API-Arzt / Internist</label>
-        <label class="rc"><input type="checkbox" value="diabetologe" onchange="filterTyp()"> Diabetologe</label>
-        <label class="rc"><input type="checkbox" value="endokrinologe" onchange="filterTyp()"> Endokrinologe</label>
-        <label class="rc"><input type="checkbox" value="hausarzt" onchange="filterTyp()"> Hausarzt / Allgemeinmedizin</label>
-      </div>
-    </div>
+    <select id="typ-sel" onchange="filterTypSel(this)" style="height:25px;font-size:11px;width:100%;padding:0 6px;border:.5px solid rgba(0,0,0,.18);border-radius:5px;background:var(--white);color:var(--ink)">
+      <option value="">Alle Fachrichtungen</option>
+      <option value="lipidologe">Lipidologe / Lipid-Zentrum</option>
+      <option value="api">API-Arzt / Internist</option>
+      <option value="diabetologe">Diabetologe</option>
+      <option value="endokrinologe">Endokrinologe</option>
+      <option value="hausarzt">Hausarzt / Allgemeinmedizin</option>
+    </select>
     <div class="fl" style="margin-top:3px">Indikation</div>
-    <div class="rdd" id="indik-dd">
-      <div class="rtrig" onclick="togDD(&#39;indik-dd&#39;,event)">
-        <span id="indik-lbl">Alle Indikationen</span><span>▾</span>
-      </div>
-      <div class="rpanel" id="indik-panel">
-        <label class="rc"><input type="checkbox" value="" checked="" onchange="filterIndik()"> Alle</label>
-        <label class="rc"><input type="checkbox" value="fcs" onchange="filterIndik()"> FCS (aktuell)</label>
-        <label class="rc"><input type="checkbox" value="shtg" onchange="filterIndik()"> sHTG (ab 2027)</label>
-        <label class="rc"><input type="checkbox" value="both" onchange="filterIndik()"> FCS + sHTG</label>
-      </div>
-    </div>
+    <select id="indik-sel" onchange="filterIndikSel(this)" style="height:25px;font-size:11px;width:100%;padding:0 6px;border:.5px solid rgba(0,0,0,.18);border-radius:5px;background:var(--white);color:var(--ink)">
+      <option value="">Alle Indikationen</option>
+      <option value="fcs">FCS (aktuell)</option>
+      <option value="shtg">sHTG (ab 2027)</option>
+      <option value="both">FCS + sHTG</option>
+    </select>
     <div class="fl" style="margin-top:3px">Region</div>
-    <div class="rdd" id="reg-dd">
-      <div class="rtrig" onclick="togDD(&#39;reg-dd&#39;,event)">
-        <span id="reg-lbl">Alle Regionen</span><span>▾</span>
-      </div>
-      <div class="rpanel" id="reg-panel"><label class="rc"><input type="checkbox" checked="" onchange="selAllReg(this)"> Alle</label><label class="rc"><input type="checkbox" value="Allgäu" checked="" onchange="filterReg(this)"> Allgäu</label><label class="rc"><input type="checkbox" value="Augsburg" checked="" onchange="filterReg(this)"> Augsburg</label><label class="rc"><input type="checkbox" value="Ingolstadt" checked="" onchange="filterReg(this)"> Ingolstadt</label><label class="rc"><input type="checkbox" value="München" checked="" onchange="filterReg(this)"> München</label><label class="rc"><input type="checkbox" value="Nürnberg" checked="" onchange="filterReg(this)"> Nürnberg</label><label class="rc"><input type="checkbox" value="Passau" checked="" onchange="filterReg(this)"> Passau</label><label class="rc"><input type="checkbox" value="Regensburg" checked="" onchange="filterReg(this)"> Regensburg</label><label class="rc"><input type="checkbox" value="Rosenheim" checked="" onchange="filterReg(this)"> Rosenheim</label><label class="rc"><input type="checkbox" value="Würzburg" checked="" onchange="filterReg(this)"> Würzburg</label></div>
-    </div>
+    <select id="reg-sel" onchange="filterRegSel(this)" style="height:25px;font-size:11px;width:100%;padding:0 6px;border:.5px solid rgba(0,0,0,.18);border-radius:5px;background:var(--white);color:var(--ink)"><option value="">Alle Regionen</option><option value="Allgäu">Allgäu</option><option value="Augsburg">Augsburg</option><option value="Ingolstadt">Ingolstadt</option><option value="München">München</option><option value="Nürnberg">Nürnberg</option><option value="Passau">Passau</option><option value="Regensburg">Regensburg</option><option value="Rosenheim">Rosenheim</option><option value="Würzburg">Würzburg</option></select>
     <div class="fl" style="margin-top:3px">Suche</div>
     <input type="text" id="srch" placeholder="Name, Ort, PLZ …" oninput="renderList()">
   </div>
@@ -2097,12 +2082,33 @@ function filtered(){
 }
 
 
+
+// ── Einfache Native-Select Filter ────────────────────────────────────────────
+function filterTypSel(sel){
+  typFilter = sel.value;
+  renderList();
+}
+function filterIndikSel(sel){
+  indikFilter = sel.value;
+  renderList();
+}
+function filterRegSel(sel){
+  if(sel.value === '') {
+    regFilter = new Set(docs.map(d=>d.region));
+  } else {
+    regFilter = new Set([sel.value]);
+  }
+  renderList();
+}
+
 function buildRegFilter(){
   const regs=[...new Set(docs.map(d=>d.region))].sort();
   regFilter=new Set(regs);
-  const p=document.getElementById('reg-panel');
-  p.innerHTML='<label class="rc"><input type="checkbox" checked onchange="selAllReg(this)"> Alle</label>'
-    +regs.map(r=>`<label class="rc"><input type="checkbox" value="${r}" checked onchange="filterReg(this)"> ${r}</label>`).join('');
+  const sel=document.getElementById('reg-sel');
+  if(sel){
+    sel.innerHTML='<option value="">Alle Regionen</option>'
+      +regs.map(r=>`<option value="${r}">${r}</option>`).join('');
+  }
 }
 function selAllReg(cb){
   document.querySelectorAll('#reg-panel input:not(:first-child)').forEach(c=>c.checked=cb.checked);
