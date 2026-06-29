@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0060)file:///C:/Users/marti/Downloads/tourenplaner_sobi_BY_1.html -->
+<!-- saved from url=(0060)file:///C:/Users/marti/Downloads/tourenplaner_sobi_BY_2.html -->
 <html lang="de"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -254,7 +254,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#378ADD;box-sh
 .ki-hd span{font-size:11px;color:var(--muted)}
 .ki-close{font-size:18px;color:var(--muted);background:none;border:none;cursor:pointer;line-height:1;padding:0 4px}
 .ki-close:hover{color:var(--ink)}
-.ki-body{flex:1;overflow-y:auto;padding:1rem 1.2rem;font-size:13px;color:var(--ink);line-height:1.7;white-space:pre-wrap}
+.ki-body{flex:1;overflow-y:auto;padding:1rem 1.2rem;font-size:13px;color:var(--ink);line-height:1.7}
 .ki-body.loading{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;min-height:120px}
 .ki-ft{padding:.7rem 1.2rem;border-top:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
 .ki-ft span{font-size:10px;color:var(--hint)}
@@ -2035,7 +2035,7 @@ let pins = new Set(JSON.parse(localStorage.getItem('sobi_pins')||'[]'));
 let segFilter  = new Set(['a','b','c','d']);
 let typFilter  = '';
 let indikFilter = '';
-let regFilter  = new Set();
+let regFilter  = new Set(['München','Augsburg','Nürnberg','Regensburg','Ingolstadt','Rosenheim','Landshut','Passau','Würzburg','Allgäu']);
 let curYear    = new Date().getFullYear();
 let curMonth   = new Date().getMonth();
 let curWeek    = 1;
@@ -2081,12 +2081,17 @@ function filtered(){
   return docs.filter(d=>{
     if(!segFilter.has(d.seg)) return false;
     if(typFilter && !typFilter.split(',').includes(d.typ)) return false;
-    if(indikFilter && !indikFilter.split(',').includes(d.indik) && !(d.indik==='both')) return false;
+    if(indikFilter){
+      const vals=indikFilter.split(',');
+      const match = vals.includes(d.indik) || (vals.includes('fcs') && d.indik==='both') || (vals.includes('shtg') && d.indik==='both');
+      if(!match) return false;
+    }
     if(regFilter.size && !regFilter.has(d.region)) return false;
     if(q && !`${d.name} ${d.ort} ${d.plz} ${d.einrichtung}`.toLowerCase().includes(q)) return false;
     return true;
   });
 }
+
 
 function buildRegFilter(){
   const regs=[...new Set(docs.map(d=>d.region))].sort();
@@ -2428,7 +2433,7 @@ function runKI(mode, key, day, vi, btn){
         const data=JSON.parse(raw);
         text=data.briefing||data.praxisinfo||data.produktanalyse||raw;
       } catch(e){ text=raw; }
-      body.textContent=text; body.className='ki-body';
+      body.innerHTML='<p style="margin:4px 0">'+parseMarkdown(text)+'</p>'; body.className='ki-body';
       if(btn){btn.classList.remove('loading');btn.textContent=labelMap[mode];}
     })
     .catch(e=>{
@@ -2439,7 +2444,7 @@ function runKI(mode, key, day, vi, btn){
 }
 function closeKI(){document.getElementById('ki-overlay').style.display='none';}
 function copyKI(){
-  const text=document.getElementById('ki-body').textContent;
+  const text=document.getElementById('ki-body').innerText;
   navigator.clipboard.writeText(text).then(()=>{
     const btn=document.querySelector('.ki-ft button');
     btn.textContent='Kopiert ✓'; setTimeout(()=>btn.textContent='Kopieren',1500);
