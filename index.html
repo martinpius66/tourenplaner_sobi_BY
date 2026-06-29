@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0060)file:///C:/Users/marti/Downloads/tourenplaner_sobi_BY_1.html -->
+<html lang="de"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Tourenplaner Sobi · DGFL Lipidologen Bayern · 118 Ärzte</title>
 <style>
@@ -280,23 +280,23 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#378ADD;box-sh
   <div class="sb-hd">
     <div class="sobi-badge">SOBI · Tryngolza®</div>
     <h2>Kundenstamm · Lipidologie Bayern</h2>
-    <p>Gesamt: <span id="tot">0</span> · Gefiltert: <span id="flt">0</span> · Ausgewählt: <span id="sel">0</span> · v1</p>
+    <p>Gesamt: <span id="tot">118</span> · Gefiltert: <span id="flt">118</span> · Ausgewählt: <span id="sel">0</span> · v1</p>
   </div>
   <div class="fw">
     <div class="fl">Segment</div>
     <div class="sr">
-      <button class="xb sa" onclick="togSeg('a',this)">A</button>
-      <button class="xb sb2" onclick="togSeg('b',this)">B</button>
-      <button class="xb sc" onclick="togSeg('c',this)">C</button>
-      <button class="xb sd" onclick="togSeg('d',this)">D</button>
+      <button class="xb sa" onclick="togSeg(&#39;a&#39;,this)">A</button>
+      <button class="xb sb2" onclick="togSeg(&#39;b&#39;,this)">B</button>
+      <button class="xb sc" onclick="togSeg(&#39;c&#39;,this)">C</button>
+      <button class="xb sd" onclick="togSeg(&#39;d&#39;,this)">D</button>
     </div>
     <div class="fl" style="margin-top:3px">Fachrichtung</div>
     <div class="rdd" id="typ-dd">
-      <div class="rtrig" onclick="togDD('typ-dd')">
+      <div class="rtrig" onclick="togDD(&#39;typ-dd&#39;)">
         <span id="typ-lbl">Alle Fachrichtungen</span><span>▾</span>
       </div>
       <div class="rpanel" id="typ-panel">
-        <label class="rc"><input type="checkbox" value="" checked onchange="filterTyp()"> Alle</label>
+        <label class="rc"><input type="checkbox" value="" checked="" onchange="filterTyp()"> Alle</label>
         <label class="rc"><input type="checkbox" value="lipidologe" onchange="filterTyp()"> Lipidologe / Lipid-Zentrum</label>
         <label class="rc"><input type="checkbox" value="api" onchange="filterTyp()"> API-Arzt / Internist</label>
         <label class="rc"><input type="checkbox" value="diabetologe" onchange="filterTyp()"> Diabetologe</label>
@@ -306,11 +306,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#378ADD;box-sh
     </div>
     <div class="fl" style="margin-top:3px">Indikation</div>
     <div class="rdd" id="indik-dd">
-      <div class="rtrig" onclick="togDD('indik-dd')">
+      <div class="rtrig" onclick="togDD(&#39;indik-dd&#39;)">
         <span id="indik-lbl">Alle Indikationen</span><span>▾</span>
       </div>
       <div class="rpanel" id="indik-panel">
-        <label class="rc"><input type="checkbox" value="" checked onchange="filterIndik()"> Alle</label>
+        <label class="rc"><input type="checkbox" value="" checked="" onchange="filterIndik()"> Alle</label>
         <label class="rc"><input type="checkbox" value="fcs" onchange="filterIndik()"> FCS (aktuell)</label>
         <label class="rc"><input type="checkbox" value="shtg" onchange="filterIndik()"> sHTG (ab 2027)</label>
         <label class="rc"><input type="checkbox" value="both" onchange="filterIndik()"> FCS + sHTG</label>
@@ -318,34 +318,1332 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#378ADD;box-sh
     </div>
     <div class="fl" style="margin-top:3px">Region</div>
     <div class="rdd" id="reg-dd">
-      <div class="rtrig" onclick="togDD('reg-dd')">
+      <div class="rtrig" onclick="togDD(&#39;reg-dd&#39;)">
         <span id="reg-lbl">Alle Regionen</span><span>▾</span>
       </div>
-      <div class="rpanel" id="reg-panel"></div>
+      <div class="rpanel" id="reg-panel"><label class="rc"><input type="checkbox" checked="" onchange="selAllReg(this)"> Alle</label><label class="rc"><input type="checkbox" value="Allgäu" checked="" onchange="filterReg(this)"> Allgäu</label><label class="rc"><input type="checkbox" value="Augsburg" checked="" onchange="filterReg(this)"> Augsburg</label><label class="rc"><input type="checkbox" value="Ingolstadt" checked="" onchange="filterReg(this)"> Ingolstadt</label><label class="rc"><input type="checkbox" value="München" checked="" onchange="filterReg(this)"> München</label><label class="rc"><input type="checkbox" value="Nürnberg" checked="" onchange="filterReg(this)"> Nürnberg</label><label class="rc"><input type="checkbox" value="Passau" checked="" onchange="filterReg(this)"> Passau</label><label class="rc"><input type="checkbox" value="Regensburg" checked="" onchange="filterReg(this)"> Regensburg</label><label class="rc"><input type="checkbox" value="Rosenheim" checked="" onchange="filterReg(this)"> Rosenheim</label><label class="rc"><input type="checkbox" value="Würzburg" checked="" onchange="filterReg(this)"> Würzburg</label></div>
     </div>
     <div class="fl" style="margin-top:3px">Suche</div>
     <input type="text" id="srch" placeholder="Name, Ort, PLZ …" oninput="renderList()">
   </div>
   <div class="sb-lhd">
-    <span id="sb-count">0 Ärzte</span>
+    <span id="sb-count">118 Ärzte</span>
     <div>
       <button onclick="selAll()">Alle wählen</button>
       <button onclick="selNone()">Keine</button>
     </div>
   </div>
-  <div class="cl" id="cl"></div>
+  <div class="cl" id="cl"><div class="ci" onclick="togSel(111,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. Dr. med. Stephanie Wissel</div>
+        <div class="ci-m">API/Internist · Würzburg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(111,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(4,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Anja Vogt</div>
+        <div class="ci-m">API/Internist · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(4,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(5,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Benjamin Clemens Lechner</div>
+        <div class="ci-m">API/Internist · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(5,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(50,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Birgit Löhr</div>
+        <div class="ci-m">API/Internist · Augsburg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(50,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(17,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Christian Schaaf</div>
+        <div class="ci-m">API/Internist · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(17,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(2,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Daniel A. Heinrich</div>
+        <div class="ci-m">Lipidologe · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-both">FCS+sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(2,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(14,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Felix Sebastian Oberhoffer, MBA</div>
+        <div class="ci-m">Lipidologe · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-fcs">FCS</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(14,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(64,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Franz Heigl</div>
+        <div class="ci-m">API/Internist · Kempten im Allgäu</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(64,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(46,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. German Rubinstein</div>
+        <div class="ci-m">Lipidologe · Freising</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-both">FCS+sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(46,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(100,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Joseph Leebmann</div>
+        <div class="ci-m">Lipidologe · Passau</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-both">FCS+sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(100,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(93,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Margareta Mohr</div>
+        <div class="ci-m">API/Internist · Regensburg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(93,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(65,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Michael Browatzki</div>
+        <div class="ci-m">API/Internist · Kempten im Allgäu</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(65,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(51,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">PD Dr. med. Daniel Bittner</div>
+        <div class="ci-m">API/Internist · Augsburg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(51,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(11,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">PD Dr. med. George Vlotides</div>
+        <div class="ci-m">Lipidologe · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-both">FCS+sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(11,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(42,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">PD Dr. med. George Vlotides</div>
+        <div class="ci-m">Lipidologe · Ingolstadt</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-both">FCS+sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(42,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(49,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">PD Dr. med. Thomas Pusl</div>
+        <div class="ci-m">API/Internist · Augsburg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(49,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(66,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">PD Dr. med. Tobias Pflederer</div>
+        <div class="ci-m">API/Internist · Kempten im Allgäu</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(66,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(94,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Prof. Dr. med. Andrea Baessler</div>
+        <div class="ci-m">API/Internist · Regensburg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(94,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(8,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Prof. Dr. med. Berthold Koletzko</div>
+        <div class="ci-m">Lipidologe · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-fcs">FCS</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(8,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci placed" onclick="togSel(13,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Prof. Dr. med. Klaus G. Parhofer</div>
+        <div class="ci-m">API/Internist · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(13,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(95,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Univ.-Prof. Dr. med. Simon Lebek, FESC</div>
+        <div class="ci-m">API/Internist · Regensburg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sa" style="font-size:9px;padding:1px 4px">A</span>
+        <button class="pb" onclick="togPin(95,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(110,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Alina Tirtea</div>
+        <div class="ci-m">API/Internist · Sonneberg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(110,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(59,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Christine Rotering</div>
+        <div class="ci-m">API/Internist · Asbach-Bäumenheim</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(59,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(57,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Abdelrahman Elsharkawy</div>
+        <div class="ci-m">API/Internist · Hohenwart/Landkreis Pfaffenhofen</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(57,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(55,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Alexander Christoph Stöckl</div>
+        <div class="ci-m">Diabetologe · Diedorf</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(55,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(47,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Alexander Nippe</div>
+        <div class="ci-m">API/Internist · Freising</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(47,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(107,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Alexander Reithmeier</div>
+        <div class="ci-m">API/Internist · Zwiesel</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(107,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(77,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Anna Schröder</div>
+        <div class="ci-m">API/Internist · Bad Grönenbach</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(77,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(61,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Anna-Katharina Schmidt</div>
+        <div class="ci-m">API/Internist · Utting am Ammersse</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(61,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(114,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Annette Marie Wons</div>
+        <div class="ci-m">Diabetologe · Bad Neustadt a. d. Saale</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(114,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(16,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Arthur Grünerbel</div>
+        <div class="ci-m">Diabetologe · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(16,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(60,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Barbara Voigtmann</div>
+        <div class="ci-m">API/Internist · Kaufering</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(60,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(78,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Christian Layritz</div>
+        <div class="ci-m">API/Internist · Nürnberg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(78,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(79,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Christiane Schöller</div>
+        <div class="ci-m">API/Internist · Nürnberg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(79,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(91,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Cristina Burgmann</div>
+        <div class="ci-m">API/Internist · Neumarkt in der Oberpfalz</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(91,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(96,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Daniel Frammelsberger</div>
+        <div class="ci-m">Diabetologe · Regenstauf</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(96,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(45,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Diane Wagner</div>
+        <div class="ci-m">Diabetologe · Freising</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(45,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(33,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Dorothee Vergho</div>
+        <div class="ci-m">API/Internist · Dingolfing</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(33,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(20,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Dr. med. univ. Alexander Holderied (MHBA)</div>
+        <div class="ci-m">API/Internist · Starnberg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(20,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(23,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Elisa Waldmann-Roth</div>
+        <div class="ci-m">Diabetologe · Wolfratshausen</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(23,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(40,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Elisabeth Zippelius</div>
+        <div class="ci-m">API/Internist · Ingolstadt</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(40,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(117,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Evdokia Dotzeva</div>
+        <div class="ci-m">API/Internist · Bad Kissingen</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(117,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(90,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Fieras Dahhan</div>
+        <div class="ci-m">API/Internist · Neumarkt i.d.OPf.</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(90,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(27,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Florian Lesmeister</div>
+        <div class="ci-m">API/Internist · Übersee</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(27,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(3,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Friederike Gusmini</div>
+        <div class="ci-m">API/Internist · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(3,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(75,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Gabriele Hackenberg</div>
+        <div class="ci-m">API/Internist · Memmingen</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(75,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(25,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Georg Guggenberger</div>
+        <div class="ci-m">Diabetologe · Wolfratshausen</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(25,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(58,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Gerrit Kuprat</div>
+        <div class="ci-m">Diabetologe · Rain a. Lech</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(58,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(15,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Haitham Abdelhadi</div>
+        <div class="ci-m">API/Internist · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(15,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(106,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Horst Fay</div>
+        <div class="ci-m">API/Internist · Thurmansbang</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(106,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(85,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Jochen Blume</div>
+        <div class="ci-m">API/Internist · Schwabach</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(85,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(9,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Juliane Grünzner</div>
+        <div class="ci-m">Lipidologe · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-fcs">FCS</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(9,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(34,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Jürgen Braun</div>
+        <div class="ci-m">API/Internist · Dingolfing</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(34,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(18,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Katharina Lechner</div>
+        <div class="ci-m">API/Internist · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(18,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(6,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Katharina Weiß</div>
+        <div class="ci-m">Lipidologe · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-fcs">FCS</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(6,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(74,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Klaus Dieter Kränzle</div>
+        <div class="ci-m">API/Internist · Memmingen</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(74,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(76,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Klaus Dieter Kränzle</div>
+        <div class="ci-m">API/Internist · Mindelheim</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(76,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(22,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Manuel Viehmann</div>
+        <div class="ci-m">API/Internist · Murnau</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(22,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(69,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Marcus Steger</div>
+        <div class="ci-m">API/Internist · Kaufbeuren</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(69,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(44,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Mario Weber</div>
+        <div class="ci-m">API/Internist · Dachau</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(44,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(38,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Markus Strauf</div>
+        <div class="ci-m">API/Internist · Pfarrkirchen</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(38,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(99,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Markus Strauf</div>
+        <div class="ci-m">API/Internist · Passau</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(99,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(102,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Markus Strauf</div>
+        <div class="ci-m">API/Internist · Bad Griesbach</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(102,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(92,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Marvin Schwarz</div>
+        <div class="ci-m">API/Internist · Schwandorf</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(92,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(80,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Matthias Karl</div>
+        <div class="ci-m">API/Internist · Nürnberg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(80,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(26,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Matthias Keller</div>
+        <div class="ci-m">API/Internist · Rosenheim</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(26,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(81,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Matthias Klune</div>
+        <div class="ci-m">API/Internist · Nürnberg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(81,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(7,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Matthias Nischwitz</div>
+        <div class="ci-m">Lipidologe · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-fcs">FCS</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(7,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(83,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Matthias Stoll</div>
+        <div class="ci-m">API/Internist · Fürth</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(83,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(1,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Maximilian Preißler</div>
+        <div class="ci-m">API/Internist · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(1,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(109,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Maximilian Rauch</div>
+        <div class="ci-m">API/Internist · Bayreuth</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(109,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(104,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Michael Gröbner</div>
+        <div class="ci-m">API/Internist · Salzweg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(104,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(24,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Michael Mehr</div>
+        <div class="ci-m">API/Internist · Wolfratshausen</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(24,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(32,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Michael Mehr</div>
+        <div class="ci-m">API/Internist · Bad Tölz</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(32,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(105,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Monika Blüml</div>
+        <div class="ci-m">Hausarzt · Neukirchen v. Wald</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(105,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(112,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Noah Beuermann</div>
+        <div class="ci-m">API/Internist · Margethöchheim</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(112,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(39,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Norbert Schön</div>
+        <div class="ci-m">API/Internist · Mühldorf am Inn</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(39,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(72,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Philipp Ege</div>
+        <div class="ci-m">API/Internist · Füssen</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(72,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(108,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Philipp Thurn</div>
+        <div class="ci-m">API/Internist · Kulmbach</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(108,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(82,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Randolf Seitz</div>
+        <div class="ci-m">Diabetologe · Röthenbach</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(82,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(48,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Raoul Zeltner</div>
+        <div class="ci-m">API/Internist · Augsburg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(48,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(29,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Regine Hoika-Jacob</div>
+        <div class="ci-m">API/Internist · Bad Reichenhall</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(29,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(35,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Rüdiger Meesters</div>
+        <div class="ci-m">API/Internist · Vilsbiburg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(35,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(87,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Sebastian Kurth</div>
+        <div class="ci-m">API/Internist · Amberg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(87,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(86,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Sebastian Morcinek</div>
+        <div class="ci-m">API/Internist · Amberg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(86,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(31,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Simon Rau</div>
+        <div class="ci-m">API/Internist · Bad Tölz</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(31,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(67,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Stefan Heetel</div>
+        <div class="ci-m">API/Internist · Pfronten</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(67,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(115,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Susanne Stietz</div>
+        <div class="ci-m">API/Internist · Bad Neustadt a. d. Saale</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(115,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(19,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Sven Vogel</div>
+        <div class="ci-m">API/Internist · Germering</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(19,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(103,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Tanja Maderer-Wiesinger</div>
+        <div class="ci-m">API/Internist · Salzweg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(103,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(54,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Thomas Birling</div>
+        <div class="ci-m">Hausarzt · Neusäß</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(54,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(68,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Tilmann Kramer</div>
+        <div class="ci-m">API/Internist · Oberstdorf</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(68,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(37,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. univ Stefan Dalic</div>
+        <div class="ci-m">API/Internist · Eggenfelden</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(37,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(52,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. univ. Almira Kovacevic</div>
+        <div class="ci-m">API/Internist · Augsburg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(52,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(101,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. univ. Torben Schlingmann</div>
+        <div class="ci-m">Diabetologe · Passau</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(101,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(89,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Vasil Gašpir</div>
+        <div class="ci-m">API/Internist · Amberg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(89,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(118,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Volker Wunderle</div>
+        <div class="ci-m">Lipidologe · Igersheim</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-both">FCS+sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(118,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(70,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. med. Wilke Beuthien</div>
+        <div class="ci-m">API/Internist · Kaufbeuren</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(70,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(30,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. medic. Stefan Girbaci</div>
+        <div class="ci-m">API/Internist · Wasserburg am Inn</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(30,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(63,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Dr. univ./Guay. Patricia Cardenas de Bäuerle</div>
+        <div class="ci-m">Lipidologe · Ulm</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-fcs">FCS</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(63,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(10,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Ersin Seyhun</div>
+        <div class="ci-m">Hausarzt · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(10,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(62,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Kirsten Salzgeber</div>
+        <div class="ci-m">Lipidologe · Ulm</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-fcs">FCS</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(62,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(73,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Kirsten Salzgeber</div>
+        <div class="ci-m">Lipidologe · Memmingen</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-fcs">FCS</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(73,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(41,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Medical Doctor (Univ.) Hogir Housen</div>
+        <div class="ci-m">API/Internist · Ingolstadt</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(41,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(88,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">MU Dr. med. Petra Gaspirova</div>
+        <div class="ci-m">Lipidologe · Amberg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-fcs">FCS</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(88,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(28,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Muhammad Abd Elhalim</div>
+        <div class="ci-m">Diabetologe · Traunstein</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(28,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(12,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">PD Dr. med. Christian Tesche</div>
+        <div class="ci-m">API/Internist · München</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(12,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(116,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">PD Dr. med. Radovan Vasko</div>
+        <div class="ci-m">API/Internist · Bad Kissingen</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(116,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(71,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Priv.-Doz. Dr. med. Christian Adolf</div>
+        <div class="ci-m">API/Internist · Kaufbeuren</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(71,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(53,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Priv.-Doz. Dr. med. Heiko Methe</div>
+        <div class="ci-m">API/Internist · Friedberg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(53,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(56,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Priv.-Doz. Dr. med. Heiko Methe</div>
+        <div class="ci-m">API/Internist · Aichach</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(56,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(36,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Prof. Dr. med. Christian A. Gleißner, FESC</div>
+        <div class="ci-m">API/Internist · Eggenfelden</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(36,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(84,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Prof. Dr. med. Christian Koch</div>
+        <div class="ci-m">API/Internist · Fürth</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(84,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(113,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Prof. Dr. med. Frank Breuckmann</div>
+        <div class="ci-m">API/Internist · Kitzingen</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(113,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(21,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Prof. Dr. med. Helga Frank</div>
+        <div class="ci-m">API/Internist · Starnberg</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(21,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(43,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Prof. Dr. med. Holger Schmid</div>
+        <div class="ci-m">API/Internist · Eichstätt</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(43,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(97,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Prof. Dr. med. Marcus Fischer</div>
+        <div class="ci-m">API/Internist · Kelheim</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(97,event)" title="Pinnen">📌</button>
+      </div>
+    </div><div class="ci" onclick="togSel(98,event)">
+      <div class="ck"></div>
+      <div class="ci-i">
+        <div class="ci-n">Prof. Dr. med. Stefan Buchner</div>
+        <div class="ci-m">API/Internist · Cham</div>
+      </div>
+      <div class="ci-r">
+        <span class="indik-badge indik-shtg">sHTG</span>
+        <span class="seg xb sb2" style="font-size:9px;padding:1px 4px">B</span>
+        <button class="pb" onclick="togPin(98,event)" title="Pinnen">📌</button>
+      </div>
+    </div></div>
   <div class="gw">
-    <button class="gb" id="plan-btn" onclick="addToTour()" disabled>+ Zur Wochenplanung hinzufügen</button>
+    <button class="gb" id="plan-btn" onclick="addToTour()" disabled="">+ Zur Wochenplanung hinzufügen</button>
   </div>
 </div>
 
 <!-- ════ MAIN ════ -->
 <div class="main">
   <div class="mtabs">
-    <button class="mt active" onclick="showTab('tour')">Wochenplanung</button>
-    <button class="mt" onclick="showTab('jahr')">Jahresübersicht</button>
-    <button class="mt" onclick="showTab('markt')">Markt & Produkt</button>
-    <button class="mt" onclick="showTab('edit')">Kundenstamm bearbeiten</button>
+    <button class="mt active" onclick="showTab(&#39;tour&#39;)">Wochenplanung</button>
+    <button class="mt" onclick="showTab(&#39;jahr&#39;)">Jahresübersicht</button>
+    <button class="mt" onclick="showTab(&#39;markt&#39;)">Markt &amp; Produkt</button>
+    <button class="mt" onclick="showTab(&#39;edit&#39;)">Kundenstamm bearbeiten</button>
   </div>
 
   <!-- ── TOUR TAB ── -->
@@ -364,12 +1662,92 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#378ADD;box-sh
     <div class="wnr">
       <div class="wnc">
         <button onclick="prevMonth()">◀</button>
-        <select id="month-sel" onchange="renderWeekTabs()"></select>
+        <select id="month-sel" onchange="renderWeekTabs()"><option value="0">Januar 2026</option><option value="1">Februar 2026</option><option value="2">März 2026</option><option value="3">April 2026</option><option value="4">Mai 2026</option><option value="5">Juni 2026</option><option value="6">Juli 2026</option><option value="7">August 2026</option><option value="8">September 2026</option><option value="9">Oktober 2026</option><option value="10">November 2026</option><option value="11">Dezember 2026</option></select>
         <button onclick="nextMonth()">▶</button>
       </div>
-      <div class="wt-tabs" id="wt-tabs"></div>
+      <div class="wt-tabs" id="wt-tabs"><button class="wkt active">KW1 <span class="badge"></span></button><button class="wkt">KW2 <span class="badge"></span></button><button class="wkt">KW3 <span class="badge"></span></button><button class="wkt">KW4 <span class="badge"></span></button><button class="wkt">KW5 <span class="badge"></span></button></div>
     </div>
-    <div id="tour-days"></div>
+    <div id="tour-days"><div class="tday" id="day-1"><div class="dh" onclick="togDay(&#39;1&#39;)">
+      <div><div class="dn">Montag</div><div class="dsegs"></div></div>
+      <div class="dr">
+        <span class="dm">0 Besuche</span>
+        <select class="ss" onclick="event.stopPropagation()" onchange="setSortDay(&#39;2026-5-1&#39;,&#39;1&#39;,this.value)">
+          <option value="seg">nach Seg.</option><option value="time">nach Zeit</option><option value="typ">nach Typ</option>
+        </select>
+        <span class="chv">▼</span>
+      </div>
+    </div>
+    <div class="db" id="db-1">
+      
+      <div class="ar">
+        <select id="add-sel-1"><option value="1">Dr. med. Maximilian Preißler (API/Internist, B)</option><option value="2">Dr. med. Daniel A. Heinrich (Lipidologe, A)</option><option value="3">Dr. med. Friederike Gusmini (API/Internist, B)</option><option value="4">Dr. med. Anja Vogt (API/Internist, A)</option><option value="5">Dr. med. Benjamin Clemens Lechner (API/Internist, A)</option><option value="6">Dr. med. Katharina Weiß (Lipidologe, B)</option><option value="7">Dr. med. Matthias Nischwitz (Lipidologe, B)</option><option value="8">Prof. Dr. med. Berthold Koletzko (Lipidologe, A)</option><option value="9">Dr. med. Juliane Grünzner (Lipidologe, B)</option><option value="10">Ersin Seyhun (Hausarzt, B)</option><option value="11">PD Dr. med. George Vlotides (Lipidologe, A)</option><option value="12">PD Dr. med. Christian Tesche (API/Internist, B)</option><option value="13">Prof. Dr. med. Klaus G. Parhofer (API/Internist, A)</option><option value="14">Dr. med. Felix Sebastian Oberhoffer, MBA (Lipidologe, A)</option><option value="15">Dr. med. Haitham Abdelhadi (API/Internist, B)</option><option value="16">Dr. med. Arthur Grünerbel (Diabetologe, B)</option><option value="17">Dr. med. Christian Schaaf (API/Internist, A)</option><option value="18">Dr. med. Katharina Lechner (API/Internist, B)</option><option value="19">Dr. med. Sven Vogel (API/Internist, B)</option><option value="20">Dr. med. Dr. med. univ. Alexander Holderied (MHBA) (API/Internist, B)</option><option value="21">Prof. Dr. med. Helga Frank (API/Internist, B)</option><option value="22">Dr. med. Manuel Viehmann (API/Internist, B)</option><option value="23">Dr. med. Elisa Waldmann-Roth (Diabetologe, B)</option><option value="24">Dr. med. Michael Mehr (API/Internist, B)</option><option value="25">Dr. med. Georg Guggenberger (Diabetologe, B)</option><option value="26">Dr. med. Matthias Keller (API/Internist, B)</option><option value="27">Dr. med. Florian Lesmeister (API/Internist, B)</option><option value="28">Muhammad Abd Elhalim (Diabetologe, B)</option><option value="29">Dr. med. Regine Hoika-Jacob (API/Internist, B)</option><option value="30">Dr. medic. Stefan Girbaci (API/Internist, B)</option><option value="31">Dr. med. Simon Rau (API/Internist, B)</option><option value="32">Dr. med. Michael Mehr (API/Internist, B)</option><option value="33">Dr. med. Dorothee Vergho (API/Internist, B)</option><option value="34">Dr. med. Jürgen Braun (API/Internist, B)</option><option value="35">Dr. med. Rüdiger Meesters (API/Internist, B)</option><option value="36">Prof. Dr. med. Christian A. Gleißner, FESC (API/Internist, B)</option><option value="37">Dr. med. univ Stefan Dalic (API/Internist, B)</option><option value="38">Dr. med. Markus Strauf (API/Internist, B)</option><option value="39">Dr. med. Norbert Schön (API/Internist, B)</option><option value="40">Dr. med. Elisabeth Zippelius (API/Internist, B)</option><option value="41">Medical Doctor (Univ.) Hogir Housen (API/Internist, B)</option><option value="42">PD Dr. med. George Vlotides (Lipidologe, A)</option><option value="43">Prof. Dr. med. Holger Schmid (API/Internist, B)</option><option value="44">Dr. med. Mario Weber (API/Internist, B)</option><option value="45">Dr. med. Diane Wagner (Diabetologe, B)</option><option value="46">Dr. med. German Rubinstein (Lipidologe, A)</option><option value="47">Dr. med. Alexander Nippe (API/Internist, B)</option><option value="48">Dr. med. Raoul Zeltner (API/Internist, B)</option><option value="49">PD Dr. med. Thomas Pusl (API/Internist, A)</option><option value="50">Dr. med. Birgit Löhr (API/Internist, A)</option><option value="51">PD Dr. med. Daniel Bittner (API/Internist, A)</option><option value="52">Dr. med. univ. Almira Kovacevic (API/Internist, B)</option><option value="53">Priv.-Doz. Dr. med. Heiko Methe (API/Internist, B)</option><option value="54">Dr. med. Thomas Birling (Hausarzt, B)</option><option value="55">Dr. med. Alexander Christoph Stöckl (Diabetologe, B)</option><option value="56">Priv.-Doz. Dr. med. Heiko Methe (API/Internist, B)</option><option value="57">Dr. med. Abdelrahman Elsharkawy (API/Internist, B)</option><option value="58">Dr. med. Gerrit Kuprat (Diabetologe, B)</option><option value="59">Christine Rotering (API/Internist, B)</option><option value="60">Dr. med. Barbara Voigtmann (API/Internist, B)</option><option value="61">Dr. med. Anna-Katharina Schmidt (API/Internist, B)</option><option value="62">Kirsten Salzgeber (Lipidologe, B)</option><option value="63">Dr. univ./Guay. Patricia Cardenas de Bäuerle (Lipidologe, B)</option><option value="64">Dr. med. Franz Heigl (API/Internist, A)</option><option value="65">Dr. med. Michael Browatzki (API/Internist, A)</option><option value="66">PD Dr. med. Tobias Pflederer (API/Internist, A)</option><option value="67">Dr. med. Stefan Heetel (API/Internist, B)</option><option value="68">Dr. med. Tilmann Kramer (API/Internist, B)</option><option value="69">Dr. med. Marcus Steger (API/Internist, B)</option><option value="70">Dr. med. Wilke Beuthien (API/Internist, B)</option><option value="71">Priv.-Doz. Dr. med. Christian Adolf (API/Internist, B)</option><option value="72">Dr. med. Philipp Ege (API/Internist, B)</option><option value="73">Kirsten Salzgeber (Lipidologe, B)</option><option value="74">Dr. med. Klaus Dieter Kränzle (API/Internist, B)</option><option value="75">Dr. med. Gabriele Hackenberg (API/Internist, B)</option><option value="76">Dr. med. Klaus Dieter Kränzle (API/Internist, B)</option><option value="77">Dr. med. Anna Schröder (API/Internist, B)</option><option value="78">Dr. med. Christian Layritz (API/Internist, B)</option><option value="79">Dr. med. Christiane Schöller (API/Internist, B)</option><option value="80">Dr. med. Matthias Karl (API/Internist, B)</option><option value="81">Dr. med. Matthias Klune (API/Internist, B)</option><option value="82">Dr. med. Randolf Seitz (Diabetologe, B)</option><option value="83">Dr. med. Matthias Stoll (API/Internist, B)</option><option value="84">Prof. Dr. med. Christian Koch (API/Internist, B)</option><option value="85">Dr. med. Jochen Blume (API/Internist, B)</option><option value="86">Dr. med. Sebastian Morcinek (API/Internist, B)</option><option value="87">Dr. med. Sebastian Kurth (API/Internist, B)</option><option value="88">MU Dr. med. Petra Gaspirova (Lipidologe, B)</option><option value="89">Dr. med. Vasil Gašpir (API/Internist, B)</option><option value="90">Dr. med. Fieras Dahhan (API/Internist, B)</option><option value="91">Dr. med. Cristina Burgmann (API/Internist, B)</option><option value="92">Dr. med. Marvin Schwarz (API/Internist, B)</option><option value="93">Dr. med. Margareta Mohr (API/Internist, A)</option><option value="94">Prof. Dr. med. Andrea Baessler (API/Internist, A)</option><option value="95">Univ.-Prof. Dr. med. Simon Lebek, FESC (API/Internist, A)</option><option value="96">Dr. med. Daniel Frammelsberger (Diabetologe, B)</option><option value="97">Prof. Dr. med. Marcus Fischer (API/Internist, B)</option><option value="98">Prof. Dr. med. Stefan Buchner (API/Internist, B)</option><option value="99">Dr. med. Markus Strauf (API/Internist, B)</option><option value="100">Dr. med. Joseph Leebmann (Lipidologe, A)</option><option value="101">Dr. med. univ. Torben Schlingmann (Diabetologe, B)</option><option value="102">Dr. med. Markus Strauf (API/Internist, B)</option><option value="103">Dr. med. Tanja Maderer-Wiesinger (API/Internist, B)</option><option value="104">Dr. med. Michael Gröbner (API/Internist, B)</option><option value="105">Dr. med. Monika Blüml (Hausarzt, B)</option><option value="106">Dr. med. Horst Fay (API/Internist, B)</option><option value="107">Dr. med. Alexander Reithmeier (API/Internist, B)</option><option value="108">Dr. med. Philipp Thurn (API/Internist, B)</option><option value="109">Dr. med. Maximilian Rauch (API/Internist, B)</option><option value="110">Alina Tirtea (API/Internist, B)</option><option value="111">Dr. Dr. med. Stephanie Wissel (API/Internist, A)</option><option value="112">Dr. med. Noah Beuermann (API/Internist, B)</option><option value="113">Prof. Dr. med. Frank Breuckmann (API/Internist, B)</option><option value="114">Dr. med. Annette Marie Wons (Diabetologe, B)</option><option value="115">Dr. med. Susanne Stietz (API/Internist, B)</option><option value="116">PD Dr. med. Radovan Vasko (API/Internist, B)</option><option value="117">Dr. med. Evdokia Dotzeva (API/Internist, B)</option><option value="118">Dr. med. Volker Wunderle (Lipidologe, B)</option></select>
+        <button onclick="addVisit(&#39;2026-5-1&#39;,&#39;1&#39;)">+ Hinzufügen</button>
+      </div>
+    </div></div><div class="tday" id="day-2"><div class="dh" onclick="togDay(&#39;2&#39;)">
+      <div><div class="dn">Dienstag</div><div class="dsegs"></div></div>
+      <div class="dr">
+        <span class="dm">0 Besuche</span>
+        <select class="ss" onclick="event.stopPropagation()" onchange="setSortDay(&#39;2026-5-1&#39;,&#39;2&#39;,this.value)">
+          <option value="seg">nach Seg.</option><option value="time">nach Zeit</option><option value="typ">nach Typ</option>
+        </select>
+        <span class="chv">▼</span>
+      </div>
+    </div>
+    <div class="db" id="db-2">
+      
+      <div class="ar">
+        <select id="add-sel-2"><option value="1">Dr. med. Maximilian Preißler (API/Internist, B)</option><option value="2">Dr. med. Daniel A. Heinrich (Lipidologe, A)</option><option value="3">Dr. med. Friederike Gusmini (API/Internist, B)</option><option value="4">Dr. med. Anja Vogt (API/Internist, A)</option><option value="5">Dr. med. Benjamin Clemens Lechner (API/Internist, A)</option><option value="6">Dr. med. Katharina Weiß (Lipidologe, B)</option><option value="7">Dr. med. Matthias Nischwitz (Lipidologe, B)</option><option value="8">Prof. Dr. med. Berthold Koletzko (Lipidologe, A)</option><option value="9">Dr. med. Juliane Grünzner (Lipidologe, B)</option><option value="10">Ersin Seyhun (Hausarzt, B)</option><option value="11">PD Dr. med. George Vlotides (Lipidologe, A)</option><option value="12">PD Dr. med. Christian Tesche (API/Internist, B)</option><option value="13">Prof. Dr. med. Klaus G. Parhofer (API/Internist, A)</option><option value="14">Dr. med. Felix Sebastian Oberhoffer, MBA (Lipidologe, A)</option><option value="15">Dr. med. Haitham Abdelhadi (API/Internist, B)</option><option value="16">Dr. med. Arthur Grünerbel (Diabetologe, B)</option><option value="17">Dr. med. Christian Schaaf (API/Internist, A)</option><option value="18">Dr. med. Katharina Lechner (API/Internist, B)</option><option value="19">Dr. med. Sven Vogel (API/Internist, B)</option><option value="20">Dr. med. Dr. med. univ. Alexander Holderied (MHBA) (API/Internist, B)</option><option value="21">Prof. Dr. med. Helga Frank (API/Internist, B)</option><option value="22">Dr. med. Manuel Viehmann (API/Internist, B)</option><option value="23">Dr. med. Elisa Waldmann-Roth (Diabetologe, B)</option><option value="24">Dr. med. Michael Mehr (API/Internist, B)</option><option value="25">Dr. med. Georg Guggenberger (Diabetologe, B)</option><option value="26">Dr. med. Matthias Keller (API/Internist, B)</option><option value="27">Dr. med. Florian Lesmeister (API/Internist, B)</option><option value="28">Muhammad Abd Elhalim (Diabetologe, B)</option><option value="29">Dr. med. Regine Hoika-Jacob (API/Internist, B)</option><option value="30">Dr. medic. Stefan Girbaci (API/Internist, B)</option><option value="31">Dr. med. Simon Rau (API/Internist, B)</option><option value="32">Dr. med. Michael Mehr (API/Internist, B)</option><option value="33">Dr. med. Dorothee Vergho (API/Internist, B)</option><option value="34">Dr. med. Jürgen Braun (API/Internist, B)</option><option value="35">Dr. med. Rüdiger Meesters (API/Internist, B)</option><option value="36">Prof. Dr. med. Christian A. Gleißner, FESC (API/Internist, B)</option><option value="37">Dr. med. univ Stefan Dalic (API/Internist, B)</option><option value="38">Dr. med. Markus Strauf (API/Internist, B)</option><option value="39">Dr. med. Norbert Schön (API/Internist, B)</option><option value="40">Dr. med. Elisabeth Zippelius (API/Internist, B)</option><option value="41">Medical Doctor (Univ.) Hogir Housen (API/Internist, B)</option><option value="42">PD Dr. med. George Vlotides (Lipidologe, A)</option><option value="43">Prof. Dr. med. Holger Schmid (API/Internist, B)</option><option value="44">Dr. med. Mario Weber (API/Internist, B)</option><option value="45">Dr. med. Diane Wagner (Diabetologe, B)</option><option value="46">Dr. med. German Rubinstein (Lipidologe, A)</option><option value="47">Dr. med. Alexander Nippe (API/Internist, B)</option><option value="48">Dr. med. Raoul Zeltner (API/Internist, B)</option><option value="49">PD Dr. med. Thomas Pusl (API/Internist, A)</option><option value="50">Dr. med. Birgit Löhr (API/Internist, A)</option><option value="51">PD Dr. med. Daniel Bittner (API/Internist, A)</option><option value="52">Dr. med. univ. Almira Kovacevic (API/Internist, B)</option><option value="53">Priv.-Doz. Dr. med. Heiko Methe (API/Internist, B)</option><option value="54">Dr. med. Thomas Birling (Hausarzt, B)</option><option value="55">Dr. med. Alexander Christoph Stöckl (Diabetologe, B)</option><option value="56">Priv.-Doz. Dr. med. Heiko Methe (API/Internist, B)</option><option value="57">Dr. med. Abdelrahman Elsharkawy (API/Internist, B)</option><option value="58">Dr. med. Gerrit Kuprat (Diabetologe, B)</option><option value="59">Christine Rotering (API/Internist, B)</option><option value="60">Dr. med. Barbara Voigtmann (API/Internist, B)</option><option value="61">Dr. med. Anna-Katharina Schmidt (API/Internist, B)</option><option value="62">Kirsten Salzgeber (Lipidologe, B)</option><option value="63">Dr. univ./Guay. Patricia Cardenas de Bäuerle (Lipidologe, B)</option><option value="64">Dr. med. Franz Heigl (API/Internist, A)</option><option value="65">Dr. med. Michael Browatzki (API/Internist, A)</option><option value="66">PD Dr. med. Tobias Pflederer (API/Internist, A)</option><option value="67">Dr. med. Stefan Heetel (API/Internist, B)</option><option value="68">Dr. med. Tilmann Kramer (API/Internist, B)</option><option value="69">Dr. med. Marcus Steger (API/Internist, B)</option><option value="70">Dr. med. Wilke Beuthien (API/Internist, B)</option><option value="71">Priv.-Doz. Dr. med. Christian Adolf (API/Internist, B)</option><option value="72">Dr. med. Philipp Ege (API/Internist, B)</option><option value="73">Kirsten Salzgeber (Lipidologe, B)</option><option value="74">Dr. med. Klaus Dieter Kränzle (API/Internist, B)</option><option value="75">Dr. med. Gabriele Hackenberg (API/Internist, B)</option><option value="76">Dr. med. Klaus Dieter Kränzle (API/Internist, B)</option><option value="77">Dr. med. Anna Schröder (API/Internist, B)</option><option value="78">Dr. med. Christian Layritz (API/Internist, B)</option><option value="79">Dr. med. Christiane Schöller (API/Internist, B)</option><option value="80">Dr. med. Matthias Karl (API/Internist, B)</option><option value="81">Dr. med. Matthias Klune (API/Internist, B)</option><option value="82">Dr. med. Randolf Seitz (Diabetologe, B)</option><option value="83">Dr. med. Matthias Stoll (API/Internist, B)</option><option value="84">Prof. Dr. med. Christian Koch (API/Internist, B)</option><option value="85">Dr. med. Jochen Blume (API/Internist, B)</option><option value="86">Dr. med. Sebastian Morcinek (API/Internist, B)</option><option value="87">Dr. med. Sebastian Kurth (API/Internist, B)</option><option value="88">MU Dr. med. Petra Gaspirova (Lipidologe, B)</option><option value="89">Dr. med. Vasil Gašpir (API/Internist, B)</option><option value="90">Dr. med. Fieras Dahhan (API/Internist, B)</option><option value="91">Dr. med. Cristina Burgmann (API/Internist, B)</option><option value="92">Dr. med. Marvin Schwarz (API/Internist, B)</option><option value="93">Dr. med. Margareta Mohr (API/Internist, A)</option><option value="94">Prof. Dr. med. Andrea Baessler (API/Internist, A)</option><option value="95">Univ.-Prof. Dr. med. Simon Lebek, FESC (API/Internist, A)</option><option value="96">Dr. med. Daniel Frammelsberger (Diabetologe, B)</option><option value="97">Prof. Dr. med. Marcus Fischer (API/Internist, B)</option><option value="98">Prof. Dr. med. Stefan Buchner (API/Internist, B)</option><option value="99">Dr. med. Markus Strauf (API/Internist, B)</option><option value="100">Dr. med. Joseph Leebmann (Lipidologe, A)</option><option value="101">Dr. med. univ. Torben Schlingmann (Diabetologe, B)</option><option value="102">Dr. med. Markus Strauf (API/Internist, B)</option><option value="103">Dr. med. Tanja Maderer-Wiesinger (API/Internist, B)</option><option value="104">Dr. med. Michael Gröbner (API/Internist, B)</option><option value="105">Dr. med. Monika Blüml (Hausarzt, B)</option><option value="106">Dr. med. Horst Fay (API/Internist, B)</option><option value="107">Dr. med. Alexander Reithmeier (API/Internist, B)</option><option value="108">Dr. med. Philipp Thurn (API/Internist, B)</option><option value="109">Dr. med. Maximilian Rauch (API/Internist, B)</option><option value="110">Alina Tirtea (API/Internist, B)</option><option value="111">Dr. Dr. med. Stephanie Wissel (API/Internist, A)</option><option value="112">Dr. med. Noah Beuermann (API/Internist, B)</option><option value="113">Prof. Dr. med. Frank Breuckmann (API/Internist, B)</option><option value="114">Dr. med. Annette Marie Wons (Diabetologe, B)</option><option value="115">Dr. med. Susanne Stietz (API/Internist, B)</option><option value="116">PD Dr. med. Radovan Vasko (API/Internist, B)</option><option value="117">Dr. med. Evdokia Dotzeva (API/Internist, B)</option><option value="118">Dr. med. Volker Wunderle (Lipidologe, B)</option></select>
+        <button onclick="addVisit(&#39;2026-5-1&#39;,&#39;2&#39;)">+ Hinzufügen</button>
+      </div>
+    </div></div><div class="tday" id="day-3"><div class="dh" onclick="togDay(&#39;3&#39;)">
+      <div><div class="dn">Mittwoch</div><div class="dsegs"></div></div>
+      <div class="dr">
+        <span class="dm">0 Besuche</span>
+        <select class="ss" onclick="event.stopPropagation()" onchange="setSortDay(&#39;2026-5-1&#39;,&#39;3&#39;,this.value)">
+          <option value="seg">nach Seg.</option><option value="time">nach Zeit</option><option value="typ">nach Typ</option>
+        </select>
+        <span class="chv">▼</span>
+      </div>
+    </div>
+    <div class="db" id="db-3">
+      
+      <div class="ar">
+        <select id="add-sel-3"><option value="1">Dr. med. Maximilian Preißler (API/Internist, B)</option><option value="2">Dr. med. Daniel A. Heinrich (Lipidologe, A)</option><option value="3">Dr. med. Friederike Gusmini (API/Internist, B)</option><option value="4">Dr. med. Anja Vogt (API/Internist, A)</option><option value="5">Dr. med. Benjamin Clemens Lechner (API/Internist, A)</option><option value="6">Dr. med. Katharina Weiß (Lipidologe, B)</option><option value="7">Dr. med. Matthias Nischwitz (Lipidologe, B)</option><option value="8">Prof. Dr. med. Berthold Koletzko (Lipidologe, A)</option><option value="9">Dr. med. Juliane Grünzner (Lipidologe, B)</option><option value="10">Ersin Seyhun (Hausarzt, B)</option><option value="11">PD Dr. med. George Vlotides (Lipidologe, A)</option><option value="12">PD Dr. med. Christian Tesche (API/Internist, B)</option><option value="13">Prof. Dr. med. Klaus G. Parhofer (API/Internist, A)</option><option value="14">Dr. med. Felix Sebastian Oberhoffer, MBA (Lipidologe, A)</option><option value="15">Dr. med. Haitham Abdelhadi (API/Internist, B)</option><option value="16">Dr. med. Arthur Grünerbel (Diabetologe, B)</option><option value="17">Dr. med. Christian Schaaf (API/Internist, A)</option><option value="18">Dr. med. Katharina Lechner (API/Internist, B)</option><option value="19">Dr. med. Sven Vogel (API/Internist, B)</option><option value="20">Dr. med. Dr. med. univ. Alexander Holderied (MHBA) (API/Internist, B)</option><option value="21">Prof. Dr. med. Helga Frank (API/Internist, B)</option><option value="22">Dr. med. Manuel Viehmann (API/Internist, B)</option><option value="23">Dr. med. Elisa Waldmann-Roth (Diabetologe, B)</option><option value="24">Dr. med. Michael Mehr (API/Internist, B)</option><option value="25">Dr. med. Georg Guggenberger (Diabetologe, B)</option><option value="26">Dr. med. Matthias Keller (API/Internist, B)</option><option value="27">Dr. med. Florian Lesmeister (API/Internist, B)</option><option value="28">Muhammad Abd Elhalim (Diabetologe, B)</option><option value="29">Dr. med. Regine Hoika-Jacob (API/Internist, B)</option><option value="30">Dr. medic. Stefan Girbaci (API/Internist, B)</option><option value="31">Dr. med. Simon Rau (API/Internist, B)</option><option value="32">Dr. med. Michael Mehr (API/Internist, B)</option><option value="33">Dr. med. Dorothee Vergho (API/Internist, B)</option><option value="34">Dr. med. Jürgen Braun (API/Internist, B)</option><option value="35">Dr. med. Rüdiger Meesters (API/Internist, B)</option><option value="36">Prof. Dr. med. Christian A. Gleißner, FESC (API/Internist, B)</option><option value="37">Dr. med. univ Stefan Dalic (API/Internist, B)</option><option value="38">Dr. med. Markus Strauf (API/Internist, B)</option><option value="39">Dr. med. Norbert Schön (API/Internist, B)</option><option value="40">Dr. med. Elisabeth Zippelius (API/Internist, B)</option><option value="41">Medical Doctor (Univ.) Hogir Housen (API/Internist, B)</option><option value="42">PD Dr. med. George Vlotides (Lipidologe, A)</option><option value="43">Prof. Dr. med. Holger Schmid (API/Internist, B)</option><option value="44">Dr. med. Mario Weber (API/Internist, B)</option><option value="45">Dr. med. Diane Wagner (Diabetologe, B)</option><option value="46">Dr. med. German Rubinstein (Lipidologe, A)</option><option value="47">Dr. med. Alexander Nippe (API/Internist, B)</option><option value="48">Dr. med. Raoul Zeltner (API/Internist, B)</option><option value="49">PD Dr. med. Thomas Pusl (API/Internist, A)</option><option value="50">Dr. med. Birgit Löhr (API/Internist, A)</option><option value="51">PD Dr. med. Daniel Bittner (API/Internist, A)</option><option value="52">Dr. med. univ. Almira Kovacevic (API/Internist, B)</option><option value="53">Priv.-Doz. Dr. med. Heiko Methe (API/Internist, B)</option><option value="54">Dr. med. Thomas Birling (Hausarzt, B)</option><option value="55">Dr. med. Alexander Christoph Stöckl (Diabetologe, B)</option><option value="56">Priv.-Doz. Dr. med. Heiko Methe (API/Internist, B)</option><option value="57">Dr. med. Abdelrahman Elsharkawy (API/Internist, B)</option><option value="58">Dr. med. Gerrit Kuprat (Diabetologe, B)</option><option value="59">Christine Rotering (API/Internist, B)</option><option value="60">Dr. med. Barbara Voigtmann (API/Internist, B)</option><option value="61">Dr. med. Anna-Katharina Schmidt (API/Internist, B)</option><option value="62">Kirsten Salzgeber (Lipidologe, B)</option><option value="63">Dr. univ./Guay. Patricia Cardenas de Bäuerle (Lipidologe, B)</option><option value="64">Dr. med. Franz Heigl (API/Internist, A)</option><option value="65">Dr. med. Michael Browatzki (API/Internist, A)</option><option value="66">PD Dr. med. Tobias Pflederer (API/Internist, A)</option><option value="67">Dr. med. Stefan Heetel (API/Internist, B)</option><option value="68">Dr. med. Tilmann Kramer (API/Internist, B)</option><option value="69">Dr. med. Marcus Steger (API/Internist, B)</option><option value="70">Dr. med. Wilke Beuthien (API/Internist, B)</option><option value="71">Priv.-Doz. Dr. med. Christian Adolf (API/Internist, B)</option><option value="72">Dr. med. Philipp Ege (API/Internist, B)</option><option value="73">Kirsten Salzgeber (Lipidologe, B)</option><option value="74">Dr. med. Klaus Dieter Kränzle (API/Internist, B)</option><option value="75">Dr. med. Gabriele Hackenberg (API/Internist, B)</option><option value="76">Dr. med. Klaus Dieter Kränzle (API/Internist, B)</option><option value="77">Dr. med. Anna Schröder (API/Internist, B)</option><option value="78">Dr. med. Christian Layritz (API/Internist, B)</option><option value="79">Dr. med. Christiane Schöller (API/Internist, B)</option><option value="80">Dr. med. Matthias Karl (API/Internist, B)</option><option value="81">Dr. med. Matthias Klune (API/Internist, B)</option><option value="82">Dr. med. Randolf Seitz (Diabetologe, B)</option><option value="83">Dr. med. Matthias Stoll (API/Internist, B)</option><option value="84">Prof. Dr. med. Christian Koch (API/Internist, B)</option><option value="85">Dr. med. Jochen Blume (API/Internist, B)</option><option value="86">Dr. med. Sebastian Morcinek (API/Internist, B)</option><option value="87">Dr. med. Sebastian Kurth (API/Internist, B)</option><option value="88">MU Dr. med. Petra Gaspirova (Lipidologe, B)</option><option value="89">Dr. med. Vasil Gašpir (API/Internist, B)</option><option value="90">Dr. med. Fieras Dahhan (API/Internist, B)</option><option value="91">Dr. med. Cristina Burgmann (API/Internist, B)</option><option value="92">Dr. med. Marvin Schwarz (API/Internist, B)</option><option value="93">Dr. med. Margareta Mohr (API/Internist, A)</option><option value="94">Prof. Dr. med. Andrea Baessler (API/Internist, A)</option><option value="95">Univ.-Prof. Dr. med. Simon Lebek, FESC (API/Internist, A)</option><option value="96">Dr. med. Daniel Frammelsberger (Diabetologe, B)</option><option value="97">Prof. Dr. med. Marcus Fischer (API/Internist, B)</option><option value="98">Prof. Dr. med. Stefan Buchner (API/Internist, B)</option><option value="99">Dr. med. Markus Strauf (API/Internist, B)</option><option value="100">Dr. med. Joseph Leebmann (Lipidologe, A)</option><option value="101">Dr. med. univ. Torben Schlingmann (Diabetologe, B)</option><option value="102">Dr. med. Markus Strauf (API/Internist, B)</option><option value="103">Dr. med. Tanja Maderer-Wiesinger (API/Internist, B)</option><option value="104">Dr. med. Michael Gröbner (API/Internist, B)</option><option value="105">Dr. med. Monika Blüml (Hausarzt, B)</option><option value="106">Dr. med. Horst Fay (API/Internist, B)</option><option value="107">Dr. med. Alexander Reithmeier (API/Internist, B)</option><option value="108">Dr. med. Philipp Thurn (API/Internist, B)</option><option value="109">Dr. med. Maximilian Rauch (API/Internist, B)</option><option value="110">Alina Tirtea (API/Internist, B)</option><option value="111">Dr. Dr. med. Stephanie Wissel (API/Internist, A)</option><option value="112">Dr. med. Noah Beuermann (API/Internist, B)</option><option value="113">Prof. Dr. med. Frank Breuckmann (API/Internist, B)</option><option value="114">Dr. med. Annette Marie Wons (Diabetologe, B)</option><option value="115">Dr. med. Susanne Stietz (API/Internist, B)</option><option value="116">PD Dr. med. Radovan Vasko (API/Internist, B)</option><option value="117">Dr. med. Evdokia Dotzeva (API/Internist, B)</option><option value="118">Dr. med. Volker Wunderle (Lipidologe, B)</option></select>
+        <button onclick="addVisit(&#39;2026-5-1&#39;,&#39;3&#39;)">+ Hinzufügen</button>
+      </div>
+    </div></div><div class="tday" id="day-4"><div class="dh" onclick="togDay(&#39;4&#39;)">
+      <div><div class="dn">Donnerstag</div><div class="dsegs"></div></div>
+      <div class="dr">
+        <span class="dm">0 Besuche</span>
+        <select class="ss" onclick="event.stopPropagation()" onchange="setSortDay(&#39;2026-5-1&#39;,&#39;4&#39;,this.value)">
+          <option value="seg">nach Seg.</option><option value="time">nach Zeit</option><option value="typ">nach Typ</option>
+        </select>
+        <span class="chv">▼</span>
+      </div>
+    </div>
+    <div class="db" id="db-4">
+      
+      <div class="ar">
+        <select id="add-sel-4"><option value="1">Dr. med. Maximilian Preißler (API/Internist, B)</option><option value="2">Dr. med. Daniel A. Heinrich (Lipidologe, A)</option><option value="3">Dr. med. Friederike Gusmini (API/Internist, B)</option><option value="4">Dr. med. Anja Vogt (API/Internist, A)</option><option value="5">Dr. med. Benjamin Clemens Lechner (API/Internist, A)</option><option value="6">Dr. med. Katharina Weiß (Lipidologe, B)</option><option value="7">Dr. med. Matthias Nischwitz (Lipidologe, B)</option><option value="8">Prof. Dr. med. Berthold Koletzko (Lipidologe, A)</option><option value="9">Dr. med. Juliane Grünzner (Lipidologe, B)</option><option value="10">Ersin Seyhun (Hausarzt, B)</option><option value="11">PD Dr. med. George Vlotides (Lipidologe, A)</option><option value="12">PD Dr. med. Christian Tesche (API/Internist, B)</option><option value="13">Prof. Dr. med. Klaus G. Parhofer (API/Internist, A)</option><option value="14">Dr. med. Felix Sebastian Oberhoffer, MBA (Lipidologe, A)</option><option value="15">Dr. med. Haitham Abdelhadi (API/Internist, B)</option><option value="16">Dr. med. Arthur Grünerbel (Diabetologe, B)</option><option value="17">Dr. med. Christian Schaaf (API/Internist, A)</option><option value="18">Dr. med. Katharina Lechner (API/Internist, B)</option><option value="19">Dr. med. Sven Vogel (API/Internist, B)</option><option value="20">Dr. med. Dr. med. univ. Alexander Holderied (MHBA) (API/Internist, B)</option><option value="21">Prof. Dr. med. Helga Frank (API/Internist, B)</option><option value="22">Dr. med. Manuel Viehmann (API/Internist, B)</option><option value="23">Dr. med. Elisa Waldmann-Roth (Diabetologe, B)</option><option value="24">Dr. med. Michael Mehr (API/Internist, B)</option><option value="25">Dr. med. Georg Guggenberger (Diabetologe, B)</option><option value="26">Dr. med. Matthias Keller (API/Internist, B)</option><option value="27">Dr. med. Florian Lesmeister (API/Internist, B)</option><option value="28">Muhammad Abd Elhalim (Diabetologe, B)</option><option value="29">Dr. med. Regine Hoika-Jacob (API/Internist, B)</option><option value="30">Dr. medic. Stefan Girbaci (API/Internist, B)</option><option value="31">Dr. med. Simon Rau (API/Internist, B)</option><option value="32">Dr. med. Michael Mehr (API/Internist, B)</option><option value="33">Dr. med. Dorothee Vergho (API/Internist, B)</option><option value="34">Dr. med. Jürgen Braun (API/Internist, B)</option><option value="35">Dr. med. Rüdiger Meesters (API/Internist, B)</option><option value="36">Prof. Dr. med. Christian A. Gleißner, FESC (API/Internist, B)</option><option value="37">Dr. med. univ Stefan Dalic (API/Internist, B)</option><option value="38">Dr. med. Markus Strauf (API/Internist, B)</option><option value="39">Dr. med. Norbert Schön (API/Internist, B)</option><option value="40">Dr. med. Elisabeth Zippelius (API/Internist, B)</option><option value="41">Medical Doctor (Univ.) Hogir Housen (API/Internist, B)</option><option value="42">PD Dr. med. George Vlotides (Lipidologe, A)</option><option value="43">Prof. Dr. med. Holger Schmid (API/Internist, B)</option><option value="44">Dr. med. Mario Weber (API/Internist, B)</option><option value="45">Dr. med. Diane Wagner (Diabetologe, B)</option><option value="46">Dr. med. German Rubinstein (Lipidologe, A)</option><option value="47">Dr. med. Alexander Nippe (API/Internist, B)</option><option value="48">Dr. med. Raoul Zeltner (API/Internist, B)</option><option value="49">PD Dr. med. Thomas Pusl (API/Internist, A)</option><option value="50">Dr. med. Birgit Löhr (API/Internist, A)</option><option value="51">PD Dr. med. Daniel Bittner (API/Internist, A)</option><option value="52">Dr. med. univ. Almira Kovacevic (API/Internist, B)</option><option value="53">Priv.-Doz. Dr. med. Heiko Methe (API/Internist, B)</option><option value="54">Dr. med. Thomas Birling (Hausarzt, B)</option><option value="55">Dr. med. Alexander Christoph Stöckl (Diabetologe, B)</option><option value="56">Priv.-Doz. Dr. med. Heiko Methe (API/Internist, B)</option><option value="57">Dr. med. Abdelrahman Elsharkawy (API/Internist, B)</option><option value="58">Dr. med. Gerrit Kuprat (Diabetologe, B)</option><option value="59">Christine Rotering (API/Internist, B)</option><option value="60">Dr. med. Barbara Voigtmann (API/Internist, B)</option><option value="61">Dr. med. Anna-Katharina Schmidt (API/Internist, B)</option><option value="62">Kirsten Salzgeber (Lipidologe, B)</option><option value="63">Dr. univ./Guay. Patricia Cardenas de Bäuerle (Lipidologe, B)</option><option value="64">Dr. med. Franz Heigl (API/Internist, A)</option><option value="65">Dr. med. Michael Browatzki (API/Internist, A)</option><option value="66">PD Dr. med. Tobias Pflederer (API/Internist, A)</option><option value="67">Dr. med. Stefan Heetel (API/Internist, B)</option><option value="68">Dr. med. Tilmann Kramer (API/Internist, B)</option><option value="69">Dr. med. Marcus Steger (API/Internist, B)</option><option value="70">Dr. med. Wilke Beuthien (API/Internist, B)</option><option value="71">Priv.-Doz. Dr. med. Christian Adolf (API/Internist, B)</option><option value="72">Dr. med. Philipp Ege (API/Internist, B)</option><option value="73">Kirsten Salzgeber (Lipidologe, B)</option><option value="74">Dr. med. Klaus Dieter Kränzle (API/Internist, B)</option><option value="75">Dr. med. Gabriele Hackenberg (API/Internist, B)</option><option value="76">Dr. med. Klaus Dieter Kränzle (API/Internist, B)</option><option value="77">Dr. med. Anna Schröder (API/Internist, B)</option><option value="78">Dr. med. Christian Layritz (API/Internist, B)</option><option value="79">Dr. med. Christiane Schöller (API/Internist, B)</option><option value="80">Dr. med. Matthias Karl (API/Internist, B)</option><option value="81">Dr. med. Matthias Klune (API/Internist, B)</option><option value="82">Dr. med. Randolf Seitz (Diabetologe, B)</option><option value="83">Dr. med. Matthias Stoll (API/Internist, B)</option><option value="84">Prof. Dr. med. Christian Koch (API/Internist, B)</option><option value="85">Dr. med. Jochen Blume (API/Internist, B)</option><option value="86">Dr. med. Sebastian Morcinek (API/Internist, B)</option><option value="87">Dr. med. Sebastian Kurth (API/Internist, B)</option><option value="88">MU Dr. med. Petra Gaspirova (Lipidologe, B)</option><option value="89">Dr. med. Vasil Gašpir (API/Internist, B)</option><option value="90">Dr. med. Fieras Dahhan (API/Internist, B)</option><option value="91">Dr. med. Cristina Burgmann (API/Internist, B)</option><option value="92">Dr. med. Marvin Schwarz (API/Internist, B)</option><option value="93">Dr. med. Margareta Mohr (API/Internist, A)</option><option value="94">Prof. Dr. med. Andrea Baessler (API/Internist, A)</option><option value="95">Univ.-Prof. Dr. med. Simon Lebek, FESC (API/Internist, A)</option><option value="96">Dr. med. Daniel Frammelsberger (Diabetologe, B)</option><option value="97">Prof. Dr. med. Marcus Fischer (API/Internist, B)</option><option value="98">Prof. Dr. med. Stefan Buchner (API/Internist, B)</option><option value="99">Dr. med. Markus Strauf (API/Internist, B)</option><option value="100">Dr. med. Joseph Leebmann (Lipidologe, A)</option><option value="101">Dr. med. univ. Torben Schlingmann (Diabetologe, B)</option><option value="102">Dr. med. Markus Strauf (API/Internist, B)</option><option value="103">Dr. med. Tanja Maderer-Wiesinger (API/Internist, B)</option><option value="104">Dr. med. Michael Gröbner (API/Internist, B)</option><option value="105">Dr. med. Monika Blüml (Hausarzt, B)</option><option value="106">Dr. med. Horst Fay (API/Internist, B)</option><option value="107">Dr. med. Alexander Reithmeier (API/Internist, B)</option><option value="108">Dr. med. Philipp Thurn (API/Internist, B)</option><option value="109">Dr. med. Maximilian Rauch (API/Internist, B)</option><option value="110">Alina Tirtea (API/Internist, B)</option><option value="111">Dr. Dr. med. Stephanie Wissel (API/Internist, A)</option><option value="112">Dr. med. Noah Beuermann (API/Internist, B)</option><option value="113">Prof. Dr. med. Frank Breuckmann (API/Internist, B)</option><option value="114">Dr. med. Annette Marie Wons (Diabetologe, B)</option><option value="115">Dr. med. Susanne Stietz (API/Internist, B)</option><option value="116">PD Dr. med. Radovan Vasko (API/Internist, B)</option><option value="117">Dr. med. Evdokia Dotzeva (API/Internist, B)</option><option value="118">Dr. med. Volker Wunderle (Lipidologe, B)</option></select>
+        <button onclick="addVisit(&#39;2026-5-1&#39;,&#39;4&#39;)">+ Hinzufügen</button>
+      </div>
+    </div></div><div class="tday" id="day-5"><div class="dh" onclick="togDay(&#39;5&#39;)">
+      <div><div class="dn">Freitag</div><div class="dsegs"></div></div>
+      <div class="dr">
+        <span class="dm">0 Besuche</span>
+        <select class="ss" onclick="event.stopPropagation()" onchange="setSortDay(&#39;2026-5-1&#39;,&#39;5&#39;,this.value)">
+          <option value="seg">nach Seg.</option><option value="time">nach Zeit</option><option value="typ">nach Typ</option>
+        </select>
+        <span class="chv">▼</span>
+      </div>
+    </div>
+    <div class="db" id="db-5">
+      
+      <div class="ar">
+        <select id="add-sel-5"><option value="1">Dr. med. Maximilian Preißler (API/Internist, B)</option><option value="2">Dr. med. Daniel A. Heinrich (Lipidologe, A)</option><option value="3">Dr. med. Friederike Gusmini (API/Internist, B)</option><option value="4">Dr. med. Anja Vogt (API/Internist, A)</option><option value="5">Dr. med. Benjamin Clemens Lechner (API/Internist, A)</option><option value="6">Dr. med. Katharina Weiß (Lipidologe, B)</option><option value="7">Dr. med. Matthias Nischwitz (Lipidologe, B)</option><option value="8">Prof. Dr. med. Berthold Koletzko (Lipidologe, A)</option><option value="9">Dr. med. Juliane Grünzner (Lipidologe, B)</option><option value="10">Ersin Seyhun (Hausarzt, B)</option><option value="11">PD Dr. med. George Vlotides (Lipidologe, A)</option><option value="12">PD Dr. med. Christian Tesche (API/Internist, B)</option><option value="13">Prof. Dr. med. Klaus G. Parhofer (API/Internist, A)</option><option value="14">Dr. med. Felix Sebastian Oberhoffer, MBA (Lipidologe, A)</option><option value="15">Dr. med. Haitham Abdelhadi (API/Internist, B)</option><option value="16">Dr. med. Arthur Grünerbel (Diabetologe, B)</option><option value="17">Dr. med. Christian Schaaf (API/Internist, A)</option><option value="18">Dr. med. Katharina Lechner (API/Internist, B)</option><option value="19">Dr. med. Sven Vogel (API/Internist, B)</option><option value="20">Dr. med. Dr. med. univ. Alexander Holderied (MHBA) (API/Internist, B)</option><option value="21">Prof. Dr. med. Helga Frank (API/Internist, B)</option><option value="22">Dr. med. Manuel Viehmann (API/Internist, B)</option><option value="23">Dr. med. Elisa Waldmann-Roth (Diabetologe, B)</option><option value="24">Dr. med. Michael Mehr (API/Internist, B)</option><option value="25">Dr. med. Georg Guggenberger (Diabetologe, B)</option><option value="26">Dr. med. Matthias Keller (API/Internist, B)</option><option value="27">Dr. med. Florian Lesmeister (API/Internist, B)</option><option value="28">Muhammad Abd Elhalim (Diabetologe, B)</option><option value="29">Dr. med. Regine Hoika-Jacob (API/Internist, B)</option><option value="30">Dr. medic. Stefan Girbaci (API/Internist, B)</option><option value="31">Dr. med. Simon Rau (API/Internist, B)</option><option value="32">Dr. med. Michael Mehr (API/Internist, B)</option><option value="33">Dr. med. Dorothee Vergho (API/Internist, B)</option><option value="34">Dr. med. Jürgen Braun (API/Internist, B)</option><option value="35">Dr. med. Rüdiger Meesters (API/Internist, B)</option><option value="36">Prof. Dr. med. Christian A. Gleißner, FESC (API/Internist, B)</option><option value="37">Dr. med. univ Stefan Dalic (API/Internist, B)</option><option value="38">Dr. med. Markus Strauf (API/Internist, B)</option><option value="39">Dr. med. Norbert Schön (API/Internist, B)</option><option value="40">Dr. med. Elisabeth Zippelius (API/Internist, B)</option><option value="41">Medical Doctor (Univ.) Hogir Housen (API/Internist, B)</option><option value="42">PD Dr. med. George Vlotides (Lipidologe, A)</option><option value="43">Prof. Dr. med. Holger Schmid (API/Internist, B)</option><option value="44">Dr. med. Mario Weber (API/Internist, B)</option><option value="45">Dr. med. Diane Wagner (Diabetologe, B)</option><option value="46">Dr. med. German Rubinstein (Lipidologe, A)</option><option value="47">Dr. med. Alexander Nippe (API/Internist, B)</option><option value="48">Dr. med. Raoul Zeltner (API/Internist, B)</option><option value="49">PD Dr. med. Thomas Pusl (API/Internist, A)</option><option value="50">Dr. med. Birgit Löhr (API/Internist, A)</option><option value="51">PD Dr. med. Daniel Bittner (API/Internist, A)</option><option value="52">Dr. med. univ. Almira Kovacevic (API/Internist, B)</option><option value="53">Priv.-Doz. Dr. med. Heiko Methe (API/Internist, B)</option><option value="54">Dr. med. Thomas Birling (Hausarzt, B)</option><option value="55">Dr. med. Alexander Christoph Stöckl (Diabetologe, B)</option><option value="56">Priv.-Doz. Dr. med. Heiko Methe (API/Internist, B)</option><option value="57">Dr. med. Abdelrahman Elsharkawy (API/Internist, B)</option><option value="58">Dr. med. Gerrit Kuprat (Diabetologe, B)</option><option value="59">Christine Rotering (API/Internist, B)</option><option value="60">Dr. med. Barbara Voigtmann (API/Internist, B)</option><option value="61">Dr. med. Anna-Katharina Schmidt (API/Internist, B)</option><option value="62">Kirsten Salzgeber (Lipidologe, B)</option><option value="63">Dr. univ./Guay. Patricia Cardenas de Bäuerle (Lipidologe, B)</option><option value="64">Dr. med. Franz Heigl (API/Internist, A)</option><option value="65">Dr. med. Michael Browatzki (API/Internist, A)</option><option value="66">PD Dr. med. Tobias Pflederer (API/Internist, A)</option><option value="67">Dr. med. Stefan Heetel (API/Internist, B)</option><option value="68">Dr. med. Tilmann Kramer (API/Internist, B)</option><option value="69">Dr. med. Marcus Steger (API/Internist, B)</option><option value="70">Dr. med. Wilke Beuthien (API/Internist, B)</option><option value="71">Priv.-Doz. Dr. med. Christian Adolf (API/Internist, B)</option><option value="72">Dr. med. Philipp Ege (API/Internist, B)</option><option value="73">Kirsten Salzgeber (Lipidologe, B)</option><option value="74">Dr. med. Klaus Dieter Kränzle (API/Internist, B)</option><option value="75">Dr. med. Gabriele Hackenberg (API/Internist, B)</option><option value="76">Dr. med. Klaus Dieter Kränzle (API/Internist, B)</option><option value="77">Dr. med. Anna Schröder (API/Internist, B)</option><option value="78">Dr. med. Christian Layritz (API/Internist, B)</option><option value="79">Dr. med. Christiane Schöller (API/Internist, B)</option><option value="80">Dr. med. Matthias Karl (API/Internist, B)</option><option value="81">Dr. med. Matthias Klune (API/Internist, B)</option><option value="82">Dr. med. Randolf Seitz (Diabetologe, B)</option><option value="83">Dr. med. Matthias Stoll (API/Internist, B)</option><option value="84">Prof. Dr. med. Christian Koch (API/Internist, B)</option><option value="85">Dr. med. Jochen Blume (API/Internist, B)</option><option value="86">Dr. med. Sebastian Morcinek (API/Internist, B)</option><option value="87">Dr. med. Sebastian Kurth (API/Internist, B)</option><option value="88">MU Dr. med. Petra Gaspirova (Lipidologe, B)</option><option value="89">Dr. med. Vasil Gašpir (API/Internist, B)</option><option value="90">Dr. med. Fieras Dahhan (API/Internist, B)</option><option value="91">Dr. med. Cristina Burgmann (API/Internist, B)</option><option value="92">Dr. med. Marvin Schwarz (API/Internist, B)</option><option value="93">Dr. med. Margareta Mohr (API/Internist, A)</option><option value="94">Prof. Dr. med. Andrea Baessler (API/Internist, A)</option><option value="95">Univ.-Prof. Dr. med. Simon Lebek, FESC (API/Internist, A)</option><option value="96">Dr. med. Daniel Frammelsberger (Diabetologe, B)</option><option value="97">Prof. Dr. med. Marcus Fischer (API/Internist, B)</option><option value="98">Prof. Dr. med. Stefan Buchner (API/Internist, B)</option><option value="99">Dr. med. Markus Strauf (API/Internist, B)</option><option value="100">Dr. med. Joseph Leebmann (Lipidologe, A)</option><option value="101">Dr. med. univ. Torben Schlingmann (Diabetologe, B)</option><option value="102">Dr. med. Markus Strauf (API/Internist, B)</option><option value="103">Dr. med. Tanja Maderer-Wiesinger (API/Internist, B)</option><option value="104">Dr. med. Michael Gröbner (API/Internist, B)</option><option value="105">Dr. med. Monika Blüml (Hausarzt, B)</option><option value="106">Dr. med. Horst Fay (API/Internist, B)</option><option value="107">Dr. med. Alexander Reithmeier (API/Internist, B)</option><option value="108">Dr. med. Philipp Thurn (API/Internist, B)</option><option value="109">Dr. med. Maximilian Rauch (API/Internist, B)</option><option value="110">Alina Tirtea (API/Internist, B)</option><option value="111">Dr. Dr. med. Stephanie Wissel (API/Internist, A)</option><option value="112">Dr. med. Noah Beuermann (API/Internist, B)</option><option value="113">Prof. Dr. med. Frank Breuckmann (API/Internist, B)</option><option value="114">Dr. med. Annette Marie Wons (Diabetologe, B)</option><option value="115">Dr. med. Susanne Stietz (API/Internist, B)</option><option value="116">PD Dr. med. Radovan Vasko (API/Internist, B)</option><option value="117">Dr. med. Evdokia Dotzeva (API/Internist, B)</option><option value="118">Dr. med. Volker Wunderle (Lipidologe, B)</option></select>
+        <button onclick="addVisit(&#39;2026-5-1&#39;,&#39;5&#39;)">+ Hinzufügen</button>
+      </div>
+    </div></div></div>
   </div>
 
   <!-- ── JAHRESÜBERSICHT ── -->
@@ -410,7 +1788,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#378ADD;box-sh
         <p><span class="hl">Antrag validiert:</span> 30. März 2026<br>
         <span class="hl">EMA-Entscheidung erwartet:</span> Winter 2026<br>
         <span class="hl">DE-Marktstart sHTG:</span> ca. Anfang 2027<br>
-        <span class="hl">Zielgruppe:</span> ~100.000–150.000 Pat. in DE (TG >880 mg/dL, kein Gentest nötig)<br>
+        <span class="hl">Zielgruppe:</span> ~100.000–150.000 Pat. in DE (TG &gt;880 mg/dL, kein Gentest nötig)<br>
         <span class="hl">Hausarzt:</span> dann Co-Verschreiber für Folgerezepte</p>
       </div>
       <div class="info-card">
@@ -433,8 +1811,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#378ADD;box-sh
       </div>
       <div class="info-card">
         <h4>Hausarzt – Gesprächsrahmen</h4>
-        <p><span class="hl">Einstieg:</span> „2–4 Ihrer Patienten haben vermutlich TG >880 mg/dL – erkannt oder nicht?"<br>
-        <span class="hl">Erkennung:</span> TG >880 mg/dL + milchiges Serum + Pankreatitis-Anamnese<br>
+        <p><span class="hl">Einstieg:</span> „2–4 Ihrer Patienten haben vermutlich TG &gt;880 mg/dL – erkannt oder nicht?"<br>
+        <span class="hl">Erkennung:</span> TG &gt;880 mg/dL + milchiges Serum + Pankreatitis-Anamnese<br>
         <span class="hl">Weg:</span> Patient → Lipidologe (Erstverordnung) → Hausarzt (Folgerezept ab sHTG-Zulassung)<br>
         <span class="hl">Nutzen:</span> –85 % Pankreatitis, –72 % TG</p>
       </div>
@@ -498,7 +1876,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#378ADD;box-sh
     <div class="etbar">
       <button class="btn" onclick="exportCSV()">CSV exportieren</button>
       <button class="btn" onclick="importCSV()">CSV importieren</button>
-      <button class="btn btn-d" onclick="if(confirm('Alle Daten zurücksetzen?')){localStorage.removeItem('sobi_docs');localStorage.removeItem('sobi_plan');location.reload()}">Zurücksetzen</button>
+      <button class="btn btn-d" onclick="if(confirm(&#39;Alle Daten zurücksetzen?&#39;)){localStorage.removeItem(&#39;sobi_docs&#39;);localStorage.removeItem(&#39;sobi_plan&#39;);location.reload()}">Zurücksetzen</button>
     </div>
     <div class="twrap">
       <table class="etable">
@@ -1042,9 +2420,14 @@ function runKI(mode, key, day, vi, btn){
   if(btn){btn.classList.add('loading'); btn.textContent='⏳ …';}
   const labelMap={brief:'🧠 KI-Analyse',praxis:'🏥 Praxis',produkt:'💊 Produkt'};
   fetch(urls[mode],{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payloads[mode])})
-    .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status); return r.json();})
-    .then(data=>{
-      const text=data.briefing||data.praxisinfo||data.produktanalyse||JSON.stringify(data);
+    .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status); return r.text();})
+    .then(raw=>{
+      let text=raw;
+      // Versuche JSON zu parsen, sonst Text direkt verwenden
+      try {
+        const data=JSON.parse(raw);
+        text=data.briefing||data.praxisinfo||data.produktanalyse||raw;
+      } catch(e){ text=raw; }
       body.textContent=text; body.className='ki-body';
       if(btn){btn.classList.remove('loading');btn.textContent=labelMap[mode];}
     })
@@ -1245,5 +2628,6 @@ renderWeekTabs();
   </div>
 </div>
 
-</body>
-</html>
+
+
+</body></html>
