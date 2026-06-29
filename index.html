@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0060)file:///C:/Users/marti/Downloads/tourenplaner_sobi_BY_2.html -->
+<!-- saved from url=(0060)file:///C:/Users/marti/Downloads/tourenplaner_sobi_BY_3.html -->
 <html lang="de"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -2405,10 +2405,33 @@ function sendDokuSilent(key,day,vi,cb){
     .then(()=>{plan[key][day][vi].synced=true;save();cb();}).catch(()=>cb());
 }
 
+
+function parseMarkdown(text){
+  if(!text)return'';
+  text=text.replace(/^=+/,'').trim();
+  let lines=text.split('\n');
+  let out=[];
+  for(let line of lines){
+    if(/^---+$/.test(line)){out.push('<hr style="border:none;border-top:.5px solid var(--border);margin:8px 0">');continue;}
+    if(/^# /.test(line)){out.push('<h3 style="font-size:14px;font-weight:600;color:var(--ink);margin:8px 0 4px">'+line.slice(2)+'</h3>');continue;}
+    if(/^## /.test(line)){out.push('<h4 style="font-size:13px;font-weight:600;color:var(--ink);margin:7px 0 3px">'+line.slice(3)+'</h4>');continue;}
+    if(/^### /.test(line)){out.push('<h5 style="font-size:12px;font-weight:500;color:var(--muted);margin:5px 0 2px">'+line.slice(4)+'</h5>');continue;}
+    if(/^> /.test(line)){out.push('<div style="border-left:3px solid #378ADD;margin:4px 0;padding:3px 10px;background:#E6F1FB;border-radius:0 4px 4px 0;font-weight:500;color:#185FA5">'+line.slice(2)+'</div>');continue;}
+    if(/^[-*] /.test(line)){out.push('<div style="margin:2px 0 2px 14px">• '+line.slice(2)+'</div>');continue;}
+    if(line.trim()===''){out.push('<div style="height:6px"></div>');continue;}
+    out.push('<div style="margin:2px 0">'+line+'</div>');
+  }
+  let result=out.join('');
+  result=result.replace(/\*\*\*(.+?)\*\*\*/g,'<strong><em>$1</em></strong>');
+  result=result.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  result=result.replace(/\*([^*]+?)\*/g,'<em>$1</em>');
+  return result;
+}
+
 // ── KI-Panel Funktionen ──────────────────────────────────────────────────────
 function runKI(mode, key, day, vi, btn){
   const v=plan[key]?.[day]?.[vi]; const d=docs.find(x=>x.id===v?.id); if(!d)return;
-  const titles={brief:'🧠 KI-Analyse', praxis:'🏥 Praxis-Info', produkt:'💊 Produkt-Analyse'};
+  const titles={brief:'📋 Call-Briefing', praxis:'🏥 Praxis-Info', produkt:'💊 Produkt-Analyse'};
   const urls  ={brief:N8N_BRIEF_URL, praxis:N8N_PRAXIS_URL, produkt:N8N_PROD_URL};
   const payloads={
     brief:   {arzt:d.name,fachrichtung:typLabel(d.typ),indikation:d.indik,segment:d.seg.toUpperCase(),einrichtung:d.einrichtung,produkt:'Tryngolza (Olezarsen)'},
@@ -2423,7 +2446,7 @@ function runKI(mode, key, day, vi, btn){
   document.getElementById('ki-overlay').style.display='flex';
   // Button-Feedback
   if(btn){btn.classList.add('loading'); btn.textContent='⏳ …';}
-  const labelMap={brief:'🧠 KI-Analyse',praxis:'🏥 Praxis',produkt:'💊 Produkt'};
+  const labelMap={brief:'📋 Call-Briefing',praxis:'🏥 Praxis',produkt:'💊 Produkt'};
   fetch(urls[mode],{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payloads[mode])})
     .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status); return r.text();})
     .then(raw=>{
@@ -2433,7 +2456,7 @@ function runKI(mode, key, day, vi, btn){
         const data=JSON.parse(raw);
         text=data.briefing||data.praxisinfo||data.produktanalyse||raw;
       } catch(e){ text=raw; }
-      body.innerHTML='<p style="margin:4px 0">'+parseMarkdown(text)+'</p>'; body.className='ki-body';
+      body.innerHTML=parseMarkdown(text);  body.className='ki-body';
       if(btn){btn.classList.remove('loading');btn.textContent=labelMap[mode];}
     })
     .catch(e=>{
