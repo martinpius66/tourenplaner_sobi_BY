@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0060)file:///C:/Users/marti/Downloads/tourenplaner_sobi_BY_6.html -->
+<!-- saved from url=(0060)file:///C:/Users/marti/Downloads/tourenplaner_sobi_BY_7.html -->
 <html lang="de"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -2275,7 +2275,7 @@ function renderVisit(key,day,v,vi){
       <div class="vlinks">
         <a class="vl call" href="tel:${d.tel}">📞 ${d.tel}</a>
         <a class="vl" href="https://maps.google.com/?q=${encodeURIComponent(d.str+', '+d.plz+' '+d.ort)}" target="_blank">🗺 Maps</a>
-        <button class="vl ki-brief" id="btn-brief-${key}-${day}-${vi}" onclick="runKI('brief','${key}','${day}',${vi},this)">🧠 KI-Analyse</button>
+        <button class="vl ki-brief" id="btn-brief-${key}-${day}-${vi}" onclick="runKI('brief','${key}','${day}',${vi},this)">📋 Call-Briefing</button>
         <button class="vl ki-praxis" id="btn-praxis-${key}-${day}-${vi}" onclick="runKI('praxis','${key}','${day}',${vi},this)">🏥 Praxis</button>
         <button class="vl ki-prod" id="btn-prod-${key}-${day}-${vi}" onclick="runKI('produkt','${key}','${day}',${vi},this)">💊 Produkt</button>
         <button class="vl note" onclick="togNote('${key}','${day}',${vi})">${note?'✏ Notiz':'+ Notiz'}</button>
@@ -2658,7 +2658,7 @@ renderWeekTabs();
 <div class="ki-overlay" id="ki-overlay" style="display:none" onclick="if(event.target===this)closeKI()">
   <div class="ki-panel">
     <div class="ki-hd">
-      <h3 id="ki-title">KI-Analyse</h3>
+      <h3 id="ki-title">Call-Briefing</h3>
       <div style="display:flex;align-items:center;gap:8px">
         <span id="ki-arzt-name"></span>
         <button class="ki-close" onclick="closeKI()">✕</button>
