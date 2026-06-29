@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0060)file:///C:/Users/marti/Downloads/tourenplaner_sobi_BY_3.html -->
+<!-- saved from url=(0060)file:///C:/Users/marti/Downloads/tourenplaner_sobi_BY_4.html -->
 <html lang="de"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -285,14 +285,14 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#378ADD;box-sh
   <div class="fw">
     <div class="fl">Segment</div>
     <div class="sr">
-      <button class="xb sa" onclick="togSeg(&#39;a&#39;,this)">A</button>
-      <button class="xb sb2" onclick="togSeg(&#39;b&#39;,this)">B</button>
-      <button class="xb sc" onclick="togSeg(&#39;c&#39;,this)">C</button>
-      <button class="xb sd" onclick="togSeg(&#39;d&#39;,this)">D</button>
+      <button class="xb sa" onclick="togSeg(&#39;a&#39;,this,event)">A</button>
+      <button class="xb sb2" onclick="togSeg(&#39;b&#39;,this,event)">B</button>
+      <button class="xb sc" onclick="togSeg(&#39;c&#39;,this,event)">C</button>
+      <button class="xb sd" onclick="togSeg(&#39;d&#39;,this,event)">D</button>
     </div>
     <div class="fl" style="margin-top:3px">Fachrichtung</div>
     <div class="rdd" id="typ-dd">
-      <div class="rtrig" onclick="togDD(&#39;typ-dd&#39;)">
+      <div class="rtrig" onclick="togDD(&#39;typ-dd&#39;,event)">
         <span id="typ-lbl">Alle Fachrichtungen</span><span>▾</span>
       </div>
       <div class="rpanel" id="typ-panel">
@@ -306,7 +306,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#378ADD;box-sh
     </div>
     <div class="fl" style="margin-top:3px">Indikation</div>
     <div class="rdd" id="indik-dd">
-      <div class="rtrig" onclick="togDD(&#39;indik-dd&#39;)">
+      <div class="rtrig" onclick="togDD(&#39;indik-dd&#39;,event)">
         <span id="indik-lbl">Alle Indikationen</span><span>▾</span>
       </div>
       <div class="rpanel" id="indik-panel">
@@ -318,7 +318,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#378ADD;box-sh
     </div>
     <div class="fl" style="margin-top:3px">Region</div>
     <div class="rdd" id="reg-dd">
-      <div class="rtrig" onclick="togDD(&#39;reg-dd&#39;)">
+      <div class="rtrig" onclick="togDD(&#39;reg-dd&#39;,event)">
         <span id="reg-lbl">Alle Regionen</span><span>▾</span>
       </div>
       <div class="rpanel" id="reg-panel"><label class="rc"><input type="checkbox" checked="" onchange="selAllReg(this)"> Alle</label><label class="rc"><input type="checkbox" value="Allgäu" checked="" onchange="filterReg(this)"> Allgäu</label><label class="rc"><input type="checkbox" value="Augsburg" checked="" onchange="filterReg(this)"> Augsburg</label><label class="rc"><input type="checkbox" value="Ingolstadt" checked="" onchange="filterReg(this)"> Ingolstadt</label><label class="rc"><input type="checkbox" value="München" checked="" onchange="filterReg(this)"> München</label><label class="rc"><input type="checkbox" value="Nürnberg" checked="" onchange="filterReg(this)"> Nürnberg</label><label class="rc"><input type="checkbox" value="Passau" checked="" onchange="filterReg(this)"> Passau</label><label class="rc"><input type="checkbox" value="Regensburg" checked="" onchange="filterReg(this)"> Regensburg</label><label class="rc"><input type="checkbox" value="Rosenheim" checked="" onchange="filterReg(this)"> Rosenheim</label><label class="rc"><input type="checkbox" value="Würzburg" checked="" onchange="filterReg(this)"> Würzburg</label></div>
@@ -2050,29 +2050,33 @@ function save(){
 }
 
 // ── FILTER ────────────────────────────────────────────────────
-function togSeg(s,btn){
+function togSeg(s,btn,evt){
+  if(evt)evt.stopPropagation();
   if(segFilter.has(s)){if(segFilter.size>1)segFilter.delete(s); else return;}
   else segFilter.add(s);
   btn.classList.toggle('off',!segFilter.has(s));
   renderList();
 }
-function filterTyp(){
+function filterTyp(){if(event)event.stopPropagation();
   const cbs = document.querySelectorAll('#typ-panel input[type=checkbox]');
   const all = cbs[0]; const rest = [...cbs].slice(1);
   if(event.target===all){rest.forEach(c=>c.checked=false);typFilter='';document.getElementById('typ-lbl').textContent='Alle Fachrichtungen';}
   else{all.checked=false;const vals=[...rest].filter(c=>c.checked).map(c=>c.value);typFilter=vals.join(',');document.getElementById('typ-lbl').textContent=vals.length?vals.length+' Fachrichtung(en)':'Alle Fachrichtungen';}
   renderList();
 }
-function filterIndik(){
+function filterIndik(){if(event)event.stopPropagation();
   const cbs = document.querySelectorAll('#indik-panel input[type=checkbox]');
   const all = cbs[0]; const rest = [...cbs].slice(1);
   if(event.target===all){rest.forEach(c=>c.checked=false);indikFilter='';document.getElementById('indik-lbl').textContent='Alle Indikationen';}
   else{all.checked=false;const vals=[...rest].filter(c=>c.checked).map(c=>c.value);indikFilter=vals.join(',');document.getElementById('indik-lbl').textContent=vals.length?vals.length+' Indikation(en)':'Alle Indikationen';}
   renderList();
 }
-function togDD(id){
-  document.querySelectorAll('.rpanel').forEach(p=>{if(p.id!==id+'-panel'||p.classList.contains('open'))p.classList.remove('open');});
-  document.getElementById(id+'-panel').classList.toggle('open');
+function togDD(id,evt){
+  if(evt)evt.stopPropagation();
+  const panel=document.getElementById(id+'-panel');
+  const wasOpen=panel.classList.contains('open');
+  document.querySelectorAll('.rpanel').forEach(p=>p.classList.remove('open'));
+  if(!wasOpen)panel.classList.add('open');
 }
 document.addEventListener('click',e=>{if(!e.target.closest('.rdd'))document.querySelectorAll('.rpanel').forEach(p=>p.classList.remove('open'));});
 
@@ -2107,7 +2111,7 @@ function selAllReg(cb){
   document.getElementById('reg-lbl').textContent=cb.checked?'Alle Regionen':'Keine Region';
   renderList();
 }
-function filterReg(cb){
+function filterReg(cb){if(event)event.stopPropagation();
   if(cb.checked) regFilter.add(cb.value); else regFilter.delete(cb.value);
   const cnt=[...document.querySelectorAll('#reg-panel input:not(:first-child)')].filter(c=>c.checked).length;
   document.getElementById('reg-lbl').textContent=cnt===0?'Keine Region':cnt===docs.length?'Alle Regionen':cnt+' Region(en)';
