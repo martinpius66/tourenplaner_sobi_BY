@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0060)file:///C:/Users/marti/Downloads/tourenplaner_sobi_BY_5.html -->
+<!-- saved from url=(0060)file:///C:/Users/marti/Downloads/tourenplaner_sobi_BY_6.html -->
 <html lang="de"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -2353,7 +2353,11 @@ function buildNoteForm(key,day,vi,note){
 
 function togNote(key,day,vi){
   const nb=document.getElementById(`nb-${key}-${day}-${vi}`);
-  nb.classList.toggle('open');
+  const isOpen=nb.classList.contains('open');
+  // Alle anderen Notizfelder schließen
+  document.querySelectorAll('.note-box.open').forEach(el=>el.classList.remove('open'));
+  // Dieses nur öffnen wenn es vorher zu war
+  if(!isOpen) nb.classList.add('open');
 }
 function setNoteField(key,day,vi,field,val){
   const v=plan[key][day][vi];if(!v.note)v.note={};v.note[field]=val;save();
@@ -2464,8 +2468,10 @@ function runKI(mode, key, day, vi, btn){
       // Versuche JSON zu parsen, sonst Text direkt verwenden
       try {
         const data=JSON.parse(raw);
-        text=data.briefing||data.praxisinfo||data.produktanalyse||raw;
+        text=data.briefing||data.praxisinfo||data.produktanalyse||data.output||raw;
       } catch(e){ text=raw; }
+      // Führendes = entfernen falls vorhanden
+      if(typeof text==='string') text=text.replace(/^=+/,'').trim();
       body.innerHTML=parseMarkdown(text);  body.className='ki-body';
       if(btn){btn.classList.remove('loading');btn.textContent=labelMap[mode];}
     })
