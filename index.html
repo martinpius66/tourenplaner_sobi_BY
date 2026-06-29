@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tourenplaner Sobi · DGFL Lipidologen Bayern · 118 Ärzte</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f0ede8;--white:#fff;--ink:#1a1a18;--muted:#6b6b67;--hint:#9b9b96;
+  --border:rgba(0,0,0,.1);--bl:rgba(0,0,0,.06);
+  --blue:#185FA5;--green:#27500A;--amber:#633806;--red:#791F1F;--purple:#3C3489;
+  --blue-bg:#E6F1FB;--green-bg:#EAF3DE;--amber-bg:#FAEEDA;--red-bg:#FCEBEB;--purple-bg:#EEEDFE;
+  --dot-a:#378ADD;--dot-b:#639922;--dot-c:#BA7517;--dot-d:#E24B4A;
+  --sobi:#185FA5;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+.app{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
+
+/* ── SIDEBAR ── */
+.sb{background:var(--white);border-right:.5px solid var(--border);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;overflow:hidden}
+.sb-hd{padding:.8rem 1rem .6rem;border-bottom:.5px solid var(--border);background:var(--blue-bg)}
+.sb-hd h2{font-size:13px;font-weight:500;color:var(--blue)}
+.sb-hd p{font-size:10px;color:var(--muted);margin-top:1px}
+.sobi-badge{display:inline-block;font-size:9px;font-weight:500;background:var(--blue);color:#fff;padding:1px 6px;border-radius:3px;margin-bottom:4px}
+.fw{padding:.55rem 1rem;border-bottom:.5px solid var(--border);display:flex;flex-direction:column;gap:4px}
+.fl{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:1px}
+.sr{display:flex;gap:3px;flex-wrap:wrap}
+.xb{font-size:11px;font-weight:500;padding:2px 8px;border-radius:4px;border:1.5px solid transparent;cursor:pointer}
+.xb.sa{background:var(--blue-bg);color:var(--blue);border-color:#B5D4F4}
+.xb.sb2{background:var(--green-bg);color:var(--green);border-color:#C0DD97}
+.xb.sc{background:var(--amber-bg);color:var(--amber);border-color:#FAC775}
+.xb.sd{background:var(--red-bg);color:var(--red);border-color:#F7C1C1}
+.xb.off{opacity:.25;border-color:transparent}
+.rdd{position:relative}
+.rtrig{display:flex;align-items:center;justify-content:space-between;height:25px;padding:0 7px;border:.5px solid rgba(0,0,0,.18);border-radius:5px;background:var(--white);font-size:11px;cursor:pointer;user-select:none}
+.rpanel{display:none;position:absolute;top:27px;left:0;right:0;background:var(--white);border:.5px solid var(--border);border-radius:6px;z-index:200;padding:4px;max-height:190px;overflow-y:auto;box-shadow:0 4px 14px rgba(0,0,0,.1)}
+.rpanel.open{display:block}
+.rc{display:flex;align-items:center;gap:5px;padding:3px 4px;border-radius:3px;cursor:pointer;font-size:11px}
+.rc:hover{background:var(--bg)}
+.rc input{width:12px;height:12px;cursor:pointer;accent-color:var(--ink)}
+input[type=text],input[type=number],select,textarea{font-family:inherit;border:.5px solid rgba(0,0,0,.18);border-radius:5px;background:var(--white);color:var(--ink)}
+input[type=text],input[type=number],select{height:25px;padding:0 7px;font-size:11px;width:100%}
+textarea{padding:5px 7px;font-size:11px;width:100%;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#378ADD;box-shadow:0 0 0 2px rgba(55,138,221,.12)}
+.sb-lhd{padding:3px 1rem;display:flex;justify-content:space-between;align-items:center;border-bottom:.5px solid var(--bl)}
+.sb-lhd span{font-size:10px;color:var(--muted)}
+.sb-lhd div{display:flex;gap:6px}
+.sb-lhd button{font-size:10px;color:var(--blue);background:none;border:none;cursor:pointer}
+.cl{flex:1;overflow-y:auto;padding:2px 4px}
+.ci{display:flex;align-items:center;gap:5px;padding:4px 5px;border-radius:5px;cursor:pointer;margin-bottom:1px}
+.ci:hover{background:#f5f3ef}
+.ci.pin-on{background:#FFF8EC}
+.ci.placed{opacity:.35}
+.ck{width:13px;height:13px;border:1.5px solid rgba(0,0,0,.2);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.ck.on{background:var(--ink);border-color:var(--ink)}
+.ck.on::after{content:'';width:5px;height:5px;background:#fff;clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0%,43% 62%)}
+.ci-i{flex:1;min-width:0}
+.ci-n{font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-m{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-r{display:flex;align-items:center;gap:2px;flex-shrink:0}
+.seg{font-size:9px;font-weight:500;padding:1px 4px;border-radius:3px}
+.rez-badge{font-size:9px;background:var(--purple-bg);color:var(--purple);padding:1px 3px;border-radius:3px;font-weight:500}
+.pb{font-size:11px;cursor:pointer;opacity:.18;background:none;border:none;padding:0;line-height:1}
+.pb.on{opacity:1}
+.gw{padding:.55rem 1rem .7rem;border-top:.5px solid var(--border)}
+.gb{width:100%;padding:7px;background:var(--ink);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer}
+.gb:hover{opacity:.85}
+.gb:disabled{opacity:.3;cursor:not-allowed}
+
+/* ── MAIN ── */
+.main{padding:1rem;overflow-y:auto;min-width:0}
+.mtabs{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:1rem}
+.mt{font-size:12px;padding:6px 12px;border:none;background:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.mt.active{color:var(--ink);font-weight:500;border-bottom:2px solid var(--ink)}
+.tp{display:none}.tp.active{display:block}
+
+/* KPIs */
+.krow{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:1rem}
+.kpi{background:var(--white);border:.5px solid var(--bl);border-radius:8px;padding:8px 10px}
+.kpi-l{font-size:10px;color:var(--muted);margin-bottom:2px}
+.kpi-v{font-size:16px;font-weight:500}
+.kpi-sub{font-size:9px;color:var(--muted)}
+
+/* Week nav */
+.wnr{display:flex;align-items:center;gap:5px;margin-bottom:.85rem;flex-wrap:wrap}
+.wnc{display:flex;align-items:center;gap:4px}
+.wnc select{width:auto;font-size:11px;height:26px}
+.wnc button{height:26px;padding:0 8px;font-size:11px;border:.5px solid var(--border);border-radius:5px;background:var(--white);cursor:pointer}
+.wnc button:hover{background:var(--bg)}
+.wt-tabs{display:flex;gap:3px;flex-wrap:wrap}
+.wkt{font-size:11px;padding:4px 9px;border:.5px solid var(--border);border-radius:6px;background:var(--white);color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:3px}
+.wkt:hover{background:var(--bg)}
+.wkt.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.wkt .badge{font-size:9px;opacity:.75}
+.wk-rst{font-size:9px;padding:1px 4px;border:.5px solid var(--border);border-radius:3px;background:var(--white);color:var(--muted);cursor:pointer}
+.wk-rst:hover{background:#fee2e2;color:#7f1d1d;border-color:#fca5a5}
+.stpl{font-size:9px;padding:1px 5px;border:.5px solid var(--border);border-radius:3px;background:var(--white);cursor:pointer;color:var(--muted)}
+.stpl:hover{background:var(--green-bg);color:var(--green);border-color:#C0DD97}
+
+/* Tour day */
+.tday{background:var(--white);border:.5px solid var(--bl);border-radius:9px;margin-bottom:6px;overflow:hidden}
+.dh{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;cursor:pointer}
+.dh:hover{background:#faf9f7}
+.dn{font-size:13px;font-weight:500}
+.dsegs{display:flex;gap:3px;margin-top:2px;flex-wrap:wrap;align-items:center}
+.dr{display:flex;align-items:center;gap:5px}
+.dm{font-size:10px;color:var(--muted)}
+.ss{font-size:10px;height:22px;padding:0 5px;border:.5px solid var(--border);border-radius:4px;background:var(--white)}
+.chv{font-size:10px;color:var(--hint);transition:transform .2s;display:inline-block}
+.chv.open{transform:rotate(180deg)}
+.db{display:none}.db.open{display:block}
+
+/* Visit */
+.vr{display:grid;grid-template-columns:20px 1fr auto;align-items:start;padding:6px 12px;border-top:.5px solid var(--bl);gap:6px}
+.vr:hover{background:#faf9f7}
+.vr.vpin{background:#FFFBF2}
+.vdot{width:7px;height:7px;border-radius:50%;margin-top:4px;justify-self:center}
+.vn{font-size:12px;font-weight:500}
+.vd{font-size:11px;color:var(--muted)}
+.vaddr{font-size:10px;color:var(--hint)}
+.indik-badge{font-size:10px;padding:1px 5px;border-radius:3px;display:inline-block;margin-top:2px}
+.indik-fcs{background:var(--purple-bg);color:var(--purple)}
+.indik-shtg{background:var(--blue-bg);color:var(--blue)}
+.indik-both{background:var(--green-bg);color:var(--green)}
+.vlinks{display:flex;gap:3px;margin-top:3px;flex-wrap:wrap}
+.vl{font-size:10px;text-decoration:none;border:.5px solid rgba(55,138,221,.3);border-radius:3px;padding:1px 5px;cursor:pointer;background:var(--white);color:var(--blue)}
+.vl:hover{background:var(--blue-bg)}
+.vl.call{color:var(--green);border-color:#C0DD97}.vl.call:hover{background:var(--green-bg)}
+.vl.brief{color:var(--amber);background:var(--amber-bg);border-color:#FAC775}.vl.brief:hover{background:#F5D898}
+.vl.note{color:#533800;background:#FFF8EC;border-color:#FAC775}
+.vr-r{display:flex;flex-direction:column;align-items:flex-end;gap:2px;min-width:50px}
+.vtime{font-size:12px;font-weight:500}
+.vdur{font-size:10px;color:var(--muted)}
+.rm{font-size:10px;color:var(--muted);background:none;border:.5px solid var(--border);border-radius:3px;padding:1px 4px;cursor:pointer}
+.rm:hover{background:#fee2e2;color:#7f1d1d;border-color:#fca5a5}
+
+/* Besuchsdoku Dialog */
+.note-box{margin:0 12px 6px;padding:8px 10px;background:#FFFBF2;border:.5px solid #FAC775;border-radius:6px;display:none}
+.note-box.open{display:block}
+.note-box .note-saved{font-size:10px;color:var(--green);margin-top:4px;display:none}
+.note-preview{font-size:10px;color:var(--amber);background:var(--amber-bg);padding:1px 6px;border-radius:3px;margin-top:2px;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nd-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:5px}
+.nd-field{display:flex;flex-direction:column;gap:2px}
+.nd-field label{font-size:9px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.nd-field select{height:24px;font-size:11px;padding:0 5px;border:.5px solid rgba(0,0,0,.18);border-radius:4px;background:var(--white);color:var(--ink)}
+.nd-field select:focus{outline:none;border-color:#378ADD;box-shadow:0 0 0 2px rgba(55,138,221,.12)}
+.nd-notiz{margin-top:4px;display:flex;flex-direction:column;gap:2px}
+.nd-notiz label{font-size:9px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;display:flex;justify-content:space-between}
+.nd-notiz textarea{height:52px;font-size:11px;border:.5px solid rgba(0,0,0,.12);border-radius:4px;resize:none;padding:4px 6px}
+.nd-material-group{display:flex;flex-wrap:wrap;gap:4px 10px;padding:4px 0}
+.nd-material-group label{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--ink);cursor:pointer;font-weight:400;text-transform:none;letter-spacing:0}
+.nd-material-group input[type=checkbox]{width:12px;height:12px;cursor:pointer;accent-color:var(--ink);flex-shrink:0}
+.nd-webhook-btn{width:100%;margin-top:6px;padding:6px;font-size:11px;font-weight:500;background:var(--ink);color:#fff;border:none;border-radius:5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
+.nd-webhook-btn:hover{opacity:.85}
+.nd-webhook-btn:disabled{opacity:.35;cursor:not-allowed}
+.nd-webhook-status{font-size:10px;text-align:center;margin-top:3px;min-height:14px}
+.nd-webhook-status.ok{color:var(--green)}
+.nd-webhook-status.err{color:var(--red)}
+.sync-bar{display:flex;align-items:center;gap:8px;padding:6px 0;margin-bottom:4px;flex-wrap:wrap}
+.sync-all-btn{font-size:11px;font-weight:500;padding:5px 12px;background:var(--ink);color:#fff;border:none;border-radius:6px;cursor:pointer;white-space:nowrap}
+.sync-all-btn:hover{opacity:.85}
+.sync-all-btn:disabled{opacity:.35;cursor:not-allowed}
+.sync-info{font-size:10px;color:var(--muted)}
+.sync-info.pending{color:var(--amber);font-weight:500}
+.sync-info.done{color:var(--green)}
+.vr-synced{background:#EAF3DE!important}
+
+/* Add row */
+.ar{padding:5px 12px;border-top:.5px solid var(--bl);display:flex;gap:4px;flex-wrap:wrap}
+.ar select{flex:1;min-width:160px;height:24px;font-size:11px}
+.ar button{height:24px;padding:0 7px;font-size:11px;border:.5px solid var(--border);border-radius:5px;background:var(--white);cursor:pointer;white-space:nowrap}
+.ar button:hover{background:var(--bg)}
+.empty{text-align:center;padding:2rem 1rem;color:var(--muted);font-size:13px}
+.empty strong{display:block;font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px}
+
+/* Jahresübersicht */
+.year-nav{display:flex;align-items:center;gap:8px;margin-bottom:1rem}
+.year-nav h3{font-size:15px;font-weight:500}
+.year-nav button{height:28px;padding:0 10px;font-size:12px;border:.5px solid var(--border);border-radius:6px;background:var(--white);cursor:pointer}
+.year-nav button:hover{background:var(--bg)}
+.year-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.month-card{background:var(--white);border:.5px solid var(--bl);border-radius:9px;overflow:hidden}
+.month-head{padding:8px 12px;font-size:12px;font-weight:500;border-bottom:.5px solid var(--bl);display:flex;justify-content:space-between;align-items:center}
+.month-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:.5px solid var(--bl)}
+.m-kpi{padding:6px 8px;text-align:center;border-right:.5px solid var(--bl)}
+.m-kpi:last-child{border-right:none}
+.m-kpi-l{font-size:9px;color:var(--muted)}
+.m-kpi-v{font-size:14px;font-weight:500}
+.week-rows{padding:4px 0}
+.wk-row{display:flex;align-items:center;gap:6px;padding:3px 10px;cursor:pointer;border-radius:4px;margin:1px 4px}
+.wk-row:hover{background:var(--bg)}
+.wk-label{font-size:10px;color:var(--muted);width:55px;flex-shrink:0}
+.wk-bar-wrap{flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden}
+.seg-strip{display:flex;height:8px;border-radius:4px;overflow:hidden}
+.ss-a{background:var(--dot-a)}
+.ss-b{background:var(--dot-b)}
+.ss-c{background:var(--dot-c)}
+.ss-d{background:var(--dot-d)}
+.wk-count{font-size:10px;color:var(--muted);width:28px;text-align:right;flex-shrink:0}
+.wk-row.has-plan .wk-label{color:var(--ink);font-weight:500}
+.month-empty{font-size:11px;color:var(--hint);padding:10px 12px;text-align:center}
+
+/* Editor */
+.btn{padding:5px 10px;border:.5px solid var(--border);border-radius:6px;background:var(--white);color:var(--ink);font-size:11px;cursor:pointer}
+.btn:hover{background:var(--bg)}
+.btn-p{background:var(--ink);color:#fff;border-color:var(--ink)}.btn-p:hover{background:#333}
+.btn-d{border-color:#fca5a5;color:#7f1d1d}.btn-d:hover{background:#fee2e2}
+.etbar{display:flex;gap:5px;margin-bottom:.6rem;flex-wrap:wrap}
+.twrap{overflow-x:auto;max-height:calc(100vh - 250px);border:.5px solid var(--border);border-radius:8px}
+.etable{width:100%;border-collapse:collapse;font-size:10px}
+.etable th{font-size:9px;font-weight:500;color:var(--muted);text-align:left;padding:5px 6px;border-bottom:1px solid var(--border);background:#faf9f7;position:sticky;top:0;white-space:nowrap}
+.etable td{padding:3px 5px;border-bottom:.5px solid var(--bl);vertical-align:middle}
+.etable tr:hover td{background:#faf9f7}
+.etable input,.etable select{height:20px;font-size:10px;padding:0 4px;border:.5px solid rgba(0,0,0,.12);border-radius:3px;background:var(--white);width:100%}
+.etable .dl{font-size:9px;color:var(--muted);background:none;border:.5px solid var(--border);border-radius:3px;padding:1px 4px;cursor:pointer}
+.etable .dl:hover{background:#fee2e2;color:#7f1d1d}
+.aform{background:var(--white);border:.5px solid var(--border);border-radius:8px;padding:.8rem;margin-bottom:.6rem}
+.aform h3{font-size:12px;font-weight:500;margin-bottom:.55rem}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:5px}
+.ff{display:flex;flex-direction:column;gap:2px}
+.ff label{font-size:9px;color:var(--muted)}
+.fac{display:flex;gap:5px;margin-top:.55rem}
+
+/* Markt-Info */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:1rem}
+.info-card{background:var(--white);border:.5px solid var(--bl);border-radius:9px;padding:.9rem}
+.info-card h4{font-size:12px;font-weight:500;margin-bottom:.5rem;color:var(--ink)}
+.info-card p{font-size:11px;color:var(--muted);line-height:1.6}
+.info-card .hl{color:var(--blue);font-weight:500}
+.info-tag{display:inline-block;font-size:9px;padding:1px 5px;border-radius:3px;margin-right:3px;margin-bottom:3px}
+.tag-fcs{background:var(--purple-bg);color:var(--purple)}
+.tag-shtg{background:var(--blue-bg);color:var(--blue)}
+.tag-wettb{background:var(--amber-bg);color:var(--amber)}
+
+/* Save indicator */
+.save-ind{position:fixed;bottom:12px;right:12px;background:var(--green-bg);color:var(--green);border:.5px solid #C0DD97;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:500;opacity:0;transition:opacity .3s;z-index:500;pointer-events:none}
+.save-ind.show{opacity:1}
+
+@media(max-width:780px){
+  .app{grid-template-columns:1fr}
+  .sb{height:auto;position:relative;max-height:340px;border-right:none;border-bottom:.5px solid var(--border)}
+  .krow{grid-template-columns:repeat(3,1fr)}
+  .year-grid{grid-template-columns:repeat(2,1fr)}
+}
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.12);border-radius:2px}
+
+/* ── KI-Panel Modal ── */
+.ki-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem}
+.ki-panel{background:var(--white);border-radius:14px;max-width:600px;width:100%;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.18)}
+.ki-hd{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.2rem;border-bottom:.5px solid var(--border)}
+.ki-hd h3{font-size:14px;font-weight:500;color:var(--ink)}
+.ki-hd span{font-size:11px;color:var(--muted)}
+.ki-close{font-size:18px;color:var(--muted);background:none;border:none;cursor:pointer;line-height:1;padding:0 4px}
+.ki-close:hover{color:var(--ink)}
+.ki-body{flex:1;overflow-y:auto;padding:1rem 1.2rem;font-size:13px;color:var(--ink);line-height:1.7;white-space:pre-wrap}
+.ki-body.loading{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;min-height:120px}
+.ki-ft{padding:.7rem 1.2rem;border-top:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.ki-ft span{font-size:10px;color:var(--hint)}
+.ki-ft button{font-size:11px;padding:4px 10px;border:.5px solid var(--border);border-radius:5px;background:var(--white);cursor:pointer}
+.ki-ft button:hover{background:var(--bg)}
+/* Neue Action-Buttons */
+.vl.ki-brief{color:#185FA5;background:#E6F1FB;border-color:#B5D4F4}
+.vl.ki-brief:hover{background:#cde4f7}
+.vl.ki-praxis{color:#27500A;background:#EAF3DE;border-color:#C0DD97}
+.vl.ki-praxis:hover{background:#d5eab8}
+.vl.ki-prod{color:#3C3489;background:#EEEDFE;border-color:#C5C2F9}
+.vl.ki-prod:hover{background:#d8d5fc}
+.vl.ki-brief.loading,.vl.ki-praxis.loading,.vl.ki-prod.loading{opacity:.5;pointer-events:none}
+
+</style>
+</head>
+<body>
+<div class="save-ind" id="save-ind">Gespeichert ✓</div>
+<div class="app">
+
+<!-- ════ SIDEBAR ════ -->
+<div class="sb">
+  <div class="sb-hd">
+    <div class="sobi-badge">SOBI · Tryngolza®</div>
+    <h2>Kundenstamm · Lipidologie Bayern</h2>
+    <p>Gesamt: <span id="tot">0</span> · Gefiltert: <span id="flt">0</span> · Ausgewählt: <span id="sel">0</span> · v1</p>
+  </div>
+  <div class="fw">
+    <div class="fl">Segment</div>
+    <div class="sr">
+      <button class="xb sa" onclick="togSeg('a',this)">A</button>
+      <button class="xb sb2" onclick="togSeg('b',this)">B</button>
+      <button class="xb sc" onclick="togSeg('c',this)">C</button>
+      <button class="xb sd" onclick="togSeg('d',this)">D</button>
+    </div>
+    <div class="fl" style="margin-top:3px">Fachrichtung</div>
+    <div class="rdd" id="typ-dd">
+      <div class="rtrig" onclick="togDD('typ-dd')">
+        <span id="typ-lbl">Alle Fachrichtungen</span><span>▾</span>
+      </div>
+      <div class="rpanel" id="typ-panel">
+        <label class="rc"><input type="checkbox" value="" checked onchange="filterTyp()"> Alle</label>
+        <label class="rc"><input type="checkbox" value="lipidologe" onchange="filterTyp()"> Lipidologe / Lipid-Zentrum</label>
+        <label class="rc"><input type="checkbox" value="api" onchange="filterTyp()"> API-Arzt / Internist</label>
+        <label class="rc"><input type="checkbox" value="diabetologe" onchange="filterTyp()"> Diabetologe</label>
+        <label class="rc"><input type="checkbox" value="endokrinologe" onchange="filterTyp()"> Endokrinologe</label>
+        <label class="rc"><input type="checkbox" value="hausarzt" onchange="filterTyp()"> Hausarzt / Allgemeinmedizin</label>
+      </div>
+    </div>
+    <div class="fl" style="margin-top:3px">Indikation</div>
+    <div class="rdd" id="indik-dd">
+      <div class="rtrig" onclick="togDD('indik-dd')">
+        <span id="indik-lbl">Alle Indikationen</span><span>▾</span>
+      </div>
+      <div class="rpanel" id="indik-panel">
+        <label class="rc"><input type="checkbox" value="" checked onchange="filterIndik()"> Alle</label>
+        <label class="rc"><input type="checkbox" value="fcs" onchange="filterIndik()"> FCS (aktuell)</label>
+        <label class="rc"><input type="checkbox" value="shtg" onchange="filterIndik()"> sHTG (ab 2027)</label>
+        <label class="rc"><input type="checkbox" value="both" onchange="filterIndik()"> FCS + sHTG</label>
+      </div>
+    </div>
+    <div class="fl" style="margin-top:3px">Region</div>
+    <div class="rdd" id="reg-dd">
+      <div class="rtrig" onclick="togDD('reg-dd')">
+        <span id="reg-lbl">Alle Regionen</span><span>▾</span>
+      </div>
+      <div class="rpanel" id="reg-panel"></div>
+    </div>
+    <div class="fl" style="margin-top:3px">Suche</div>
+    <input type="text" id="srch" placeholder="Name, Ort, PLZ …" oninput="renderList()">
+  </div>
+  <div class="sb-lhd">
+    <span id="sb-count">0 Ärzte</span>
+    <div>
+      <button onclick="selAll()">Alle wählen</button>
+      <button onclick="selNone()">Keine</button>
+    </div>
+  </div>
+  <div class="cl" id="cl"></div>
+  <div class="gw">
+    <button class="gb" id="plan-btn" onclick="addToTour()" disabled>+ Zur Wochenplanung hinzufügen</button>
+  </div>
+</div>
+
+<!-- ════ MAIN ════ -->
+<div class="main">
+  <div class="mtabs">
+    <button class="mt active" onclick="showTab('tour')">Wochenplanung</button>
+    <button class="mt" onclick="showTab('jahr')">Jahresübersicht</button>
+    <button class="mt" onclick="showTab('markt')">Markt & Produkt</button>
+    <button class="mt" onclick="showTab('edit')">Kundenstamm bearbeiten</button>
+  </div>
+
+  <!-- ── TOUR TAB ── -->
+  <div class="tp active" id="tp-tour">
+    <div class="krow">
+      <div class="kpi"><div class="kpi-l">Besuche diese Woche</div><div class="kpi-v" id="k-vis">0</div></div>
+      <div class="kpi"><div class="kpi-l">Seg. A-Ärzte</div><div class="kpi-v" id="k-a">0</div><div class="kpi-sub">Lipidologen/API</div></div>
+      <div class="kpi"><div class="kpi-l">FCS-Fokus</div><div class="kpi-v" id="k-fcs">0</div><div class="kpi-sub">Erstverordner</div></div>
+      <div class="kpi"><div class="kpi-l">sHTG-Pipeline</div><div class="kpi-v" id="k-shtg">0</div><div class="kpi-sub">Aufbau jetzt</div></div>
+      <div class="kpi"><div class="kpi-l">Hausärzte</div><div class="kpi-v" id="k-ha">0</div><div class="kpi-sub">Sensibilisierung</div></div>
+    </div>
+    <div class="sync-bar">
+      <button class="sync-all-btn" id="sync-all-btn" onclick="syncAll()">Alle Notizen synchronisieren</button>
+      <span class="sync-info" id="sync-info"></span>
+    </div>
+    <div class="wnr">
+      <div class="wnc">
+        <button onclick="prevMonth()">◀</button>
+        <select id="month-sel" onchange="renderWeekTabs()"></select>
+        <button onclick="nextMonth()">▶</button>
+      </div>
+      <div class="wt-tabs" id="wt-tabs"></div>
+    </div>
+    <div id="tour-days"></div>
+  </div>
+
+  <!-- ── JAHRESÜBERSICHT ── -->
+  <div class="tp" id="tp-jahr">
+    <div class="year-nav">
+      <button onclick="prevYear()">◀</button>
+      <h3 id="year-title">2025</h3>
+      <button onclick="nextYear()">▶</button>
+    </div>
+    <div class="year-grid" id="year-grid"></div>
+  </div>
+
+  <!-- ── MARKT & PRODUKT ── -->
+  <div class="tp" id="tp-markt">
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>Tryngolza® (Olezarsen) – Überblick</h4>
+        <span class="info-tag tag-fcs">FCS</span><span class="info-tag tag-shtg">sHTG pending</span>
+        <p><span class="hl">Wirkprinzip:</span> Antisense RNA (ASO) – hemmt ApoC-III in der Leber → TG-Abbau ↑<br>
+        <span class="hl">Anwendung:</span> 1× pro Monat s.c. (Fertigpen 80 mg)<br>
+        <span class="hl">EU-Zulassung FCS:</span> September 2025<br>
+        <span class="hl">DE-Marktstart:</span> Januar 2026<br>
+        <span class="hl">Orphan Drug Status:</span> Ja (FCS)</p>
+      </div>
+      <div class="info-card">
+        <h4>Studien-Kerndaten</h4>
+        <span class="info-tag tag-fcs">BALANCE-Studie</span>
+        <p><span class="hl">FCS (BALANCE):</span> TG-Senkung –43–60 %, Pankreatitis 1 vs. 11 Ereignisse (Placebo)<br>
+        <span class="hl">sHTG (CORE/CORE2, NEJM):</span><br>
+        · TG-Senkung bis –72 %<br>
+        · 86 % der Pat. unter 500 mg/dL<br>
+        · Pankreatitis –85 %<br>
+        · 12 Monate stabile Wirkung</p>
+      </div>
+      <div class="info-card">
+        <h4>Indikationserweiterung sHTG</h4>
+        <span class="info-tag tag-shtg">EMA-Prüfung läuft</span>
+        <p><span class="hl">Antrag validiert:</span> 30. März 2026<br>
+        <span class="hl">EMA-Entscheidung erwartet:</span> Winter 2026<br>
+        <span class="hl">DE-Marktstart sHTG:</span> ca. Anfang 2027<br>
+        <span class="hl">Zielgruppe:</span> ~100.000–150.000 Pat. in DE (TG >880 mg/dL, kein Gentest nötig)<br>
+        <span class="hl">Hausarzt:</span> dann Co-Verschreiber für Folgerezepte</p>
+      </div>
+      <div class="info-card">
+        <h4>Wettbewerb – Plozasiran / Redemplo®</h4>
+        <span class="info-tag tag-wettb">Arrowhead Pharmaceuticals</span>
+        <p><span class="hl">Technologie:</span> siRNA (RNAi)<br>
+        <span class="hl">Anwendung:</span> 1× alle 3 Monate (Vorteil!)<br>
+        <span class="hl">FCS EU-Zulassung:</span> Frühjahr 2026 ✓<br>
+        <span class="hl">sHTG EU-Zulassung:</span> erwartet Mitte–Ende 2027<br>
+        <span class="hl">Unser Vorteil:</span> Stärkste Datenlage (NEJM), ~6 Monate First-mover bei sHTG</p>
+      </div>
+      <div class="info-card">
+        <h4>Zielgruppen Bayern – Priorisierung</h4>
+        <p>
+        <span class="seg" style="background:var(--blue-bg);color:var(--blue)">A</span> Lipid-Zentren, API-Ärzte, Diabetologen (Lipidschwerpunkt)<br>
+        <span class="seg" style="background:var(--green-bg);color:var(--green)">B</span> Allgemeininternisten, Endokrinologen<br>
+        <span class="seg" style="background:var(--amber-bg);color:var(--amber)">C</span> Hausärzte mit TG-affiner Klientel<br>
+        <span class="seg" style="background:var(--red-bg);color:var(--red)">D</span> Hausärzte allgemein – Sensibilisierung<br><br>
+        <span class="hl">Wichtig:</span> Hausarzt heute = Erkenner + Überweiser, KEIN Erstverordner (Regress-Risiko)</p>
+      </div>
+      <div class="info-card">
+        <h4>Hausarzt – Gesprächsrahmen</h4>
+        <p><span class="hl">Einstieg:</span> „2–4 Ihrer Patienten haben vermutlich TG >880 mg/dL – erkannt oder nicht?"<br>
+        <span class="hl">Erkennung:</span> TG >880 mg/dL + milchiges Serum + Pankreatitis-Anamnese<br>
+        <span class="hl">Weg:</span> Patient → Lipidologe (Erstverordnung) → Hausarzt (Folgerezept ab sHTG-Zulassung)<br>
+        <span class="hl">Nutzen:</span> –85 % Pankreatitis, –72 % TG</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── EDITOR TAB ── -->
+  <div class="tp" id="tp-edit">
+    <div class="aform">
+      <h3>Neuen Arzt hinzufügen</h3>
+      <div class="fgrid">
+        <div class="ff"><label>Name</label><input type="text" id="f-name" placeholder="Dr. Müller, Anna"></div>
+        <div class="ff"><label>Fachrichtung</label>
+          <select id="f-typ">
+            <option value="lipidologe">Lipidologe / Lipid-Zentrum</option>
+            <option value="api">API-Arzt / Internist</option>
+            <option value="diabetologe">Diabetologe</option>
+            <option value="endokrinologe">Endokrinologe</option>
+            <option value="hausarzt">Hausarzt / Allgemeinmedizin</option>
+          </select>
+        </div>
+        <div class="ff"><label>Segment</label>
+          <select id="f-seg">
+            <option value="a">A – Hochpotenzial</option>
+            <option value="b">B – Mittelpotenzial</option>
+            <option value="c">C – Niedrig / Aufbau</option>
+            <option value="d">D – Sensibilisierung</option>
+          </select>
+        </div>
+        <div class="ff"><label>Indikationsfokus</label>
+          <select id="f-indik">
+            <option value="fcs">FCS (aktuell)</option>
+            <option value="shtg">sHTG (ab 2027)</option>
+            <option value="both">FCS + sHTG</option>
+          </select>
+        </div>
+        <div class="ff"><label>Einrichtung</label><input type="text" id="f-einr" placeholder="Lipidambulanz München"></div>
+        <div class="ff"><label>Straße</label><input type="text" id="f-str" placeholder="Musterstr. 1"></div>
+        <div class="ff"><label>PLZ</label><input type="text" id="f-plz" placeholder="80331"></div>
+        <div class="ff"><label>Ort</label><input type="text" id="f-ort" placeholder="München"></div>
+        <div class="ff"><label>Telefon</label><input type="text" id="f-tel" placeholder="089-12345"></div>
+        <div class="ff"><label>Region</label>
+          <select id="f-reg">
+            <option>München</option><option>Augsburg</option><option>Nürnberg</option>
+            <option>Regensburg</option><option>Ingolstadt</option><option>Rosenheim</option>
+            <option>Landshut</option><option>Passau</option><option>Würzburg</option><option>Allgäu</option>
+          </select>
+        </div>
+        <div class="ff"><label>Wochentag bevorzugt</label>
+          <select id="f-wo">
+            <option value="1">Montag</option><option value="2">Dienstag</option>
+            <option value="3">Mittwoch</option><option value="4">Donnerstag</option><option value="5">Freitag</option>
+          </select>
+        </div>
+      </div>
+      <div class="fac">
+        <button class="btn btn-p" onclick="addDoc()">+ Hinzufügen</button>
+        <button class="btn" onclick="renderEdit()">Abbrechen</button>
+      </div>
+    </div>
+    <div class="etbar">
+      <button class="btn" onclick="exportCSV()">CSV exportieren</button>
+      <button class="btn" onclick="importCSV()">CSV importieren</button>
+      <button class="btn btn-d" onclick="if(confirm('Alle Daten zurücksetzen?')){localStorage.removeItem('sobi_docs');localStorage.removeItem('sobi_plan');location.reload()}">Zurücksetzen</button>
+    </div>
+    <div class="twrap">
+      <table class="etable">
+        <thead><tr>
+          <th>Name</th><th>Fachrichtung</th><th>Seg.</th><th>Indikation</th><th>Einrichtung</th><th>PLZ</th><th>Ort</th><th>Region</th><th>Tel.</th><th></th>
+        </tr></thead>
+        <tbody id="edit-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+// ── KONFIGURATION ──────────────────────────────────────────────
+// Deine n8n.cloud Webhook-URLs hier eintragen:
+// ── n8n Webhook-URLs – nach Import in n8n.cloud eintragen ──────────────────
+// Webhook-Pfade entsprechen den Workflow-JSONs (sobi_wf1/2/3)
+const N8N_BASE       = 'https://martinfromm.app.n8n.cloud/webhook';
+const N8N_BRIEF_URL  = N8N_BASE + '/sobi-briefing';   // WF1: KI-Analyse
+const N8N_PRAXIS_URL = N8N_BASE + '/sobi-praxis';     // WF2: Praxis-Scraper
+const N8N_PROD_URL   = N8N_BASE + '/sobi-produkt';    // WF3: Produkt-Analyse
+const N8N_DOKU_URL   = N8N_BASE + '/sobi-doku';       // Besuchsdoku (optional)
+
+const TAGE = ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag'];
+const MONATSNAMEN = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+
+// Musterdaten – Sobi Lipidologie Bayern
+const MUSTER_DOCS = [
+  {id:1, name:"Dr. med. Maximilian Preißler", typ:"api", einrichtung:"Privatpraxis Dr. med. Maximilian Preißler", str:"www.linkedin.com/in/dr-preissler", plz:"80000", ort:"München", tel:"prevent@dr-preissler.com", region:"München", indik:"shtg", seg:"b", wo:1},
+  {id:2, name:"Dr. med. Daniel A. Heinrich", typ:"lipidologe", einrichtung:"Hormon- und Stoffwechselzentrum München", str:"Residenzstraße 3", plz:"80333", ort:"München", tel:"(089) 413008-0", region:"München", indik:"both", seg:"a", wo:2},
+  {id:3, name:"Dr. med. Friederike Gusmini", typ:"api", einrichtung:"Privatpraxis Hölzenbein", str:"Theatinerstr 46", plz:"80333", ort:"München", tel:"(089) 25 547 547", region:"München", indik:"shtg", seg:"b", wo:3},
+  {id:4, name:"Dr. med. Anja Vogt", typ:"api", einrichtung:"Klinikum der Universität München", str:"Ziemssenstr. 1", plz:"80336", ort:"München", tel:"(089) 4400-53566", region:"München", indik:"shtg", seg:"a", wo:4},
+  {id:5, name:"Dr. med. Benjamin Clemens Lechner", typ:"api", einrichtung:"Klinikum der Universität München", str:"Ziemssenstr. 1", plz:"80336", ort:"München", tel:"(089) 4400-53566", region:"München", indik:"shtg", seg:"a", wo:5},
+  {id:6, name:"Dr. med. Katharina Weiß", typ:"lipidologe", einrichtung:"Dr. von Haunersches Kinderspital", str:"Lindwurmstraße 83", plz:"80337", ort:"München", tel:"(089)-4400 55137", region:"München", indik:"fcs", seg:"b", wo:1},
+  {id:7, name:"Dr. med. Matthias Nischwitz", typ:"lipidologe", einrichtung:"DiZ München Nephrocare GmbH", str:"Lindwurmstraße 23", plz:"80337", ort:"München", tel:"(089) 530701-0", region:"München", indik:"fcs", seg:"b", wo:2},
+  {id:8, name:"Prof. Dr. med. Berthold Koletzko", typ:"lipidologe", einrichtung:"Kinderklinik u. Kinderpoliklinik im Dr. von Haunerschen Kinderspital", str:"Lindwurmstr. 4", plz:"80337", ort:"München", tel:"(089) 5160-2811", region:"München", indik:"fcs", seg:"a", wo:3},
+  {id:9, name:"Dr. med. Juliane Grünzner", typ:"lipidologe", einrichtung:"Dr. von Haunersches Kinderspital", str:"Lindwurmstr. 83", plz:"80337", ort:"München", tel:"(089) 4400 55137", region:"München", indik:"fcs", seg:"b", wo:4},
+  {id:10, name:"Ersin Seyhun", typ:"hausarzt", einrichtung:"Hausarztpraxis Avimedical Rotkreuzplatz", str:"Nymphenburgerstr. 166", plz:"80634", ort:"München", tel:"(089) 377998360", region:"München", indik:"shtg", seg:"b", wo:5},
+  {id:11, name:"PD Dr. med. George Vlotides", typ:"lipidologe", einrichtung:"Zentrum für Endokrinologie und Stoffwechsel München-Schwabing", str:"Nordendstraße 64", plz:"80801", ort:"München", tel:"(089) 18946850", region:"München", indik:"both", seg:"a", wo:1},
+  {id:12, name:"PD Dr. med. Christian Tesche", typ:"api", einrichtung:"Augustinum Klinik München", str:"Wolkerweg 16", plz:"81375", ort:"München", tel:"(089) 7097 1154", region:"München", indik:"shtg", seg:"b", wo:2},
+  {id:13, name:"Prof. Dr. med. Klaus G. Parhofer", typ:"api", einrichtung:"Klinikum der Universität München", str:"Marchioninistr. 15", plz:"81377", ort:"München", tel:"(089) 4400-73010 oder -73011", region:"München", indik:"shtg", seg:"a", wo:3},
+  {id:14, name:"Dr. med. Felix Sebastian Oberhoffer, MBA", typ:"lipidologe", einrichtung:"LMU Klinikum", str:"Marchioninistraße 15", plz:"81377", ort:"München", tel:"(089) 4400 73941", region:"München", indik:"fcs", seg:"a", wo:4},
+  {id:15, name:"Dr. med. Haitham Abdelhadi", typ:"api", einrichtung:"Internistisches Klinikum München Süd", str:"Am Isarkanal 36", plz:"81379", ort:"München", tel:"(089) 72400 4343", region:"München", indik:"shtg", seg:"b", wo:5},
+  {id:16, name:"Dr. med. Arthur Grünerbel", typ:"diabetologe", einrichtung:"Diabeteszentrum München-Süd", str:"Stockmannstraße 47", plz:"81477", ort:"München", tel:"(089) 72408000", region:"München", indik:"shtg", seg:"b", wo:1},
+  {id:17, name:"Dr. med. Christian Schaaf", typ:"api", einrichtung:"TUM Klinikum Rechts der Isar", str:"Ismaninger Straße 22", plz:"81675", ort:"München", tel:"(089)-4140-1048", region:"München", indik:"shtg", seg:"a", wo:2},
+  {id:18, name:"Dr. med. Katharina Lechner", typ:"api", einrichtung:"Kardiologie mit herz", str:"Törringstraße 6", plz:"81675", ort:"München", tel:"(089) 122 28 09-0", region:"München", indik:"shtg", seg:"b", wo:3},
+  {id:19, name:"Dr. med. Sven Vogel", typ:"api", einrichtung:"MVZ für Herz und Niere", str:"Streiflacher Straße 3", plz:"82110", ort:"Germering", tel:"(089) 55 26 41 22", region:"München", indik:"shtg", seg:"b", wo:4},
+  {id:20, name:"Dr. med. Dr. med. univ. Alexander Holderied (MHBA)", typ:"api", einrichtung:"Klinikum Starnberg", str:"Oßwaldstraße 1", plz:"82319", ort:"Starnberg", tel:"(08151) 18-0", region:"München", indik:"shtg", seg:"b", wo:5},
+  {id:21, name:"Prof. Dr. med. Helga Frank", typ:"api", einrichtung:"Nephrocare Starnberg GmbH", str:"Oßwaldstr. 1 a", plz:"82319", ort:"Starnberg", tel:"(08151) 555584", region:"München", indik:"shtg", seg:"b", wo:1},
+  {id:22, name:"Dr. med. Manuel Viehmann", typ:"api", einrichtung:"Kardiologie Oberland", str:"James-Loeb-Str. 13", plz:"82418", ort:"Murnau", tel:"(088 21) – 94 62 590", region:"München", indik:"shtg", seg:"b", wo:2},
+  {id:23, name:"Dr. med. Elisa Waldmann-Roth", typ:"diabetologe", einrichtung:"MVZ DiaMedicum Starnberger See GmbH", str:"Bahnhofstraße 23A", plz:"82515", ort:"Wolfratshausen", tel:"(08171) 410773", region:"München", indik:"shtg", seg:"b", wo:3},
+  {id:24, name:"Dr. med. Michael Mehr", typ:"api", einrichtung:"nephrologicum und cardiologicum Wolfratshausen", str:"Moosbauerweg 7", plz:"82515", ort:"Wolfratshausen", tel:"08171 386270", region:"München", indik:"shtg", seg:"b", wo:4},
+  {id:25, name:"Dr. med. Georg Guggenberger", typ:"diabetologe", einrichtung:"MVZ DiaMedicum Starnberger See GmbH", str:"Bahnhofstraße 23A", plz:"82515", ort:"Wolfratshausen", tel:"(08171) 410773", region:"München", indik:"shtg", seg:"b", wo:5},
+  {id:26, name:"Dr. med. Matthias Keller", typ:"api", einrichtung:"RoMed Klinikum Rosenheim", str:"Pettenkoferstraße 10", plz:"83022", ort:"Rosenheim", tel:"(08031) 36502", region:"Rosenheim", indik:"shtg", seg:"b", wo:1},
+  {id:27, name:"Dr. med. Florian Lesmeister", typ:"api", einrichtung:"MVZ Medicus", str:"Grassauer Straße 13", plz:"83236", ort:"Übersee", tel:"(08642) - 1721", region:"Rosenheim", indik:"shtg", seg:"b", wo:2},
+  {id:28, name:"Muhammad Abd Elhalim", typ:"diabetologe", einrichtung:"Klinikum Traunstein", str:"Cuno-Niggl-Straße 3", plz:"83278", ort:"Traunstein", tel:"(0861)-7051439", region:"Rosenheim", indik:"shtg", seg:"b", wo:3},
+  {id:29, name:"Dr. med. Regine Hoika-Jacob", typ:"api", einrichtung:"KfH-Nierenzentrum", str:"Poststraße 20", plz:"83435", ort:"Bad Reichenhall", tel:"(08651) 9583-0", region:"Rosenheim", indik:"shtg", seg:"b", wo:4},
+  {id:30, name:"Dr. medic. Stefan Girbaci", typ:"api", einrichtung:"Praxis Dr. Girbaci", str:"Bäckerzeile 3c", plz:"83512", ort:"Wasserburg am Inn", tel:"08071-6171", region:"Rosenheim", indik:"shtg", seg:"b", wo:5},
+  {id:31, name:"Dr. med. Simon Rau", typ:"api", einrichtung:"Dialysezentrum Bad Tölz", str:"Kogelweg 3", plz:"83646", ort:"Bad Tölz", tel:"(08041) 78259-0", region:"Rosenheim", indik:"shtg", seg:"b", wo:1},
+  {id:32, name:"Dr. med. Michael Mehr", typ:"api", einrichtung:"nephrologicum und cardiologicum", str:"Kogelweg 3", plz:"83646", ort:"Bad Tölz", tel:"08041 7825950", region:"Rosenheim", indik:"shtg", seg:"b", wo:2},
+  {id:33, name:"Dr. med. Dorothee Vergho", typ:"api", einrichtung:"Praxen Dr. Braun", str:"Aitrachstraße 5", plz:"84130", ort:"Dingolfing", tel:"(08731) 39 45-670", region:"Rosenheim", indik:"shtg", seg:"b", wo:3},
+  {id:34, name:"Dr. med. Jürgen Braun", typ:"api", einrichtung:"Praxen Dr. Braun", str:"Aitrachstr. 5", plz:"84130", ort:"Dingolfing", tel:"(08731) 394567", region:"Rosenheim", indik:"shtg", seg:"b", wo:4},
+  {id:35, name:"Dr. med. Rüdiger Meesters", typ:"api", einrichtung:"", str:"Frontenhausener Str. 64", plz:"84137", ort:"Vilsbiburg", tel:"(08741) 7400", region:"Rosenheim", indik:"shtg", seg:"b", wo:5},
+  {id:36, name:"Prof. Dr. med. Christian A. Gleißner, FESC", typ:"api", einrichtung:"Rottal-Inn Kliniken KU · Eggenfelden", str:"Simonsöder Allee 20", plz:"84307", ort:"Eggenfelden", tel:"(08721) 983-7302", region:"Rosenheim", indik:"shtg", seg:"b", wo:1},
+  {id:37, name:"Dr. med. univ Stefan Dalic", typ:"api", einrichtung:"Rottal-Inn Klinik Eggenfelden", str:"Simonsöder Allee 20", plz:"84307", ort:"Eggenfelden", tel:"(08721) 983 7302", region:"Rosenheim", indik:"shtg", seg:"b", wo:2},
+  {id:38, name:"Dr. med. Markus Strauf", typ:"api", einrichtung:"Nephrologisch-Rheumatologische Gemeinschaftspraxis Pfarrkirchen / Bad Griesbach", str:"Am Griesberg 3 a", plz:"84347", ort:"Pfarrkirchen", tel:"(08561) 9649-24", region:"Rosenheim", indik:"shtg", seg:"b", wo:3},
+  {id:39, name:"Dr. med. Norbert Schön", typ:"api", einrichtung:"Kardiologische Praxis", str:"Töginger Str. 27", plz:"84453", ort:"Mühldorf am Inn", tel:"(08631) 18411411", region:"Rosenheim", indik:"shtg", seg:"b", wo:4},
+  {id:40, name:"Dr. med. Elisabeth Zippelius", typ:"api", einrichtung:"Klinikum Ingolstadt", str:"Krumenauerstraße 25", plz:"85049", ort:"Ingolstadt", tel:"(0841)880-93541", region:"Ingolstadt", indik:"shtg", seg:"b", wo:5},
+  {id:41, name:"Medical Doctor (Univ.) Hogir Housen", typ:"api", einrichtung:"Klinikum Ingolstadt", str:"Krumenauerstraße 25", plz:"85049", ort:"Ingolstadt", tel:"(0841) 880-2101 und -3591", region:"Ingolstadt", indik:"shtg", seg:"b", wo:1},
+  {id:42, name:"PD Dr. med. George Vlotides", typ:"lipidologe", einrichtung:"Zentrum für Endokrinologie und Stoffwechsel Ingolstadt", str:"Am Pulverl 1", plz:"85051", ort:"Ingolstadt", tel:"(0841) 88 699 525", region:"Ingolstadt", indik:"both", seg:"a", wo:2},
+  {id:43, name:"Prof. Dr. med. Holger Schmid", typ:"api", einrichtung:"Nierenzentrum Eichstätt MVZ GmbH", str:"Bahnhofplatz 26", plz:"85072", ort:"Eichstätt", tel:"(08421) 707420", region:"Ingolstadt", indik:"shtg", seg:"b", wo:3},
+  {id:44, name:"Dr. med. Mario Weber", typ:"api", einrichtung:"MVZ KfH-Gesundheitszentrum Emmering/Dachau", str:"Dr.-Hiller-Str. 33", plz:"85221", ort:"Dachau", tel:"(08131) 99782-0", region:"Ingolstadt", indik:"shtg", seg:"b", wo:4},
+  {id:45, name:"Dr. med. Diane Wagner", typ:"diabetologe", einrichtung:"Diabetologische Schwerpunktpraxis Freising", str:"Obere Hauptstraße 52", plz:"85354", ort:"Freising", tel:"(08161) 40 554-0", region:"Ingolstadt", indik:"shtg", seg:"b", wo:5},
+  {id:46, name:"Dr. med. German Rubinstein", typ:"lipidologe", einrichtung:"Klinikum Freising", str:"Alois-Steinecker-Straße 18", plz:"85354", ort:"Freising", tel:"(08161) 24 - 4302", region:"Ingolstadt", indik:"both", seg:"a", wo:1},
+  {id:47, name:"Dr. med. Alexander Nippe", typ:"api", einrichtung:"KfH Dialysezentrum Freising", str:"Domberg 16", plz:"85354", ort:"Freising", tel:"(08161) 8830375", region:"Ingolstadt", indik:"shtg", seg:"b", wo:2},
+  {id:48, name:"Dr. med. Raoul Zeltner", typ:"api", einrichtung:"MVZ Nephrocare Augsburg", str:"Zirbelstraße 58", plz:"86154", ort:"Augsburg", tel:"(0821) 450 442 0", region:"Augsburg", indik:"shtg", seg:"b", wo:3},
+  {id:49, name:"PD Dr. med. Thomas Pusl", typ:"api", einrichtung:"Universitätsklinikum Augsburg", str:"Stenglinstraße 2", plz:"86156", ort:"Augsburg", tel:"(0821) 4002529", region:"Augsburg", indik:"shtg", seg:"a", wo:4},
+  {id:50, name:"Dr. med. Birgit Löhr", typ:"api", einrichtung:"Universitätsklinikum Augsburg", str:"Stenglinstraße 2", plz:"86156", ort:"Augsburg", tel:"(0821) 400 01", region:"Augsburg", indik:"shtg", seg:"a", wo:5},
+  {id:51, name:"PD Dr. med. Daniel Bittner", typ:"api", einrichtung:"Universitätsklinikum Augsburg", str:"Stenglinstraße 2", plz:"86156", ort:"Augsburg", tel:"(0821) 400 01", region:"Augsburg", indik:"shtg", seg:"a", wo:1},
+  {id:52, name:"Dr. med. univ. Almira Kovacevic", typ:"api", einrichtung:"MVZ Nephrocare Augsburg GmbH", str:"Franz-Kobinger-Straße 9a", plz:"86157", ort:"Augsburg", tel:"(0821) 22782-0", region:"Augsburg", indik:"shtg", seg:"b", wo:2},
+  {id:53, name:"Priv.-Doz. Dr. med. Heiko Methe", typ:"api", einrichtung:"Kliniken an der Paar", str:"Herrgottsruhstraße 3", plz:"86316", ort:"Friedberg", tel:"(0821) 6004-277", region:"Augsburg", indik:"shtg", seg:"b", wo:3},
+  {id:54, name:"Dr. med. Thomas Birling", typ:"hausarzt", einrichtung:"Praxis Dr. Birling", str:"Hauptstraße 13", plz:"86356", ort:"Neusäß", tel:"(0821) 4544560", region:"Augsburg", indik:"shtg", seg:"b", wo:4},
+  {id:55, name:"Dr. med. Alexander Christoph Stöckl", typ:"diabetologe", einrichtung:"Gemeinschaftspraxis und Diabeteszentrum DDG Diedorf", str:"Bei den Zäunen 2", plz:"86420", ort:"Diedorf", tel:"(08238) 2010", region:"Augsburg", indik:"shtg", seg:"b", wo:5},
+  {id:56, name:"Priv.-Doz. Dr. med. Heiko Methe", typ:"api", einrichtung:"Kliniken an der Paar", str:"Krankenhausstraße 11", plz:"86551", ort:"Aichach", tel:"(08251) 909-216", region:"Augsburg", indik:"shtg", seg:"b", wo:1},
+  {id:57, name:"Dr. med. Abdelrahman Elsharkawy", typ:"api", einrichtung:"Praxis für Kardiologie und Innere Medizin, M.D. Elsharkawy", str:"Marktplatz 17", plz:"86558", ort:"Hohenwart/Landkreis Pfaffenhofen", tel:"(08443) 5783999", region:"Augsburg", indik:"shtg", seg:"b", wo:2},
+  {id:58, name:"Dr. med. Gerrit Kuprat", typ:"diabetologe", einrichtung:"Hausärztliche Internistische Gemeinschaftspraxis", str:"Oberes Eck 2", plz:"86641", ort:"Rain a. Lech", tel:"(09090) 1331", region:"Augsburg", indik:"shtg", seg:"b", wo:3},
+  {id:59, name:"Christine Rotering", typ:"api", einrichtung:"MVZ Asbach-Bäumenheim", str:"Marktplatz 3", plz:"86663", ort:"Asbach-Bäumenheim", tel:"(0906) 7092290", region:"Augsburg", indik:"shtg", seg:"b", wo:4},
+  {id:60, name:"Dr. med. Barbara Voigtmann", typ:"api", einrichtung:"Nephrocare Kaufering GmbH-MVZ", str:"Viktor-Frankl-Straße 13", plz:"86916", ort:"Kaufering", tel:"(08191) 65686", region:"München", indik:"shtg", seg:"b", wo:5},
+  {id:61, name:"Dr. med. Anna-Katharina Schmidt", typ:"api", einrichtung:"Kardiologie Ammersse", str:"Bahnhofstr. 8", plz:"86919", ort:"Utting am Ammersse", tel:"(08806) 9589724", region:"München", indik:"shtg", seg:"b", wo:1},
+  {id:62, name:"Kirsten Salzgeber", typ:"lipidologe", einrichtung:"Endokrinologikum Ulm", str:"Keltergasse 1", plz:"87095", ort:"Ulm", tel:"(0731) 9380880", region:"München", indik:"fcs", seg:"b", wo:2},
+  {id:63, name:"Dr. univ./Guay. Patricia Cardenas de Bäuerle", typ:"lipidologe", einrichtung:"Endokrinologikum Ulm", str:"Keltergasse 1", plz:"87095", ort:"Ulm", tel:"(0731) 9380880", region:"München", indik:"fcs", seg:"b", wo:3},
+  {id:64, name:"Dr. med. Franz Heigl", typ:"api", einrichtung:"Heigl Health GmbH MVZ Kempten-Allgäu", str:"Robert-Weixler-Straße 19", plz:"87439", ort:"Kempten im Allgäu", tel:"(0831) 57057710", region:"Allgäu", indik:"shtg", seg:"a", wo:4},
+  {id:65, name:"Dr. med. Michael Browatzki", typ:"api", einrichtung:"Heigl Health GmbH MVZ Kempten-Allgäu", str:"Robert-Weixler-Straße 19", plz:"87439", ort:"Kempten im Allgäu", tel:"(0831) 570577-0", region:"Allgäu", indik:"shtg", seg:"a", wo:5},
+  {id:66, name:"PD Dr. med. Tobias Pflederer", typ:"api", einrichtung:"Heigl Health GmbH MVZ Kempten-Allgäu", str:"Robert-Weixler-Straße 19", plz:"87439", ort:"Kempten im Allgäu", tel:"(0831) 57057743", region:"Allgäu", indik:"shtg", seg:"a", wo:1},
+  {id:67, name:"Dr. med. Stefan Heetel", typ:"api", einrichtung:"MVZ St. Vinzenz Pfronten", str:"Kirchenweg 15", plz:"87459", ort:"Pfronten", tel:"(08363) 693 407", region:"Allgäu", indik:"shtg", seg:"b", wo:2},
+  {id:68, name:"Dr. med. Tilmann Kramer", typ:"api", einrichtung:"CuraMed Privatklinik Stillachhaus", str:"Alte Walserstraße 15", plz:"87561", ort:"Oberstdorf", tel:"(08322) 602-0", region:"Allgäu", indik:"shtg", seg:"b", wo:3},
+  {id:69, name:"Dr. med. Marcus Steger", typ:"api", einrichtung:"Dialyse Kaufbeuren", str:"Hartmähderweg 2", plz:"87600", ort:"Kaufbeuren", tel:"(08341) 9662070", region:"Allgäu", indik:"shtg", seg:"b", wo:4},
+  {id:70, name:"Dr. med. Wilke Beuthien", typ:"api", einrichtung:"Facharztzentrum für Innere Medizin und Dialyse", str:"Hartmähderweg 2", plz:"87600", ort:"Kaufbeuren", tel:"08341 9662070", region:"Allgäu", indik:"shtg", seg:"b", wo:5},
+  {id:71, name:"Priv.-Doz. Dr. med. Christian Adolf", typ:"api", einrichtung:"Hormedicum", str:"Gablonzer Ring 4", plz:"87600", ort:"Kaufbeuren", tel:"(08341) 95639", region:"Allgäu", indik:"shtg", seg:"b", wo:1},
+  {id:72, name:"Dr. med. Philipp Ege", typ:"api", einrichtung:"MVZ Limbach Füssen", str:"Schwärzerweg 3", plz:"87629", ort:"Füssen", tel:"(08362) 300500", region:"Allgäu", indik:"shtg", seg:"b", wo:2},
+  {id:73, name:"Kirsten Salzgeber", typ:"lipidologe", einrichtung:"Klinikum Memmingen", str:"Bismarckstraße 23", plz:"87700", ort:"Memmingen", tel:"(08331) 70 15 20", region:"Allgäu", indik:"fcs", seg:"b", wo:3},
+  {id:74, name:"Dr. med. Klaus Dieter Kränzle", typ:"api", einrichtung:"Internistisches Facharztzentrum mit Dialyse", str:"Donaustr. 78", plz:"87700", ort:"Memmingen", tel:"(08331) 83 43 60", region:"Allgäu", indik:"shtg", seg:"b", wo:4},
+  {id:75, name:"Dr. med. Gabriele Hackenberg", typ:"api", einrichtung:"Internistisches Facharztzentrum mit Dialyse", str:"Donaustr. 78", plz:"87700", ort:"Memmingen", tel:"(08331) 83 43 22", region:"Allgäu", indik:"shtg", seg:"b", wo:5},
+  {id:76, name:"Dr. med. Klaus Dieter Kränzle", typ:"api", einrichtung:"Dialysezentrum", str:"Bad Wörishofer Straße 39", plz:"87719", ort:"Mindelheim", tel:"(08261) 76630", region:"Allgäu", indik:"shtg", seg:"b", wo:1},
+  {id:77, name:"Dr. med. Anna Schröder", typ:"api", einrichtung:"VITREA Rehaklinik Bad Grönenbach", str:"Sebastian-Kneipp-Allee 3-5", plz:"87730", ort:"Bad Grönenbach", tel:"(08334) 981 70046", region:"Allgäu", indik:"shtg", seg:"b", wo:2},
+  {id:78, name:"Dr. med. Christian Layritz", typ:"api", einrichtung:"Cardiopulmonale Schwerpunktpraxis", str:"Kornmarkt 2", plz:"90402", ort:"Nürnberg", tel:"0911 225071", region:"Nürnberg", indik:"shtg", seg:"b", wo:3},
+  {id:79, name:"Dr. med. Christiane Schöller", typ:"api", einrichtung:"Medic-Center Nürnberg", str:"Gibitzenhofstraße 150", plz:"90443", ort:"Nürnberg", tel:"(09 11) 41 22 27", region:"Nürnberg", indik:"shtg", seg:"b", wo:4},
+  {id:80, name:"Dr. med. Matthias Karl", typ:"api", einrichtung:"KKL Internistische Praxis", str:"Gibitzenhofstraße 37", plz:"90443", ort:"Nürnberg", tel:"(0911) 4809590", region:"Nürnberg", indik:"shtg", seg:"b", wo:5},
+  {id:81, name:"Dr. med. Matthias Klune", typ:"api", einrichtung:"Praxis Dr. Renard & Kollegen", str:"Lausitzer Str. 4", plz:"90453", ort:"Nürnberg", tel:"(0911) 9626300", region:"Nürnberg", indik:"shtg", seg:"b", wo:1},
+  {id:82, name:"Dr. med. Randolf Seitz", typ:"diabetologe", einrichtung:"Hausarzt und Diabetespraxis", str:"Bahnhofstr. 26", plz:"90552", ort:"Röthenbach", tel:"(0911) 577 154", region:"Nürnberg", indik:"shtg", seg:"b", wo:2},
+  {id:83, name:"Dr. med. Matthias Stoll", typ:"api", einrichtung:"Medic Center Fürth Hauptbahnhof", str:"Bahnhofplatz 9/1. OG", plz:"90762", ort:"Fürth", tel:"(0911) 74 91 80", region:"Nürnberg", indik:"shtg", seg:"b", wo:3},
+  {id:84, name:"Prof. Dr. med. Christian Koch", typ:"api", einrichtung:"", str:"Voltastraße 17", plz:"90766", ort:"Fürth", tel:"(0151) 55322938 oder (0911) 75 922 36", region:"Nürnberg", indik:"shtg", seg:"b", wo:4},
+  {id:85, name:"Dr. med. Jochen Blume", typ:"api", einrichtung:"Dr. med. Jochen Blume", str:"Regelsbacher Straße 9", plz:"91126", ort:"Schwabach", tel:"(09122) 93520", region:"Nürnberg", indik:"shtg", seg:"b", wo:5},
+  {id:86, name:"Dr. med. Sebastian Morcinek", typ:"api", einrichtung:"Klinikum St. Marien Amberg", str:"Mariahilfbergweg 7", plz:"92224", ort:"Amberg", tel:"(09621) 38-1231", region:"Nürnberg", indik:"shtg", seg:"b", wo:1},
+  {id:87, name:"Dr. med. Sebastian Kurth", typ:"api", einrichtung:"punktmed", str:"Emailfabrikstraße 12", plz:"92224", ort:"Amberg", tel:"(09621) 9 16 53-0", region:"Nürnberg", indik:"shtg", seg:"b", wo:2},
+  {id:88, name:"MU Dr. med. Petra Gaspirova", typ:"lipidologe", einrichtung:"MVZ Regensburger Straße", str:"Regensburger Straße 11 u. 13", plz:"92224", ort:"Amberg", tel:"(09621) 30852-20", region:"Nürnberg", indik:"fcs", seg:"b", wo:3},
+  {id:89, name:"Dr. med. Vasil Gašpir", typ:"api", einrichtung:"Klinikum St. Marien", str:"Mariahilfbergweg 7", plz:"92224", ort:"Amberg", tel:"(09621) 385347", region:"Nürnberg", indik:"shtg", seg:"b", wo:4},
+  {id:90, name:"Dr. med. Fieras Dahhan", typ:"api", einrichtung:"Klinikum Neumarkt", str:"Nürnberger Str. 12", plz:"92318", ort:"Neumarkt i.d.OPf.", tel:"(09181) 420 - 0", region:"Nürnberg", indik:"shtg", seg:"b", wo:5},
+  {id:91, name:"Dr. med. Cristina Burgmann", typ:"api", einrichtung:"MVZ Kardiologie und Allgemeinmedizin", str:"Regensburgerstr.109", plz:"92318", ort:"Neumarkt in der Oberpfalz", tel:"(09181) 50902200", region:"Nürnberg", indik:"shtg", seg:"b", wo:1},
+  {id:92, name:"Dr. med. Marvin Schwarz", typ:"api", einrichtung:"Kardiologische Praxis Dr. Marvin Schwarz", str:"Aussiger Straße 19", plz:"92421", ort:"Schwandorf", tel:"(09431) 998 05 10", region:"Nürnberg", indik:"shtg", seg:"b", wo:2},
+  {id:93, name:"Dr. med. Margareta Mohr", typ:"api", einrichtung:"Universitätsklinikum Regensburg", str:"Franz-Josef-Strauß-Allee 11", plz:"93042", ort:"Regensburg", tel:"(0941) 9440", region:"Regensburg", indik:"shtg", seg:"a", wo:3},
+  {id:94, name:"Prof. Dr. med. Andrea Baessler", typ:"api", einrichtung:"Universitätsklinikum Regensburg", str:"Franz-Josef-Strauss-Allee 11", plz:"93053", ort:"Regensburg", tel:"(0941) 944 7230", region:"Regensburg", indik:"shtg", seg:"a", wo:4},
+  {id:95, name:"Univ.-Prof. Dr. med. Simon Lebek, FESC", typ:"api", einrichtung:"Universitätsklinikum Regensburg", str:"Franz-Josef-Strauss-Allee 11", plz:"93053", ort:"Regensburg", tel:"(0941) 944 17973", region:"Regensburg", indik:"shtg", seg:"a", wo:5},
+  {id:96, name:"Dr. med. Daniel Frammelsberger", typ:"diabetologe", einrichtung:"Praxis Kardiologie-Diabetologie Regenstauf", str:"Dr. Robert-Eckert-Straße 1", plz:"93128", ort:"Regenstauf", tel:"(09402) 780801", region:"Regensburg", indik:"shtg", seg:"b", wo:1},
+  {id:97, name:"Prof. Dr. med. Marcus Fischer", typ:"api", einrichtung:"Caritas-Krankenhaus St. Lukas GmbH", str:"Traubenweg 3", plz:"93309", ort:"Kelheim", tel:"(09441) – 702-4201", region:"Regensburg", indik:"shtg", seg:"b", wo:2},
+  {id:98, name:"Prof. Dr. med. Stefan Buchner", typ:"api", einrichtung:"Sana Kliniken des Landkreises Cham", str:"August-Holz-Str. 1", plz:"93413", ort:"Cham", tel:"(09971) 2005 3400", region:"Regensburg", indik:"shtg", seg:"b", wo:3},
+  {id:99, name:"Dr. med. Markus Strauf", typ:"api", einrichtung:"Klinikum Passau", str:"Innstraße 76", plz:"94032", ort:"Passau", tel:"(0851) 8516 50440", region:"Passau", indik:"shtg", seg:"b", wo:4},
+  {id:100, name:"Dr. med. Joseph Leebmann", typ:"lipidologe", einrichtung:"Apherese-Zentrum Passau", str:"Innstraße 76", plz:"94032", ort:"Passau", tel:"(0851) 5300-81264", region:"Passau", indik:"both", seg:"a", wo:5},
+  {id:101, name:"Dr. med. univ. Torben Schlingmann", typ:"diabetologe", einrichtung:"Diabetologische Schwerpunktpraxis", str:"Alte Straße 11", plz:"94034", ort:"Passau", tel:"(0851) 43224", region:"Passau", indik:"shtg", seg:"b", wo:1},
+  {id:102, name:"Dr. med. Markus Strauf", typ:"api", einrichtung:"Nephrologisch-Rheumatologische Gemeinschaftspraxis Pfarrkirchen / Bad Griesbach", str:"An der Bräukapelle 1a", plz:"94086", ort:"Bad Griesbach", tel:"(08561) 9649-24", region:"Passau", indik:"shtg", seg:"b", wo:2},
+  {id:103, name:"Dr. med. Tanja Maderer-Wiesinger", typ:"api", einrichtung:"Herzpraxis Salzweg", str:"Passauer Str. 28", plz:"94121", ort:"Salzweg", tel:"0851 46081", region:"Passau", indik:"shtg", seg:"b", wo:3},
+  {id:104, name:"Dr. med. Michael Gröbner", typ:"api", einrichtung:"Herzpraxis Salzweg", str:"Passauer Straße 28", plz:"94121", ort:"Salzweg", tel:"(0851) 460 81", region:"Passau", indik:"shtg", seg:"b", wo:4},
+  {id:105, name:"Dr. med. Monika Blüml", typ:"hausarzt", einrichtung:"Internistische Hausarztpraxis Dr. med. Monika Blüml/ Dr. med. David Borchert", str:"Zum Burgenblick 2", plz:"94154", ort:"Neukirchen v. Wald", tel:"(08504) 3110", region:"Passau", indik:"shtg", seg:"b", wo:5},
+  {id:106, name:"Dr. med. Horst Fay", typ:"api", einrichtung:"Praxis", str:"Ginghartinger Straße 2", plz:"94169", ort:"Thurmansbang", tel:"(08582) 91110", region:"Passau", indik:"shtg", seg:"b", wo:1},
+  {id:107, name:"Dr. med. Alexander Reithmeier", typ:"api", einrichtung:"Gemeinschaftspraxis am Angerbrunnen", str:"Angerstraße 28", plz:"94227", ort:"Zwiesel", tel:"(09922) 84030", region:"Passau", indik:"shtg", seg:"b", wo:2},
+  {id:108, name:"Dr. med. Philipp Thurn", typ:"api", einrichtung:"Klinikum Kulmbach", str:"Albert-Schweitzer-Strasse 10", plz:"95326", ort:"Kulmbach", tel:"(09221)-987245", region:"Nürnberg", indik:"shtg", seg:"b", wo:3},
+  {id:109, name:"Dr. med. Maximilian Rauch", typ:"api", einrichtung:"Gesundheitspraxis Dr. med. Rauch", str:"Lisztstr. 22", plz:"95444", ort:"Bayreuth", tel:"(0921) 1513277", region:"Nürnberg", indik:"shtg", seg:"b", wo:4},
+  {id:110, name:"Alina Tirtea", typ:"api", einrichtung:"Medinos Kliniken Sonneberg", str:"Neustadterstraße 61", plz:"96515", ort:"Sonneberg", tel:"(03675) 821-0", region:"Nürnberg", indik:"shtg", seg:"b", wo:5},
+  {id:111, name:"Dr. Dr. med. Stephanie Wissel", typ:"api", einrichtung:"Uniklinikum Würzburg", str:"Oberdürrbacher Straße 6", plz:"97080", ort:"Würzburg", tel:"(0 931) 201-39222", region:"Würzburg", indik:"shtg", seg:"a", wo:1},
+  {id:112, name:"Dr. med. Noah Beuermann", typ:"api", einrichtung:"Kardiologische Privatpraxis Dr. Noah Beuermann", str:"Steinerner Weg 12a", plz:"97276", ort:"Margethöchheim", tel:"(0931)40 400 299", region:"Würzburg", indik:"shtg", seg:"b", wo:2},
+  {id:113, name:"Prof. Dr. med. Frank Breuckmann", typ:"api", einrichtung:"Klinik Kitzinger Land", str:"Keltenstraße 67", plz:"97318", ort:"Kitzingen", tel:"(02602) 684-225", region:"Würzburg", indik:"shtg", seg:"b", wo:3},
+  {id:114, name:"Dr. med. Annette Marie Wons", typ:"diabetologe", einrichtung:"Nieren Diabetes Praxis", str:"Goethestraße 15g", plz:"97616", ort:"Bad Neustadt a. d. Saale", tel:"(09771) 4099", region:"Würzburg", indik:"shtg", seg:"b", wo:4},
+  {id:115, name:"Dr. med. Susanne Stietz", typ:"api", einrichtung:"via medis Nierenzentrum Bad Neustadt MVZ", str:"Salzburger Leite 3", plz:"97616", ort:"Bad Neustadt a. d. Saale", tel:"(09771) 99 59 81", region:"Würzburg", indik:"shtg", seg:"b", wo:5},
+  {id:116, name:"PD Dr. med. Radovan Vasko", typ:"api", einrichtung:"Nierenzentrum Bad Kissingen MVZ GmbH", str:"Spitzwiese 11", plz:"97688", ort:"Bad Kissingen", tel:"(0971) 699 1950", region:"Würzburg", indik:"shtg", seg:"b", wo:1},
+  {id:117, name:"Dr. med. Evdokia Dotzeva", typ:"api", einrichtung:"Nierenzentrum Bad Kissingen MVZ GmbH", str:"Spitzwiese 11", plz:"97688", ort:"Bad Kissingen", tel:"(0971) 699 1950", region:"Würzburg", indik:"shtg", seg:"b", wo:2},
+  {id:118, name:"Dr. med. Volker Wunderle", typ:"lipidologe", einrichtung:"Zentrum für Nieren- u. Hochdruckerkrankungen", str:"Erlenbachtalstr. 14", plz:"97999", ort:"Igersheim", tel:"(07931) 9889-0", region:"Würzburg", indik:"both", seg:"b", wo:3},
+];
+
+// ── STATE ────────────────────────────────────────────────────
+let docs = JSON.parse(localStorage.getItem('sobi_docs')||'null') || MUSTER_DOCS;
+let plan = JSON.parse(localStorage.getItem('sobi_plan')||'{}');
+let sel  = new Set();
+let pins = new Set(JSON.parse(localStorage.getItem('sobi_pins')||'[]'));
+
+let segFilter  = new Set(['a','b','c','d']);
+let typFilter  = '';
+let indikFilter = '';
+let regFilter  = new Set();
+let curYear    = new Date().getFullYear();
+let curMonth   = new Date().getMonth();
+let curWeek    = 1;
+
+function save(){
+  localStorage.setItem('sobi_docs', JSON.stringify(docs));
+  localStorage.setItem('sobi_plan', JSON.stringify(plan));
+  localStorage.setItem('sobi_pins', JSON.stringify([...pins]));
+  const ind = document.getElementById('save-ind');
+  ind.classList.add('show');
+  setTimeout(()=>ind.classList.remove('show'),1800);
+}
+
+// ── FILTER ────────────────────────────────────────────────────
+function togSeg(s,btn){
+  if(segFilter.has(s)){if(segFilter.size>1)segFilter.delete(s); else return;}
+  else segFilter.add(s);
+  btn.classList.toggle('off',!segFilter.has(s));
+  renderList();
+}
+function filterTyp(){
+  const cbs = document.querySelectorAll('#typ-panel input[type=checkbox]');
+  const all = cbs[0]; const rest = [...cbs].slice(1);
+  if(event.target===all){rest.forEach(c=>c.checked=false);typFilter='';document.getElementById('typ-lbl').textContent='Alle Fachrichtungen';}
+  else{all.checked=false;const vals=[...rest].filter(c=>c.checked).map(c=>c.value);typFilter=vals.join(',');document.getElementById('typ-lbl').textContent=vals.length?vals.length+' Fachrichtung(en)':'Alle Fachrichtungen';}
+  renderList();
+}
+function filterIndik(){
+  const cbs = document.querySelectorAll('#indik-panel input[type=checkbox]');
+  const all = cbs[0]; const rest = [...cbs].slice(1);
+  if(event.target===all){rest.forEach(c=>c.checked=false);indikFilter='';document.getElementById('indik-lbl').textContent='Alle Indikationen';}
+  else{all.checked=false;const vals=[...rest].filter(c=>c.checked).map(c=>c.value);indikFilter=vals.join(',');document.getElementById('indik-lbl').textContent=vals.length?vals.length+' Indikation(en)':'Alle Indikationen';}
+  renderList();
+}
+function togDD(id){
+  document.querySelectorAll('.rpanel').forEach(p=>{if(p.id!==id+'-panel'||p.classList.contains('open'))p.classList.remove('open');});
+  document.getElementById(id+'-panel').classList.toggle('open');
+}
+document.addEventListener('click',e=>{if(!e.target.closest('.rdd'))document.querySelectorAll('.rpanel').forEach(p=>p.classList.remove('open'));});
+
+function filtered(){
+  const q=(document.getElementById('srch')||{value:''}).value.toLowerCase();
+  return docs.filter(d=>{
+    if(!segFilter.has(d.seg)) return false;
+    if(typFilter && !typFilter.split(',').includes(d.typ)) return false;
+    if(indikFilter && !indikFilter.split(',').includes(d.indik) && !(d.indik==='both')) return false;
+    if(regFilter.size && !regFilter.has(d.region)) return false;
+    if(q && !`${d.name} ${d.ort} ${d.plz} ${d.einrichtung}`.toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+
+function buildRegFilter(){
+  const regs=[...new Set(docs.map(d=>d.region))].sort();
+  regFilter=new Set(regs);
+  const p=document.getElementById('reg-panel');
+  p.innerHTML='<label class="rc"><input type="checkbox" checked onchange="selAllReg(this)"> Alle</label>'
+    +regs.map(r=>`<label class="rc"><input type="checkbox" value="${r}" checked onchange="filterReg(this)"> ${r}</label>`).join('');
+}
+function selAllReg(cb){
+  document.querySelectorAll('#reg-panel input:not(:first-child)').forEach(c=>c.checked=cb.checked);
+  const regs=docs.map(d=>d.region);
+  regFilter=cb.checked?new Set(regs):new Set();
+  document.getElementById('reg-lbl').textContent=cb.checked?'Alle Regionen':'Keine Region';
+  renderList();
+}
+function filterReg(cb){
+  if(cb.checked) regFilter.add(cb.value); else regFilter.delete(cb.value);
+  const cnt=[...document.querySelectorAll('#reg-panel input:not(:first-child)')].filter(c=>c.checked).length;
+  document.getElementById('reg-lbl').textContent=cnt===0?'Keine Region':cnt===docs.length?'Alle Regionen':cnt+' Region(en)';
+  renderList();
+}
+
+// ── LIST ─────────────────────────────────────────────────────
+function typLabel(t){const m={lipidologe:'Lipidologe',api:'API/Internist',diabetologe:'Diabetologe',endokrinologe:'Endokrinologe',hausarzt:'Hausarzt'};return m[t]||t;}
+function segColor(s){const m={a:'sa',b:'sb2',c:'sc',d:'sd'};return m[s]||''}
+function indikBadge(i){const m={fcs:'<span class="indik-badge indik-fcs">FCS</span>',shtg:'<span class="indik-badge indik-shtg">sHTG</span>',both:'<span class="indik-badge indik-both">FCS+sHTG</span>'};return m[i]||''}
+
+function renderList(){
+  const list=filtered().sort((a,b)=>{const o={a:0,b:1,c:2,d:3};return o[a.seg]-o[b.seg]||a.name.localeCompare(b.name);});
+  const cl=document.getElementById('cl');
+  document.getElementById('tot').textContent=docs.length;
+  document.getElementById('flt').textContent=list.length;
+  document.getElementById('sb-count').textContent=list.length+' Ärzte';
+
+  const placed=new Set();
+  Object.values(plan).forEach(wk=>Object.values(wk).forEach(day=>day.forEach(v=>placed.add(v.id))));
+
+  cl.innerHTML=list.map(d=>{
+    const checked=sel.has(d.id);const pinned=pins.has(d.id);const isPlaced=placed.has(d.id);
+    return `<div class="ci${pinned?' pin-on':''}${isPlaced?' placed':''}" onclick="togSel(${d.id},event)">
+      <div class="ck${checked?' on':''}"></div>
+      <div class="ci-i">
+        <div class="ci-n">${d.name}</div>
+        <div class="ci-m">${typLabel(d.typ)} · ${d.ort}</div>
+      </div>
+      <div class="ci-r">
+        ${indikBadge(d.indik)}
+        <span class="seg xb ${segColor(d.seg)}" style="font-size:9px;padding:1px 4px">${d.seg.toUpperCase()}</span>
+        <button class="pb${pinned?' on':''}" onclick="togPin(${d.id},event)" title="Pinnen">📌</button>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('sel').textContent=sel.size;
+  document.getElementById('plan-btn').disabled=sel.size===0;
+  renderKPIs();
+}
+function togSel(id,e){
+  if(e.target.classList.contains('pb'))return;
+  if(sel.has(id))sel.delete(id);else sel.add(id);
+  renderList();
+}
+function togPin(id,e){e.stopPropagation();if(pins.has(id))pins.delete(id);else pins.add(id);save();renderList();}
+function selAll(){sel=new Set(filtered().map(d=>d.id));renderList();}
+function selNone(){sel.clear();renderList();}
+
+// ── TOUR ─────────────────────────────────────────────────────
+function weekKey(y,m,w){return `${y}-${m}-${w}`}
+function weeksInMonth(y,m){
+  const first=new Date(y,m,1).getDay()||7;
+  const days=new Date(y,m+1,0).getDate();
+  return Math.ceil((first-1+days)/7);
+}
+function getMonthSel(){return document.getElementById('month-sel')}
+
+function initMonthSel(){
+  const sel=getMonthSel();sel.innerHTML='';
+  for(let m=0;m<12;m++){const o=document.createElement('option');o.value=m;o.textContent=MONATSNAMEN[m]+' '+curYear;if(m===curMonth)o.selected=true;sel.appendChild(o);}
+}
+function prevMonth(){curMonth--;if(curMonth<0){curMonth=11;curYear--;}initMonthSel();renderWeekTabs();}
+function nextMonth(){curMonth++;if(curMonth>11){curMonth=0;curYear++;}initMonthSel();renderWeekTabs();}
+
+function renderWeekTabs(){
+  curMonth=parseInt(getMonthSel().value);
+  const wc=weeksInMonth(curYear,curMonth);
+  const cont=document.getElementById('wt-tabs');cont.innerHTML='';
+  for(let w=1;w<=wc;w++){
+    const key=weekKey(curYear,curMonth,w);
+    const cnt=plan[key]?Object.values(plan[key]).reduce((a,v)=>a+v.length,0):0;
+    const btn=document.createElement('button');
+    btn.className='wkt'+(w===curWeek?' active':'');
+    btn.innerHTML=`KW${w} <span class="badge">${cnt||''}</span>`;
+    btn.onclick=()=>{curWeek=w;document.querySelectorAll('.wkt').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderTourDays();};
+    cont.appendChild(btn);
+  }
+  if(curWeek>wc)curWeek=1;
+  renderTourDays();
+}
+
+function addToTour(){
+  const key=weekKey(curYear,curMonth,curWeek);
+  if(!plan[key])plan[key]={};
+  sel.forEach(id=>{
+    const doc=docs.find(d=>d.id===id); if(!doc)return;
+    const day=String(doc.wo||1);
+    if(!plan[key][day])plan[key][day]=[];
+    if(!plan[key][day].find(v=>v.id===id))plan[key][day].push({id,time:'09:00',dur:30,note:null,synced:false});
+  });
+  sel.clear();save();renderTourDays();renderList();renderWeekTabs();
+}
+
+function renderTourDays(){
+  const key=weekKey(curYear,curMonth,curWeek);
+  const dayData=plan[key]||{};
+  const cont=document.getElementById('tour-days');cont.innerHTML='';
+  let total=0,cntA=0,cntFCS=0,cntSHTG=0,cntHA=0;
+
+  TAGE.forEach((tag,i)=>{
+    const day=String(i+1);
+    const visits=dayData[day]||[];
+    total+=visits.length;
+    visits.forEach(v=>{
+      const d=docs.find(x=>x.id===v.id);if(!d)return;
+      if(d.seg==='a')cntA++;
+      if(d.indik==='fcs'||d.indik==='both')cntFCS++;
+      if(d.indik==='shtg'||d.indik==='both')cntSHTG++;
+      if(d.typ==='hausarzt')cntHA++;
+    });
+    const segs=visits.map(v=>{const d=docs.find(x=>x.id===v.id);return d?d.seg:'d';});
+    const segHtml=segs.map(s=>`<span class="seg xb ${segColor(s)}" style="font-size:9px;padding:1px 4px">${s.toUpperCase()}</span>`).join('');
+    const open=visits.length>0;
+    const dayEl=document.createElement('div');dayEl.className='tday';dayEl.id=`day-${day}`;
+    dayEl.innerHTML=`<div class="dh" onclick="togDay('${day}')">
+      <div><div class="dn">${tag}</div><div class="dsegs">${segHtml}</div></div>
+      <div class="dr">
+        <span class="dm">${visits.length} Besuch${visits.length!==1?'e':''}</span>
+        <select class="ss" onclick="event.stopPropagation()" onchange="setSortDay('${key}','${day}',this.value)">
+          <option value="seg">nach Seg.</option><option value="time">nach Zeit</option><option value="typ">nach Typ</option>
+        </select>
+        <span class="chv${open?' open':''}">▼</span>
+      </div>
+    </div>
+    <div class="db${open?' open':''}" id="db-${day}">
+      ${visits.map((v,vi)=>renderVisit(key,day,v,vi)).join('')}
+      <div class="ar">
+        <select id="add-sel-${day}">${filtered().map(d=>`<option value="${d.id}">${d.name} (${typLabel(d.typ)}, ${d.seg.toUpperCase()})</option>`).join('')}</select>
+        <button onclick="addVisit('${key}','${day}')">+ Hinzufügen</button>
+      </div>
+    </div>`;
+    cont.appendChild(dayEl);
+  });
+  document.getElementById('k-vis').textContent=total;
+  document.getElementById('k-a').textContent=cntA;
+  document.getElementById('k-fcs').textContent=cntFCS;
+  document.getElementById('k-shtg').textContent=cntSHTG;
+  document.getElementById('k-ha').textContent=cntHA;
+}
+
+function renderVisit(key,day,v,vi){
+  const d=docs.find(x=>x.id===v.id);if(!d)return'';
+  const note=v.note;
+  const notePreview=note?`<div class="note-preview">📝 ${note.typ||''} · ${(note.notiz||'').substring(0,40)}${(note.notiz||'').length>40?'…':''}</div>`:'';
+  const synced=v.synced?'vr-synced':'';
+  return `<div class="vr${v.pin?' vpin':''} ${synced}" id="vr-${key}-${day}-${vi}">
+    <div class="vdot" style="background:var(--dot-${d.seg})"></div>
+    <div>
+      <div class="vn">${d.name}</div>
+      <div class="vd">${typLabel(d.typ)} · ${d.einrichtung}</div>
+      <div class="vaddr">${d.str}, ${d.plz} ${d.ort}</div>
+      <div>${indikBadge(d.indik)}</div>
+      ${notePreview}
+      <div class="vlinks">
+        <a class="vl call" href="tel:${d.tel}">📞 ${d.tel}</a>
+        <a class="vl" href="https://maps.google.com/?q=${encodeURIComponent(d.str+', '+d.plz+' '+d.ort)}" target="_blank">🗺 Maps</a>
+        <button class="vl ki-brief" id="btn-brief-${key}-${day}-${vi}" onclick="runKI('brief','${key}','${day}',${vi},this)">🧠 KI-Analyse</button>
+        <button class="vl ki-praxis" id="btn-praxis-${key}-${day}-${vi}" onclick="runKI('praxis','${key}','${day}',${vi},this)">🏥 Praxis</button>
+        <button class="vl ki-prod" id="btn-prod-${key}-${day}-${vi}" onclick="runKI('produkt','${key}','${day}',${vi},this)">💊 Produkt</button>
+        <button class="vl note" onclick="togNote('${key}','${day}',${vi})">${note?'✏ Notiz':'+ Notiz'}</button>
+      </div>
+      <div class="note-box" id="nb-${key}-${day}-${vi}">
+        ${buildNoteForm(key,day,vi,note)}
+      </div>
+    </div>
+    <div class="vr-r">
+      <input type="time" value="${v.time}" style="font-size:11px;width:70px;height:22px" onchange="setTime('${key}','${day}',${vi},this.value)">
+      <input type="number" value="${v.dur}" min="15" max="120" step="15" style="font-size:11px;width:50px;height:22px" onchange="setDur('${key}','${day}',${vi},this.value)"> <span style="font-size:9px;color:var(--muted)">Min</span>
+      <button class="rm" onclick="removeVisit('${key}','${day}',${vi})">✕</button>
+    </div>
+  </div>`;
+}
+
+function buildNoteForm(key,day,vi,note){
+  const n=note||{};
+  return `<div class="nd-grid">
+    <div class="nd-field"><label>Gesprächstyp</label>
+      <select onchange="setNoteField('${key}','${day}',${vi},'typ',this.value)">
+        <option value="">– wählen –</option>
+        <option ${n.typ==='erstbesuch'?'selected':''} value="erstbesuch">Erstbesuch</option>
+        <option ${n.typ==='folgebesuch'?'selected':''} value="folgebesuch">Folgebesuch</option>
+        <option ${n.typ==='produktpräsentation'?'selected':''} value="produktpräsentation">Produktpräsentation Tryngolza</option>
+        <option ${n.typ==='studienpräsentation'?'selected':''} value="studienpräsentation">Studienpräsentation (BALANCE/CORE)</option>
+        <option ${n.typ==='patientenkonsil'?'selected':''} value="patientenkonsil">Patientenkonsil / Fallbesprechung</option>
+        <option ${n.typ==='fortbildung'?'selected':''} value="fortbildung">Fortbildung / CME</option>
+        <option ${n.typ==='telefon'?'selected':''} value="telefon">Telefonkontakt</option>
+      </select>
+    </div>
+    <div class="nd-field"><label>Indikationsfokus</label>
+      <select onchange="setNoteField('${key}','${day}',${vi},'indikfokus',this.value)">
+        <option value="">– wählen –</option>
+        <option ${n.indikfokus==='fcs'?'selected':''} value="fcs">FCS – Erstverordnung</option>
+        <option ${n.indikfokus==='shtg_aufbau'?'selected':''} value="shtg_aufbau">sHTG – Sensibilisierung (jetzt)</option>
+        <option ${n.indikfokus==='shtg_launch'?'selected':''} value="shtg_launch">sHTG – Launch-Vorbereitung</option>
+        <option ${n.indikfokus==='beide'?'selected':''} value="beide">FCS + sHTG</option>
+      </select>
+    </div>
+    <div class="nd-field"><label>Ergebnis</label>
+      <select onchange="setNoteField('${key}','${day}',${vi},'ergebnis',this.value)">
+        <option value="">– wählen –</option>
+        <option ${n.ergebnis==='sehr_positiv'?'selected':''} value="sehr_positiv">Sehr positiv – konkrete Absicht</option>
+        <option ${n.ergebnis==='positiv'?'selected':''} value="positiv">Positiv – Interesse geweckt</option>
+        <option ${n.ergebnis==='neutral'?'selected':''} value="neutral">Neutral – weitere Info gewünscht</option>
+        <option ${n.ergebnis==='skeptisch'?'selected':''} value="skeptisch">Skeptisch – Einwand</option>
+        <option ${n.ergebnis==='kein_bedarf'?'selected':''} value="kein_bedarf">Kein Bedarf aktuell</option>
+      </select>
+    </div>
+    <div class="nd-field"><label>Folgemaßnahme</label>
+      <select onchange="setNoteField('${key}','${day}',${vi},'folge',this.value)">
+        <option value="">– wählen –</option>
+        <option ${n.folge==='wiedervorlage'?'selected':''} value="wiedervorlage">Wiedervorlage in 4 Wochen</option>
+        <option ${n.folge==='studien_senden'?'selected':''} value="studien_senden">Studien/Material zusenden</option>
+        <option ${n.folge==='patient_identifiziert'?'selected':''} value="patient_identifiziert">Patient für FCS/sHTG identifiziert</option>
+        <option ${n.folge==='lipidologe_empfohlen'?'selected':''} value="lipidologe_empfohlen">Lipidologen empfohlen</option>
+        <option ${n.folge==='fortbildung'?'selected':''} value="fortbildung">Fortbildung vereinbart</option>
+        <option ${n.folge==='kein_folge'?'selected':''} value="kein_folge">Kein Folgebesuch geplant</option>
+      </select>
+    </div>
+  </div>
+  <div class="nd-field" style="margin-bottom:5px"><label>Materialien übergeben</label>
+    <div class="nd-material-group">
+      ${['Tryngolza Fachinformation','BALANCE-Studie (FCS)','CORE/CORE2-Studie (sHTG)','Patienteninformation FCS','TG-Diagnosekarte','sHTG-Sensibilisierungsmaterial'].map(m=>`<label><input type="checkbox" ${(n.material||[]).includes(m)?'checked':''} onchange="togMaterial('${key}','${day}',${vi},'${m}',this.checked)"> ${m}</label>`).join('')}
+    </div>
+  </div>
+  <div class="nd-notiz">
+    <label>Gesprächsnotiz <span style="font-weight:400;color:var(--hint)" id="cc-${key}-${day}-${vi}">${(n.notiz||'').length}/300</span></label>
+    <textarea maxlength="300" placeholder="Gesprächsverlauf, Einwände, Potenzialhinweise …" oninput="setNoteText('${key}','${day}',${vi},this.value)">${n.notiz||''}</textarea>
+  </div>
+  <button class="nd-webhook-btn" onclick="sendDoku('${key}','${day}',${vi})">▶ Besuchsdokumentation senden</button>
+  <div class="nd-webhook-status" id="whs-${key}-${day}-${vi}"></div>`;
+}
+
+function togNote(key,day,vi){
+  const nb=document.getElementById(`nb-${key}-${day}-${vi}`);
+  nb.classList.toggle('open');
+}
+function setNoteField(key,day,vi,field,val){
+  const v=plan[key][day][vi];if(!v.note)v.note={};v.note[field]=val;save();
+}
+function setNoteText(key,day,vi,val){
+  const v=plan[key][day][vi];if(!v.note)v.note={};v.note.notiz=val;
+  const cc=document.getElementById(`cc-${key}-${day}-${vi}`);if(cc)cc.textContent=val.length+'/300';
+  save();
+}
+function togMaterial(key,day,vi,mat,checked){
+  const v=plan[key][day][vi];if(!v.note)v.note={};if(!v.note.material)v.note.material=[];
+  if(checked){if(!v.note.material.includes(mat))v.note.material.push(mat);}
+  else v.note.material=v.note.material.filter(m=>m!==mat);
+  save();
+}
+
+function sendDoku(key,day,vi){
+  const v=plan[key][day][vi];const d=docs.find(x=>x.id===v.id);if(!d||!v.note)return;
+  const payload={
+    arzt:d.name,einrichtung:d.einrichtung,adresse:`${d.str}, ${d.plz} ${d.ort}`,
+    fachrichtung:typLabel(d.typ),segment:d.seg.toUpperCase(),indikation:d.indik,
+    datum:new Date().toLocaleDateString('de-DE'),zeit:v.time,dauer:v.dur+'min',
+    gespraechstyp:v.note.typ||'',indikfokus:v.note.indikfokus||'',
+    ergebnis:v.note.ergebnis||'',folgemassnahme:v.note.folge||'',
+    material:Array.isArray(v.note.material)?v.note.material.join(', '):'',
+    notiz:v.note.notiz||'',
+    quelle:'Tourenplaner Sobi Bayern v1'
+  };
+  const btn=document.querySelector(`#nb-${key}-${day}-${vi} .nd-webhook-btn`);
+  const stat=document.getElementById(`whs-${key}-${day}-${vi}`);
+  if(btn)btn.disabled=true;
+  fetch(N8N_DOKU_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text();})
+    .then(()=>{if(stat){stat.textContent='✓ Gesendet';stat.className='nd-webhook-status ok';}
+      plan[key][day][vi].synced=true;save();renderTourDays();})
+    .catch(e=>{if(stat){stat.textContent='Fehler: '+e.message;stat.className='nd-webhook-status err';}if(btn)btn.disabled=false;});
+}
+
+function syncAll(){
+  const btn=document.getElementById('sync-all-btn');
+  const info=document.getElementById('sync-info');
+  btn.disabled=true;info.textContent='Synchronisiere …';info.className='sync-info pending';
+  const key=weekKey(curYear,curMonth,curWeek);
+  const dayData=plan[key]||{};
+  const pending=[];
+  Object.entries(dayData).forEach(([day,visits])=>{
+    visits.forEach((v,vi)=>{if(v.note&&!v.synced)pending.push({key,day,vi});});
+  });
+  if(!pending.length){info.textContent='Alle synchronisiert.';info.className='sync-info done';btn.disabled=false;return;}
+  let done=0;
+  pending.forEach(({key,day,vi})=>{
+    sendDokuSilent(key,day,vi,()=>{done++;if(done===pending.length){info.textContent=`${done} Einträge synchronisiert.`;info.className='sync-info done';btn.disabled=false;renderTourDays();}});
+  });
+}
+function sendDokuSilent(key,day,vi,cb){
+  const v=plan[key][day][vi];const d=docs.find(x=>x.id===v.id);
+  if(!d||!v.note){cb();return;}
+  fetch(N8N_SYNC_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({arzt:d.name,notiz:v.note.notiz||'',quelle:'Sobi Tourenplaner v1'})})
+    .then(()=>{plan[key][day][vi].synced=true;save();cb();}).catch(()=>cb());
+}
+
+// ── KI-Panel Funktionen ──────────────────────────────────────────────────────
+function runKI(mode, key, day, vi, btn){
+  const v=plan[key]?.[day]?.[vi]; const d=docs.find(x=>x.id===v?.id); if(!d)return;
+  const titles={brief:'🧠 KI-Analyse', praxis:'🏥 Praxis-Info', produkt:'💊 Produkt-Analyse'};
+  const urls  ={brief:N8N_BRIEF_URL, praxis:N8N_PRAXIS_URL, produkt:N8N_PROD_URL};
+  const payloads={
+    brief:   {arzt:d.name,fachrichtung:typLabel(d.typ),indikation:d.indik,segment:d.seg.toUpperCase(),einrichtung:d.einrichtung,produkt:'Tryngolza (Olezarsen)'},
+    praxis:  {arzt:d.name,einrichtung:d.einrichtung,ort:d.ort,plz:d.plz,strasse:d.str},
+    produkt: {arzt:d.name,fachrichtung:typLabel(d.typ),indikation:d.indik,segment:d.seg.toUpperCase(),einrichtung:d.einrichtung}
+  };
+  // Panel öffnen
+  document.getElementById('ki-title').textContent=titles[mode];
+  document.getElementById('ki-arzt-name').textContent=d.name;
+  const body=document.getElementById('ki-body');
+  body.textContent='Wird geladen …'; body.className='ki-body loading';
+  document.getElementById('ki-overlay').style.display='flex';
+  // Button-Feedback
+  if(btn){btn.classList.add('loading'); btn.textContent='⏳ …';}
+  const labelMap={brief:'🧠 KI-Analyse',praxis:'🏥 Praxis',produkt:'💊 Produkt'};
+  fetch(urls[mode],{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payloads[mode])})
+    .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status); return r.json();})
+    .then(data=>{
+      const text=data.briefing||data.praxisinfo||data.produktanalyse||JSON.stringify(data);
+      body.textContent=text; body.className='ki-body';
+      if(btn){btn.classList.remove('loading');btn.textContent=labelMap[mode];}
+    })
+    .catch(e=>{
+      body.textContent='Fehler: '+e.message+'\n\nBitte Webhook-URL in n8n prüfen und Workflow aktivieren.';
+      body.className='ki-body';
+      if(btn){btn.classList.remove('loading');btn.textContent=labelMap[mode];}
+    });
+}
+function closeKI(){document.getElementById('ki-overlay').style.display='none';}
+function copyKI(){
+  const text=document.getElementById('ki-body').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.querySelector('.ki-ft button');
+    btn.textContent='Kopiert ✓'; setTimeout(()=>btn.textContent='Kopieren',1500);
+  });
+}
+// Legacy-Alias (nicht mehr genutzt, bleibt für Kompatibilität)
+function preCalls(key,day,vi){runKI('brief',key,day,vi,null);}
+
+function togDay(day){
+  const db=document.getElementById('db-'+day);const chv=document.querySelector(`#day-${day} .chv`);
+  if(db)db.classList.toggle('open');if(chv)chv.classList.toggle('open');
+}
+function setSortDay(key,day,mode){
+  if(!plan[key]||!plan[key][day])return;
+  plan[key][day].sort((a,b)=>{
+    const da=docs.find(x=>x.id===a.id),db=docs.find(x=>x.id===b.id);
+    if(mode==='seg'){const o={a:0,b:1,c:2,d:3};return (o[da?.seg]||0)-(o[db?.seg]||0);}
+    if(mode==='time')return a.time.localeCompare(b.time);
+    if(mode==='typ')return (da?.typ||'').localeCompare(db?.typ||'');
+    return 0;
+  });
+  save();renderTourDays();
+}
+function setTime(key,day,vi,val){plan[key][day][vi].time=val;save();}
+function setDur(key,day,vi,val){plan[key][day][vi].dur=parseInt(val)||30;save();}
+function addVisit(key,day){
+  const sel=document.getElementById('add-sel-'+day);if(!sel)return;
+  const id=parseInt(sel.value);if(!id)return;
+  if(!plan[key])plan[key]={};if(!plan[key][day])plan[key][day]=[];
+  if(!plan[key][day].find(v=>v.id===id))plan[key][day].push({id,time:'09:00',dur:30,note:null,synced:false});
+  save();renderTourDays();renderWeekTabs();
+}
+function removeVisit(key,day,vi){
+  plan[key][day].splice(vi,1);save();renderTourDays();renderList();renderWeekTabs();
+}
+
+// ── JAHRESÜBERSICHT ───────────────────────────────────────────
+function prevYear(){curYear--;renderYearView();}
+function nextYear(){curYear++;renderYearView();}
+function renderYearView(){
+  document.getElementById('year-title').textContent=curYear;
+  const grid=document.getElementById('year-grid');grid.innerHTML='';
+  for(let m=0;m<12;m++){
+    const wc=weeksInMonth(curYear,m);
+    let total=0,weeks=[];
+    for(let w=1;w<=wc;w++){
+      const key=weekKey(curYear,m,w);
+      const dayData=plan[key]||{};
+      const cnt=Object.values(dayData).reduce((a,v)=>a+v.length,0);
+      const segs={a:0,b:0,c:0,d:0};
+      Object.values(dayData).forEach(vs=>vs.forEach(v=>{const d=docs.find(x=>x.id===v.id);if(d)segs[d.seg]=(segs[d.seg]||0)+1;}));
+      total+=cnt;weeks.push({w,cnt,segs});
+    }
+    const hasPlan=total>0;
+    const cntA=weeks.reduce((a,w)=>a+w.segs.a,0);
+    const cntFCS=Object.keys(plan).filter(k=>k.startsWith(`${curYear}-${m}-`)).reduce((a,k)=>a+Object.values(plan[k]||{}).flat().filter(v=>{const d=docs.find(x=>x.id===v.id);return d&&(d.indik==='fcs'||d.indik==='both');}).length,0);
+    grid.innerHTML+=`<div class="month-card">
+      <div class="month-head">${MONATSNAMEN[m]}<span style="font-size:10px;color:var(--muted)">${total} Besuche</span></div>
+      ${hasPlan?`<div class="month-kpis">
+        <div class="m-kpi"><div class="m-kpi-l">Besuche</div><div class="m-kpi-v">${total}</div></div>
+        <div class="m-kpi"><div class="m-kpi-l">Seg. A</div><div class="m-kpi-v">${cntA}</div></div>
+        <div class="m-kpi"><div class="m-kpi-l">FCS</div><div class="m-kpi-v">${cntFCS}</div></div>
+      </div>`:''}
+      <div class="week-rows">${weeks.map(({w,cnt,segs})=>{
+        const key=weekKey(curYear,m,w);const haW=cnt>0;
+        const stripParts=Object.entries(segs).filter(([,n])=>n>0).map(([s,n])=>`<div class="ss-${s}" style="flex:${n}"></div>`).join('');
+        return `<div class="wk-row${haW?' has-plan':''}" onclick="gotoWeek(${m},${w})">
+          <span class="wk-label">KW ${w}</span>
+          <div class="wk-bar-wrap"><div class="seg-strip">${stripParts}</div></div>
+          <span class="wk-count">${cnt||''}</span>
+        </div>`;
+      }).join('')}</div>
+      ${!hasPlan?'<div class="month-empty">Keine Planung</div>':''}
+    </div>`;
+  }
+}
+function gotoWeek(m,w){curMonth=m;curWeek=w;showTab('tour');initMonthSel();renderWeekTabs();}
+
+// ── EDITOR ───────────────────────────────────────────────────
+function renderEdit(){
+  const tbody=document.getElementById('edit-tbody');tbody.innerHTML='';
+  docs.forEach(d=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><input type="text" value="${d.name}" onchange="updateDoc(${d.id},'name',this.value)"></td>
+      <td><select onchange="updateDoc(${d.id},'typ',this.value)">
+        ${['lipidologe','api','diabetologe','endokrinologe','hausarzt'].map(t=>`<option value="${t}"${d.typ===t?' selected':''}>${typLabel(t)}</option>`).join('')}
+      </select></td>
+      <td><select onchange="updateDoc(${d.id},'seg',this.value)">
+        ${['a','b','c','d'].map(s=>`<option value="${s}"${d.seg===s?' selected':''}>${s.toUpperCase()}</option>`).join('')}
+      </select></td>
+      <td><select onchange="updateDoc(${d.id},'indik',this.value)">
+        <option value="fcs"${d.indik==='fcs'?' selected':''}>FCS</option>
+        <option value="shtg"${d.indik==='shtg'?' selected':''}>sHTG</option>
+        <option value="both"${d.indik==='both'?' selected':''}>FCS+sHTG</option>
+      </select></td>
+      <td><input type="text" value="${d.einrichtung}" onchange="updateDoc(${d.id},'einrichtung',this.value)"></td>
+      <td><input type="text" value="${d.plz}" style="width:55px" onchange="updateDoc(${d.id},'plz',this.value)"></td>
+      <td><input type="text" value="${d.ort}" onchange="updateDoc(${d.id},'ort',this.value)"></td>
+      <td><input type="text" value="${d.region}" onchange="updateDoc(${d.id},'region',this.value)"></td>
+      <td><input type="text" value="${d.tel}" onchange="updateDoc(${d.id},'tel',this.value)"></td>
+      <td><button class="dl" onclick="deleteDoc(${d.id})">✕</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+function updateDoc(id,field,val){const d=docs.find(x=>x.id===id);if(d){d[field]=val;save();renderList();}}
+function deleteDoc(id){if(confirm('Arzt löschen?')){docs=docs.filter(x=>x.id!==id);save();renderEdit();renderList();}}
+function addDoc(){
+  const id=Math.max(0,...docs.map(d=>d.id))+1;
+  docs.push({
+    id,
+    name:document.getElementById('f-name').value.trim()||'Neu',
+    typ:document.getElementById('f-typ').value,
+    seg:document.getElementById('f-seg').value,
+    indik:document.getElementById('f-indik').value,
+    einrichtung:document.getElementById('f-einr').value.trim(),
+    str:document.getElementById('f-str').value.trim(),
+    plz:document.getElementById('f-plz').value.trim(),
+    ort:document.getElementById('f-ort').value.trim(),
+    tel:document.getElementById('f-tel').value.trim(),
+    region:document.getElementById('f-reg').value,
+    wo:parseInt(document.getElementById('f-wo').value)||1,
+  });
+  save();renderEdit();renderList();buildRegFilter();
+}
+function exportCSV(){
+  const hdr=['id','name','typ','seg','indik','einrichtung','str','plz','ort','tel','region','wo'];
+  const rows=[hdr,...docs.map(d=>hdr.map(h=>String(d[h]||'').replace(/,/g,' ')))];
+  const csv=rows.map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download='sobi_aerzte_by.csv';a.click();
+}
+function importCSV(){alert('CSV-Import: Datei über den Browser öffnen und Daten einfügen. (Implementierung folgt nach n8n-Setup)');}
+
+// ── TABS ──────────────────────────────────────────────────────
+function showTab(id){
+  document.querySelectorAll('.tp').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.mt').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tp-'+id).classList.add('active');
+  document.querySelectorAll('.mt').forEach(b=>{if(b.textContent.toLowerCase().includes({tour:'wochen',jahr:'jahres',markt:'markt',edit:'kunden'}[id]))b.classList.add('active');});
+  if(id==='edit')renderEdit();
+  if(id==='jahr')renderYearView();
+}
+
+// KPIs
+function renderKPIs(){
+  const key=weekKey(curYear,curMonth,curWeek);
+  const dayData=plan[key]||{};
+  let total=0,cntA=0,cntFCS=0,cntSHTG=0,cntHA=0;
+  Object.values(dayData).forEach(visits=>visits.forEach(v=>{
+    const d=docs.find(x=>x.id===v.id);if(!d)return;
+    total++;if(d.seg==='a')cntA++;
+    if(d.indik==='fcs'||d.indik==='both')cntFCS++;
+    if(d.indik==='shtg'||d.indik==='both')cntSHTG++;
+    if(d.typ==='hausarzt')cntHA++;
+  }));
+  document.getElementById('k-vis').textContent=total;
+  document.getElementById('k-a').textContent=cntA;
+  document.getElementById('k-fcs').textContent=cntFCS;
+  document.getElementById('k-shtg').textContent=cntSHTG;
+  document.getElementById('k-ha').textContent=cntHA;
+}
+
+// ── INIT ─────────────────────────────────────────────────────
+buildRegFilter();
+initMonthSel();
+renderList();
+renderWeekTabs();
+</script>
+
+<!-- ── KI-Panel Modal ── -->
+<div class="ki-overlay" id="ki-overlay" style="display:none" onclick="if(event.target===this)closeKI()">
+  <div class="ki-panel">
+    <div class="ki-hd">
+      <h3 id="ki-title">KI-Analyse</h3>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span id="ki-arzt-name"></span>
+        <button class="ki-close" onclick="closeKI()">✕</button>
+      </div>
+    </div>
+    <div class="ki-body" id="ki-body">Wird geladen …</div>
+    <div class="ki-ft">
+      <span>Sobi Tourenplaner · Tryngolza® · martinfromm.app.n8n.cloud</span>
+      <button onclick="copyKI()">Kopieren</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
